@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="19.6dp">
+    <RelativeLayout
+        android:id="@+id/view_contents_edu_empty"
+        android:layout_centerHorizontal="true"
+        android:layout_width="300dp"
+        android:layout_height="348dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_contents_edu_frame"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/contents_background"
+        android:layout_width="300dp"
+        android:layout_height="348dp"
+        android:padding="0.3dp"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25.4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="27dp"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/layout_contents_edu_item_frame"
+                    android:layout_width="27dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/content_edu_uncheck"
+                    android:layout_height="27dp">
+                    <ImageView
+                        android:id="@+id/img_contents_edu_item_read"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/check_white"
+                        />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_contents_edu_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26.6dp"
+                android:layout_marginEnd="63.4dp"
+                android:textColor="#434343"
+                android:lineSpacingExtra="6sp"
+                android:fontFamily="@font/nanum_extra_bold"
+                android:textSize="19sp"
+                android:text="새로운 가족을 맞이할 준비, 어렵지 않아요"/>
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/tv_contents_edu_item_sub"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginStart="26.6dp"
+            android:layout_marginEnd="62.4dp"
+            android:layout_marginTop="11dp"
+            android:textColor="#bebebe"
+            android:fontFamily="@font/nanum_round"
+            android:textSize="14sp"
+            android:text="낯선 첫만남, 애정과 신뢰를 나누는 법"/>
+
+        <ImageView
+            android:id="@+id/img_contents_edu_item_feed"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:background="@drawable/contents_image_round"
+            android:src="@drawable/pic1"
+            />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
