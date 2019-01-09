@@ -22,7 +22,7 @@ class SearchResultModel {
         searchResultNetwork = retrofit.create(SearchResultNetwork::class.java)
     }
 
-    fun getSearchResulData(type: String, region: String, remainNoticeDate: Int, page: Int, limit: Int, searchKeyword : String) {
+    fun getSearchResulData(type: String, region: String, remainNoticeDate: Int, page: Int, limit: Int, searchKeyword: String) {
 
         searchResultNetwork.getSearchResultFilterResponse(ApplicationData.auth,
                 type, region, remainNoticeDate, page, limit, searchKeyword).enqueue(object : Callback<ccc> {
@@ -35,13 +35,14 @@ class SearchResultModel {
                 response?.takeIf { it.isSuccessful }
                         ?.body()
                         ?.let {
-                            when(page){
+                            when (page) {
                                 0 -> {
-                                    Log.v("TAGGG234", "type :" + type + " egion :" + region + " remainNoticeDate :" +  remainNoticeDate + " page :" + page + " limit :" + limit)
+                                    Log.v("TAGGG234", "type :" + type + " region :" + region + " remainNoticeDate :" + remainNoticeDate + " page :" + page + " limit :" + limit)
+                                    Log.v("TAGGG234", it.data.content[0].id.toString())
                                     SearchResultObject.searchResultActivityPresenter.requestData(it)
                                 }
                                 else -> {
-                                    Log.v("TAGGG23410101010", "type :" + type + " egion :" + region + " remainNoticeDate :" +  remainNoticeDate + " page :" + page + " limit :" + limit)
+                                    Log.v("TAGGG23410101010", "type :" + type + "region :" + region + " remainNoticeDate :" + remainNoticeDate + " page :" + page + " limit :" + limit)
                                     SearchResultObject.searchResultActivityPresenter.responseMoreSearchResultList(it.data.content)
                                 }
                             }
@@ -53,30 +54,50 @@ class SearchResultModel {
         })
     }
 
-    fun getKeywordSearchResulData(type: String, region: String, remainNoticeDate: Int, page: Int, limit: Int, searchKeyword : String) {
+//    fun getKeywordSearchResulData(type: String, region: String, remainNoticeDate: Int, page: Int, limit: Int, searchKeyword: String) {
+//
+//        searchResultNetwork.getSearchResultFilterResponse(ApplicationData.auth,
+//                type, region, remainNoticeDate, page, limit, searchKeyword).enqueue(object : Callback<ccc> {
+//            override fun onFailure(call: Call<ccc>?, t: Throwable?) {
+//                Log.e("SearchResultData 통신 실패", t.toString())
+//            }
+//
+//            override fun onResponse(call: Call<ccc>?, response: Response<ccc>?) {
+//
+//                response?.takeIf { it.isSuccessful }
+//                        ?.body()
+//                        ?.let {
+//                            when (page) {
+//                                0 -> {
+//                                    SearchResultObject.searchKeywordResultActivityPresenter.requestData(it)
+//                                }
+//                                else -> {
+//                                    SearchResultObject.searchKeywordResultActivityPresenter.responseMoreSearchResultList(it.data.content)
+//                                }
+//                            }
+//
+//                            // 서버에서 보내기 직전 데이터 보기
+//                            // 데이터 자료형이 틀린지 확인하기
+//                        }
+//            }
+//        })
+//    }
 
-        searchResultNetwork.getSearchResultFilterResponse(ApplicationData.auth,
-                type, region, remainNoticeDate, page, limit, searchKeyword).enqueue(object : Callback<ccc> {
+    fun getSearchTagResultResponse(tag: String) {
+
+        searchResultNetwork.getSearchTagResultResponse(ApplicationData.auth, tag, 300).enqueue(object : Callback<ccc> {
             override fun onFailure(call: Call<ccc>?, t: Throwable?) {
-                Log.e("SearchResultData 통신 실패", t.toString())
+                Log.e("getSearchTagResultRes실패", t.toString())
             }
 
             override fun onResponse(call: Call<ccc>?, response: Response<ccc>?) {
-
+                Log.v("TAGG", tag)
+                Log.v("TAGG", response.toString())
+                Log.v("TAGG", response!!.body().toString())
                 response?.takeIf { it.isSuccessful }
                         ?.body()
                         ?.let {
-                            when(page){
-                                0 -> {
-                                    SearchResultObject.searchKeywordResultActivityPresenter.requestData(it)
-                                }
-                                else -> {
-                                    SearchResultObject.searchKeywordResultActivityPresenter.responseMoreSearchResultList(it.data.content)
-                                }
-                            }
-
-                            // 서버에서 보내기 직전 데이터 보기
-                            // 데이터 자료형이 틀린지 확인하기
+                            SearchResultObject.searchKeywordResultActivityPresenter.responseTagData(it)
                         }
             }
         })

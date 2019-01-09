@@ -21,7 +21,7 @@ class CustomHomeDailogActivty : AppCompatActivity() {
     }
 
     fun setviewPagerListener(){
-        vp_custom_home_dialog_activity.adapter = HomeDialogFragmentStatePagerAdapter(supportFragmentManager, 5)
+        vp_custom_home_dialog_activity.adapter = HomeDialogFragmentStatePagerAdapter(supportFragmentManager, 6)
         vp_custom_home_dialog_activity.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
@@ -33,7 +33,7 @@ class CustomHomeDailogActivty : AppCompatActivity() {
 
             override fun onPageSelected(position: Int) {
                 pageIndicatorView_dialog_activity.selection = position
-                if(position == 4){
+                if(position == 5){
                     btn_start_custom_home_dialog_activity.visibility = View.VISIBLE
                 }else {
                     btn_start_custom_home_dialog_activity.visibility = View.GONE

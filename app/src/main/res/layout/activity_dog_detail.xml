@@ -60,33 +60,34 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
+                        android:layout_toLeftOf="@+id/btn_heart_dog_detail_act"
                         >
 
                         <ImageView
                             android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginHorizontal="5dp"
                             android:src="@drawable/share_btn"/>
 
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/btn_heart_dog_detail_act"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="12dp"
+                        android:layout_marginRight="11dp"
                         >
 
                         <ImageView
                             android:id="@+id/iv_heart_dog_detail_act"
-                            android:layout_margin="4dp"
+                            android:layout_margin="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:src="@drawable/hearts_line_icon"
                             />
 
@@ -263,7 +264,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="14dp">
+                android:layout_marginTop="14dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -378,6 +380,16 @@
                     android:layout_marginBottom="19dp"/>
 
             </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/iv_my_story_dog_detail_act"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="72dp"
+                android:scaleType="fitXY"
+                />
         </LinearLayout>
 
     </ScrollView>
@@ -401,12 +413,6 @@
 
 
     </RelativeLayout>
-
-    
-    
-    
-
-
 
 
 

@@ -67,7 +67,6 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
         if (remainDate >= 15 ){
             remainDate = 300
         }
-
         init()
         initPresenter()
 
@@ -85,39 +84,39 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
             type = ""
             when (areaNum) {
                 0 -> {
-                    requestResultData("기타", "", remainDate, 0, 10)
+                    requestResultData("", "", remainDate, 0, 10)
                     region = ""
                 }
                 1 -> {
-                    requestResultData("기타", "서울", remainDate, 0, 10)
+                    requestResultData("", "서울", remainDate, 0, 10)
                     region = "서울"
                 }
                 2 -> {
-                    requestResultData("기타", "경기", remainDate, 0, 10)
+                    requestResultData("", "경기", remainDate, 0, 10)
                     region = "경기"
                 }
                 3 -> {
-                    requestResultData("기타", "인천", remainDate, 0, 10)
+                    requestResultData("", "인천", remainDate, 0, 10)
                     region = "인천"
                 }
                 4 -> {
-                    requestResultData("기타", "강원", remainDate, 0, 10)
+                    requestResultData("", "강원", remainDate, 0, 10)
                     region = "강원"
                 }
                 5 -> {
-                    requestResultData("기타", "충청", remainDate, 0, 10)
+                    requestResultData("", "충청", remainDate, 0, 10)
                     region = "충청"
                 }
                 6 -> {
-                    requestResultData("기타", "전라", remainDate, 0, 10)
+                    requestResultData("", "전라", remainDate, 0, 10)
                     region = "전라"
                 }
                 7 -> {
-                    requestResultData("기타", "경상", remainDate, 0, 10)
+                    requestResultData("", "경상", remainDate, 0, 10)
                     region = "경상"
                 }
                 8 -> {
-                    requestResultData("기타", "제주", remainDate, 0, 10)
+                    requestResultData("", "제주", remainDate, 0, 10)
                     region = "제주"
                 }
             }
@@ -274,8 +273,4 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
         if (currentPage >= TOTAL_PAGE)
             isLast = true
     }
-
-
-
-
 }

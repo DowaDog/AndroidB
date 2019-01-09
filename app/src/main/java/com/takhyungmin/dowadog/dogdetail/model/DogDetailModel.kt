@@ -2,6 +2,7 @@ package com.takhyungmin.dowadog.dogdetail.model
 
 import android.util.Log
 import com.takhyungmin.dowadog.dogdetail.model.get.GetDogDetailResponse
+import com.takhyungmin.dowadog.dogdetail.model.post.PostDogDetailHeartResponse
 import com.takhyungmin.dowadog.utils.ApplicationData
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,4 +38,25 @@ class DogDetailModel {
             }
         })
     }
+
+
+    fun postDogDetailHeart(animalId: Int) {
+
+        dogDetailNetworkService.postDogDetailHeart(ApplicationData.auth, animalId).enqueue(object: Callback<PostDogDetailHeartResponse>{
+            override fun onFailure(call: Call<PostDogDetailHeartResponse>?, t: Throwable?) {
+                Log.e("post개상세하트실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<PostDogDetailHeartResponse>?, response: Response<PostDogDetailHeartResponse>?) {
+                response?.takeIf { it.isSuccessful }
+                        ?.body()
+                        ?.let {
+                            Log.v("TAGG", it.message)
+                        }
+            }
+        })
+    }
+
+
+
 }

@@ -1,10 +1,12 @@
-package com.takhyungmin.dowadog
+package com.takhyungmin.dowadog.pressedadopt
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.jakewharton.rxbinding2.view.clicks
+import com.takhyungmin.dowadog.BaseActivity
+import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.utils.CustomPressedAdoptDialog
 import kotlinx.android.synthetic.main.activity_pressed_adopt.*
 

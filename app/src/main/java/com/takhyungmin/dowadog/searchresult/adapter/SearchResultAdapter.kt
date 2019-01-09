@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
+import com.takhyungmin.dowadog.dogdetail.model.DogDetailObject
 import com.takhyungmin.dowadog.searchresult.model.ggg.Content
 import org.jetbrains.anko.startActivity
 import java.text.SimpleDateFormat
@@ -55,9 +57,6 @@ class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, va
         //requestManager.load(dataList[position].ani_kind).into(holder.ani_kind)
         holder.ani_region.text = "[" + dataList[position].region + "] "
 
-        var heart_flag: Boolean = false
-
-
         Glide.with(ctx).load(dataList[position].thumbnailImg).into(holder.ani_img)
         holder.ani_img.setClipToOutline(true)
         holder.tv_ani_kind.text = dataList[position].kindCd
@@ -80,6 +79,17 @@ class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, va
 
         holder.newFrame.setOnClickListener {
             ctx.startActivity<DogDetailActivity>("animalId" to dataList[position].id)
+        }
+
+        // 좋아요 버튼
+        if(dataList[position].liked == false){
+            holder.iv_heart.setImageResource(R.drawable.heart_gray_1227)
+        }else {
+            holder.iv_heart.setImageResource(R.drawable.heart_red_1227)
+        }
+
+        holder.btn_heart.setOnClickListener {
+            DogDetailObject.dogDetailActivityPresenter.requestHeartData(dataList[position].id)
         }
 
     }
@@ -136,6 +146,9 @@ class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, va
 
         val iv_dog_or_cat: ImageView = itemView.findViewById(R.id.img_kind_rv_item_urgent_ani_act) as ImageView
         val iv_sex: ImageView = itemView.findViewById(R.id.img_gender_rv_item_urgent_ani_act) as ImageView
+        val iv_heart: ImageView = itemView.findViewById(R.id.img_heart_rv_item_urgent_ani_act) as ImageView
+        val btn_heart: RelativeLayout = itemView.findViewById(R.id.rl_heart_touch_rv_item_urgent_ani_act) as RelativeLayout
+
     }
 
 }

@@ -53,7 +53,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         setSearchBtnTextChangeListener()
 
         var recommendKeyword: ArrayList<String> = ArrayList()
-        recommendKeyword.add("유기견")
+        recommendKeyword.add("대형견")
         recommendKeyword.add("웰시 코기")
         recommendKeyword.add("서울")
         setFirstRVAdapter(recommendKeyword)

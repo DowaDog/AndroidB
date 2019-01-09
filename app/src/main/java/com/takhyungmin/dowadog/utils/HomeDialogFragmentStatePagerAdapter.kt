@@ -14,10 +14,11 @@ class HomeDialogFragmentStatePagerAdapter(fm: FragmentManager, val fragmentCount
 
         when (position) {
             0 -> return HomeDialogFirstFragment()
-            1 -> return HomeDialogSecondFragment()
-            2 -> return HomeDialogThirdFragment()
-            3 -> return HomeDialogFourthFragment()
-            4 -> return HomeDialogFifthFragment()
+            1 -> return HomeDialogRealSecondFragment()
+            2 -> return HomeDialogSecondFragment()
+            3 -> return HomeDialogThirdFragment()
+            4 -> return HomeDialogFourthFragment()
+            5 -> return HomeDialogFifthFragment()
             else -> return null
         }
     }

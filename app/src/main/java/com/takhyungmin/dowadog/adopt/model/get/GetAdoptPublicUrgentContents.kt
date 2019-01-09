@@ -7,6 +7,9 @@ data class GetAdoptPublicUrgentContents (
         var kindCd: String?,
         var region : String,
         var noticeEddt : String,
+        var liked : Boolean,
         var remainDateState : Boolean,
-        var thumbnailImg : String?
+        var education : Boolean,
+        var thumbnailImg : String?,
+        var processState : String
 )

@@ -5,11 +5,12 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.clicks
-import com.takhyungmin.dowadog.PressedAdoptActivity
+import com.takhyungmin.dowadog.pressedadopt.PressedAdoptActivity
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.dogdetail.model.DogDetailObject
 import com.takhyungmin.dowadog.dogdetail.model.get.GetDogDetailData
@@ -40,6 +41,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
     var careTel = ""
 
     var careName = ""
+
 
     val completeDogDialog: CustomCompleteDogDialog by lazy {
         CustomCompleteDogDialog(this@DogDetailActivity, "잠깐! 아직 입양 할 수 없어요!", completeConfirmListener, "확인")
@@ -77,10 +79,12 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
                     iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_full_icon)
                     isLike = 1
                     // 좋아요 통신
+                    dogDetailActivityPresenter.requestHeartData(animalId)
                 } else {
                     iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_line_icon)
                     isLike = 0
                     // 좋아요 취소 통신
+                    dogDetailActivityPresenter.requestHeartData(animalId)
                 }
             }
 
@@ -97,6 +101,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         initPresenter()
 
         animalId = intent.getIntExtra("animalId", 0)
+        Log.v("TAG", animalId.toString())
         dogDetailActivityPresenter.requestData(animalId)
 
 
@@ -122,6 +127,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
                 // startActivity(Intent(this, PressedAdoptActivity::class.java))
             }
         }
+
     }
 
     val logoutCustomDialog : CustomDialog  by lazy {
@@ -282,10 +288,14 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
             tv_weight_dog_detail_act.text = it
         }
 
-        data.noticeNo?.let{
-            tv_announcement_number_dog_detail_act.text = it
+        // HM
+        data.animalStoryList?.let {
+            if (it.size > 0) {
+                it[0]?.let {
+                    Glide.with(this@DogDetailActivity).load(it[0]).into(iv_my_story_dog_detail_act)
+                }
+            }
         }
-
 
         if (data.noticeEddt != null && data.noticeStdt != null){
             tv_term_dog_detail_act.text = data.noticeStdt.replace("-", ".") + " - " + data.noticeEddt.replace("-", ".")
@@ -312,6 +322,12 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         data.careTel?.let{
             tv_protect_spot_telephone_num_dog_detail_act.text = it
+        }
+
+        if(data.liked == true){
+            iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_full_icon)
+        }else {
+            iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_line_icon)
         }
     }
 }
