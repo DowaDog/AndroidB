@@ -49,5 +49,10 @@ class AnimalFindUrgentAdapter(var urgentItems : ArrayList<UrgentAnimalData>,
             AdoptObject.adoptAnimalFindFragmentPresnter.toDtail(urgentItems[position].id)
         }
 
+        if(urgentItems[position].like)
+            holder.heart.setImageResource(R.drawable.heart_red_1227)
+        else
+            holder.heart.setImageResource(R.drawable.heart_gray_1227)
+
     }
 }

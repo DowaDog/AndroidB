@@ -15,6 +15,10 @@ class AdoptUrgentAnimalActivityPresenter : BasePresenter<AdoptUrgentAnimalActivi
         adoptAnimalModel.getAdoptUrgentPublicList(page, limit)
     }
 
+    fun requestStoryAnimalList(page : Int, limit : Int){
+        adoptAnimalModel.getStroyAnimalList(page, limit)
+    }
+
     val firstResponseUrgentList = {urgentDatas : ArrayList<UrgentAnimalData> ->
         view!!.initView(urgentDatas)
     }
@@ -36,5 +40,8 @@ class AdoptUrgentAnimalActivityPresenter : BasePresenter<AdoptUrgentAnimalActivi
     val toDetailActivity = {id : Int ->
         view!!.toDetailActivity(id)
     }
+
+
+
 
 }

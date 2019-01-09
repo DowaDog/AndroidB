@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface AdoptNetworkService {
 
     //긴급 동물 조회(from 공공)
-    @GET("openapi/animals/emergency")
+    @GET("api/normal/animals/emergency")
     fun getCommunityList(@Query("page") page : Int,
                          @Query("limit") limit : Int): Call<GetAdoptPublicUrgentResponse>
 
@@ -21,6 +21,13 @@ interface AdoptNetworkService {
     @GET("api/normal/animals")
     fun getAnimalList(
             @Header("Authorization")token : String,
+            @Query("page") page : Int,
+            @Query("limit") limit : Int): Call<GetAdoptPublicUrgentResponse>
+
+    @GET("api/normal/animals")
+    fun getStoryAnimalList(
+            @Header("Authorization")token : String,
+            @Query("story") story : Boolean,
             @Query("page") page : Int,
             @Query("limit") limit : Int): Call<GetAdoptPublicUrgentResponse>
 
