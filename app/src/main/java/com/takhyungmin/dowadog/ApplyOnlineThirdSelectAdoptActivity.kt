@@ -3,11 +3,22 @@ package com.takhyungmin.dowadog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import com.takhyungmin.dowadog.apply.online.ApplyOnlineFourthActivity
 import com.takhyungmin.dowadog.utils.CustomSingleResDialog
 import kotlinx.android.synthetic.main.activity_apply_online_third_select_adopt.*
+import org.jetbrains.anko.startActivity
 
 @Suppress("UNUSED_VALUE")
 class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener {
+
+
+    var address : String = ""
+    var job : String = ""
+    var humanImgUri : String = ""
+
+    var animalImgUri : String = ""
+
+    var animalDescription = ""
 
     private var isCheckFlag = 0
 
@@ -20,6 +31,7 @@ class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener
         setContentView(R.layout.activity_apply_online_third_select_adopt)
 
         init()
+        getIntentItem()
     }
 
     override fun onClick(v: View?) {
@@ -46,6 +58,8 @@ class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener
                     openDemandValidResponseDialog()
                 }else {
                     // 다음으로 넘어가기
+                    startActivity<ApplyOnlineFourthActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
+                            "animalDescription" to animalDescription, "animalImgUri" to animalImgUri)
                 }
             }
         }
@@ -63,7 +77,11 @@ class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener
 
     private val responseListener = View.OnClickListener { customDialog!!.dismiss() }
 
-    fun aa(a: Int){
-
+    fun getIntentItem(){
+        address = intent.getStringExtra("address")
+        job = intent.getStringExtra("job")
+        humanImgUri = intent.getStringExtra("humanImgUri")
+        animalImgUri= intent.getStringExtra("animalImgUri")
+        animalDescription = intent.getStringExtra("animalDescription")
     }
 }

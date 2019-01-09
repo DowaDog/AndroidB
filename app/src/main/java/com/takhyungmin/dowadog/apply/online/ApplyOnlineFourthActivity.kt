@@ -9,8 +9,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.takhyungmin.dowadog.BaseActivity
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.home.activity.HomeActivity
 import com.takhyungmin.dowadog.utils.CustomSingleResDialog
 import kotlinx.android.synthetic.main.activity_apply_online_fourth.*
+import org.jetbrains.anko.startActivity
 
 class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
 
@@ -18,6 +20,18 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
     var allCheck : Boolean = false
     var etFlag : Boolean = false
     var completeBtnFlag :  Boolean = false
+
+    var address : String = ""
+    var job : String = ""
+    var humanImgUri : String = ""
+
+    var animalImgUri : String = ""
+
+    var animalDescription = ""
+
+    var tempPossiblePeriod = ""
+
+    var economyAbility = ""
 
     private var checkOneFlag : Int = 0
     private var checkTwoFlag = 0
@@ -225,7 +239,12 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
                     // 다이얼로그 띄우기
                     applyFourthCustomSingleResDialog.show()
                 }else {
+
+                    if(et_apply_online_fourth_act.text.toString().length == 0){
+                        economyAbility = et_apply_online_fourth_act.text.toString()
+                    }
                     // ## 다음뷰로 넘어가기 위한 통신하기
+                    startActivity<HomeActivity>()
                 }
             }
         }
@@ -234,7 +253,7 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_online_fourth)
-
+        getIntentItem()
         // 클릭리스너 달아주기
         init()
 
@@ -293,5 +312,14 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
     }
 
     private val reponseListener = View.OnClickListener { applyFourthCustomSingleResDialog!!.dismiss() }
+
+    fun getIntentItem(){
+        address = intent.getStringExtra("address")
+        job = intent.getStringExtra("job")
+        humanImgUri = intent.getStringExtra("humanImgUri")
+        animalImgUri= intent.getStringExtra("animalImgUri")
+        animalDescription = intent.getStringExtra("animalDescription")
+        tempPossiblePeriod = intent.getStringExtra("tempPossiblePeriod")
+    }
 
 }
