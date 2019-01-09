@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.takhyungmin.dowadog.BaseActivity
@@ -244,6 +245,8 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
                         economyAbility = et_apply_online_fourth_act.text.toString()
                     }
                     // ## 다음뷰로 넘어가기 위한 통신하기
+                    Log.v("check","address : " + address + "job : " + job + " humanImgUri : " + humanImgUri + " animalImgUri : " + animalImgUri
+                    + " animalDescription : " + animalDescription + " tempPossiblePeriod : " + tempPossiblePeriod + " economyAbility : " + economyAbility)
                     startActivity<HomeActivity>()
                 }
             }

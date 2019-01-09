@@ -3,6 +3,7 @@ package com.takhyungmin.dowadog.pressedadopt
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.BaseActivity
@@ -29,6 +30,7 @@ class PressedAdoptActivity : BaseActivity() {
 
         name = intent.getStringExtra("spotName")
         num = intent.getStringExtra("num")
+        Log.v("check","AdoptAct num : "+ num + " spotName " + name)
 
         init()
     }

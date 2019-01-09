@@ -20,6 +20,8 @@ class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener
 
     var animalDescription = ""
 
+    var tempPossiblePeriod = ""
+
     private var isCheckFlag = 0
 
     private val customDialog : CustomSingleResDialog by lazy {
@@ -59,7 +61,7 @@ class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener
                 }else {
                     // 다음으로 넘어가기
                     startActivity<ApplyOnlineFourthActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
-                            "animalDescription" to animalDescription, "animalImgUri" to animalImgUri)
+                            "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "tempPossiblePeriod" to tempPossiblePeriod)
                 }
             }
         }
