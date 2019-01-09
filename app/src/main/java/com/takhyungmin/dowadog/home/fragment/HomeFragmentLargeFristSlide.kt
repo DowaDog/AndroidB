@@ -22,19 +22,14 @@ class HomeFragmentLargeFristSlide : Fragment() {
         init()
     }
 
-    override fun onStart() {
-        super.onStart()
-
-
-    }
-
     fun init(){
+
         val font1 = Typeface.createFromAsset(activity!!.assets, "nanum_square_extra_bold.ttf")
         val font2 = Typeface.createFromAsset(activity!!.assets, "nanum_square_light.ttf")
 
-        val ssb = SpannableStringBuilder("단계별로\n필요한 정보를 확인하세요.")
-        ssb.setSpan(CustomTypeSpan("", font1), 0, 3, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
-        ssb.setSpan(CustomTypeSpan("", font2), 4, "단계별로\n필요한 정보를 확인하세요.".length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
+        val ssb = SpannableStringBuilder("아직 입양한\n반려동물이 없어요!")
+        ssb.setSpan(CustomTypeSpan("", font1), 0, 6, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
+        ssb.setSpan(CustomTypeSpan("", font2), 7, "아직 입양한\n반려동물이 없어요!".length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
 
         tv_home_slide_first_text.text = ssb
     }

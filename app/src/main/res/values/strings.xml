@@ -9,7 +9,7 @@
         긴긴 문자열 긴긴 문자열 긴긴 문자열 긴긴 문자열 긴긴 문자열 긴긴 문자열 긴긴 문자열 긴긴 문자열 긴긴 문자열 </string>
 
 <string name="apply_second_hing">"예시) 현재 3마리를 키우고 있으며 모두 대형견입니다. 하지만 성격이 온순하여 괴롭히거나 문제가 될 만한 일은 없습니다."</string>
-<string name="home_slide_first">단계별로\n필요한 정보를 확인하세요</string>
+<string name="home_slide_first">입양 신청서를 보호소에 전달했어요!\n서류 심사까지 기다려주세요.</string>
 <string name="home_slide_second">*보호소마다 입양 절차가 다르니\n자세한 사항은 각 보호소에 문의해주세요.</string>
 
 <string name="home_slide_description1">입양하기 카테고리에서 제공된\n전화를 통해 입양 신청을 합니다.</string>
@@ -28,4 +28,12 @@
 <string name="introdue_fourth">- 입양하기를 시작하면, 홈의 하단 슬라이드를 통해 각 입양\n\t절차에 대한 안내를 도와줍니다.</string>
 <string name="introdue_fifth">- 마이페이지의 \'기다릴개에서 보내는 편지\'에서  다양한 알림\n\t서비스를 받아볼 수 있습니다.\n- 의료 및 사진 게시, 업데이트 된 컨텐츠에 관련된 푸시 알림을\n\t통해 제공합니다.</string>
 <string name="introdue_sixth">동물을 살 때, 그 다른 이면에는 고통스럽게\n죽어가는 아이들이 있음을 기억해주세요!\n</string>
+        <string name="home_slide_first_1">아직 입양한\n반려동물이 없어요!</string>
+        <string name="home_slide_first_2">*입양하는 카테고리에서\n새로운 가족을 맞이해 보세요.</string>
+        <string name="home_slide_second_1">입양이\n승인되지 않았습니다.</string>
+        <string name="home_slide_second_2">자세한 사항은 보호소에\n직접 문의해주세요.</string>
+
+        <string name="home_slide_third_sub">(유기동물 분양 신청서,\n소유주 변경신청서)</string>
+        <string name="home_slide_fourth">입양이 완료 되었어요.\n입양 후 한달에 2번 사진 올리는 것 잊지마세요!</string>
+
 </resources>

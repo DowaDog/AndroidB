@@ -4,7 +4,7 @@ import android.content.Context
 
 object ApplicationData {
 
-    var baseUrl = "http://13.209.185.163:8080/"
+    var baseUrl = "http://waitforudog.ml:8080/"
 
     var auth = ""
 

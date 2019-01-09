@@ -1,10 +1,12 @@
 package com.takhyungmin.dowadog.home.model
 
 import com.takhyungmin.dowadog.home.model.get.GetDuplicateResponse
+import com.takhyungmin.dowadog.home.model.get.GetFragmentResponse
 import com.takhyungmin.dowadog.home.model.get.GetUserInfoResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface HomeNetworkService {
@@ -19,4 +21,11 @@ interface HomeNetworkService {
     fun getUserInfo(@Header("Authorization") auth : String) : Call<GetUserInfoResponse>
 
 
+    @GET("api/normal/main")
+    fun getFragmentState(
+            @Header("Authorization") auth : String) : Call<GetFragmentResponse>
+
+    @POST("api/normal/main/check")
+    fun postHomeRead(
+            @Header("Authorization") auth : String) : Call<Unit>
 }
