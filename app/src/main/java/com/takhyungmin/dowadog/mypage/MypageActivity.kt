@@ -37,8 +37,12 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
             btn_back_mypage_act -> {
                 finish()
             }
-            rl_mailbox_mypage_act -> {
+            btn_post_letter_mypage_act -> {
                 startActivity<LetterActivity>()
+            }
+
+            btn_adopt_animal_mypage_act -> {
+
             }
 
         }
@@ -78,7 +82,9 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
         btn_mypage_mine.clicks().subscribe {
             startActivity(Intent(this, MyCommunityPostActivity::class.java))
             //val intent = Intent(this, MyCommunityPostActivity::class.java)
-
+        }
+        btn_adopt_animal_mypage_act.clicks().subscribe{
+            //입양한 우리아이
 
         }
     }
@@ -87,7 +93,7 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
         btn_logout_setting_my_page_act.setOnClickListener(this)
         btn_next_setting_mypage_act.setOnClickListener(this)
         btn_back_mypage_act.setOnClickListener(this)
-        rl_mailbox_mypage_act.setOnClickListener(this)
+        btn_post_letter_mypage_act.setOnClickListener(this)
     }
 
     private val responseRight = View.OnClickListener {
@@ -122,10 +128,10 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
             if(mypageGetData.mailboxUpdated)
             {
                 img_new_mypage_act.visibility = View.VISIBLE
-            }else{
+            }
+            else{
                 img_new_mypage_act.visibility = View.GONE
             }
-
 
         }
     }
@@ -140,7 +146,6 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
 
         Log.v("TAGG", "엑티비티 이닛프레젠터")
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.v("yyg", "code" + requestCode)
