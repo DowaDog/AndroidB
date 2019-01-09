@@ -42,7 +42,7 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
             }
 
             btn_adopt_animal_mypage_act -> {
-
+                //startActivity<>()
             }
 
         }
@@ -130,7 +130,7 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
                 img_new_mypage_act.visibility = View.VISIBLE
             }
             else{
-                img_new_mypage_act.visibility = View.GONE
+                img_new_mypage_act.visibility = View.INVISIBLE
             }
 
         }
