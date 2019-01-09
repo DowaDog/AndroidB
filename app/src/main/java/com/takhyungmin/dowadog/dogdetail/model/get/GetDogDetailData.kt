@@ -2,13 +2,15 @@ package com.takhyungmin.dowadog.dogdetail.model.get
 
 data class GetDogDetailData(
         val age: String,
+        val animalStoryList: ArrayList<String>,
         val careName: String,
         val careTel: String,
+        val educationState: Boolean,
         val happenPlace: String,
         val id: Int,
         val kindCd: String,
+        val liked: Boolean,
         val noticeEddt: String,
-        val noticeNo: String,
         val noticeStdt: String,
         val processState: String,
         val region: String,
@@ -17,6 +19,5 @@ data class GetDogDetailData(
         val specialMark: String,
         val thumbnailImg: String,
         val type: String,
-        val weight: String,
-        var educationState : Boolean
+        val weight: String
 )

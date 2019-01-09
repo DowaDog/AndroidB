@@ -1,12 +1,9 @@
 package com.takhyungmin.dowadog.presenter.activity
 
-import com.takhyungmin.dowadog.communitywrite.model.CommunityWriteModel
-import com.takhyungmin.dowadog.communitywrite.model.post.PostCommunityPostWriteResponse
 import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.dogdetail.model.DogDetailModel
 import com.takhyungmin.dowadog.dogdetail.model.get.GetDogDetailResponse
 import com.takhyungmin.dowadog.presenter.BasePresenter
-import okhttp3.MultipartBody
 
 class DogDetailActivityPresenter : BasePresenter<DogDetailActivity>() {
 
@@ -22,4 +19,9 @@ class DogDetailActivityPresenter : BasePresenter<DogDetailActivity>() {
     fun responseData(data : GetDogDetailResponse){
         view!!.responseData(data)
     }
+
+    fun requestHeartData(animalId: Int){
+        dogDetailModel.postDogDetailHeart(animalId)
+    }
+
 }

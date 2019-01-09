@@ -62,6 +62,10 @@ class AdoptAnimalFindFragment : Fragment() {
         btn_adopt_filter.clicks().subscribe {
             activity!!.startActivity(Intent(activity!!, FilterActivity::class.java))
         }
+        // TODO : 스토리 있는애들 + 통신
+        imag_fragment_fund_illus.clicks().subscribe{
+
+        }
     }
 
     fun toApply(){

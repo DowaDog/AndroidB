@@ -18,7 +18,7 @@ interface AdoptNetworkService {
     @GET("openapi/animals/{animalId}")
     fun getAdoptDetail(@Path("animalId") animalId : Int) : Call<GetAdoptPublicDetailResponse>
 
-    @GET("openapi/animals")
+    @GET("api/normal/animals")
     fun getAnimalList(
             @Header("Authorization")token : String,
             @Query("page") page : Int,

@@ -24,7 +24,7 @@
                     android:id="@+id/imag_fragment_fund_illus"
                     android:layout_width="match_parent"
                     android:layout_height="185dp"
-                    android:src="@drawable/dog_adopt_a_img"
+                    android:src="@drawable/dog_adopt_b_img"
                     />
 
                 <RelativeLayout

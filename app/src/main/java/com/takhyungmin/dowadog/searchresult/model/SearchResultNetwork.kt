@@ -9,14 +9,21 @@ import retrofit2.http.Query
 interface SearchResultNetwork {
 
     // 공공데이터 조건별 검색
-    @GET("openapi/animals")
+    @GET("api/normal/animals")
     fun getSearchResultFilterResponse(
-            @Header("Authorization") authorization : String,
-            @Query("type") type : String?,
-            @Query("region") region : String?,
-            @Query("remainNoticeDate") remainNoticeDate : Int?,
-            @Query("page") page : Int?,
-            @Query("limit") limit : Int?,
-            @Query("searchWord") searchWord : String?
-    ) : Call<ccc>
+            @Header("Authorization") authorization: String,
+            @Query("type") type: String?,
+            @Query("region") region: String?,
+            @Query("remainNoticeDate") remainNoticeDate: Int?,
+            @Query("page") page: Int?,
+            @Query("limit") limit: Int?,
+            @Query("searchWord") searchWord: String?
+    ): Call<ccc>
+
+    @GET("api/normal/animals/hashtags")
+    fun getSearchTagResultResponse(
+            @Header("Authorization") authorization: String,
+            @Query("tag") tag: String,
+            @Query("limit") limit: Int
+    ): Call<ccc>
 }

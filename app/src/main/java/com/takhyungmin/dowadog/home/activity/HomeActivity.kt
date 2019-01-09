@@ -34,7 +34,6 @@ import com.takhyungmin.dowadog.search.SearchActivity
 import com.takhyungmin.dowadog.utils.ApplicationData
 import com.takhyungmin.dowadog.utils.CustomDialog
 import com.takhyungmin.dowadog.utils.CustomTypeSpan
-import com.takhyungmin.dowadog.utils.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.navi_home.*
 import org.jetbrains.anko.startActivity
@@ -60,16 +59,11 @@ class HomeActivity : AppCompatActivity() {
         //homeActivityPresenter.requestData()
         setBinding()
         textSizeChange(text_navi_home)
-
-//        if (ApplicationData.firstLoginFlag == false) {
+        startActivity<CustomHomeDailogActivty>()
+//        if(SharedPreferenceController.getFirstPopUpFlag(this@HomeActivity) == 1){
 //            startActivity<CustomHomeDailogActivty>()
-//            ApplicationData.firstLoginFlag = true
+//            SharedPreferenceController.setFirstPopUpFlag(this@HomeActivity, 0)
 //        }
-
-        if(SharedPreferenceController.getFirstPopUpFlag(this@HomeActivity) == 1){
-            startActivity<CustomHomeDailogActivty>()
-            SharedPreferenceController.setFirstPopUpFlag(this@HomeActivity, 0)
-        }
 
 
 

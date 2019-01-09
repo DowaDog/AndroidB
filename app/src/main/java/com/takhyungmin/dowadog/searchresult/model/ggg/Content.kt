@@ -8,5 +8,8 @@ data class Content(
         val remainDateState: Boolean,
         val sexCd: String,
         val thumbnailImg: String,
-        val type: String
+        val type: String,
+        val liked : Boolean,
+        val processState: String,
+        val education : Boolean
 )
