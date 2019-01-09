@@ -13,6 +13,14 @@ import org.jetbrains.anko.textColor
 
 class ApplyOnlineThirdTempOrAdoptActivity : BaseActivity(), View.OnClickListener {
 
+    var address : String = ""
+    var job : String = ""
+    var humanImgUri : String = ""
+
+    var animalImgUri : String = ""
+
+    var animalDescription = ""
+
     private var isTempProtection : Int = 0
 
     private var isAdopt : Int = 0
@@ -83,9 +91,11 @@ class ApplyOnlineThirdTempOrAdoptActivity : BaseActivity(), View.OnClickListener
                 }else {
                     // 다음으로 넘어가기
                     if(isAdopt == 1){
-                        startActivity<ApplyOnlineThirdSelectAdoptActivity>()
+                        startActivity<ApplyOnlineThirdSelectAdoptActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
+                                "animalDescription" to animalDescription, "animalImgUri" to animalImgUri)
                     }else {
-                        startActivity<ApplyOnlineThirdSelectTempActivity>()
+                        startActivity<ApplyOnlineThirdSelectTempActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
+                                "animalDescription" to animalDescription, "animalImgUri" to animalImgUri)
                     }
                 }
 
@@ -97,11 +107,8 @@ class ApplyOnlineThirdTempOrAdoptActivity : BaseActivity(), View.OnClickListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_online_third_temp_or_adopt)
 
+        getIntentItem()
         init()
-
-
-
-
     }
 
     private fun init(){
@@ -117,5 +124,13 @@ class ApplyOnlineThirdTempOrAdoptActivity : BaseActivity(), View.OnClickListener
     }
 
     private val responseListener = View.OnClickListener { customDialog!!.dismiss() }
+
+    fun getIntentItem(){
+        address = intent.getStringExtra("address")
+        job = intent.getStringExtra("job")
+        humanImgUri = intent.getStringExtra("humanImgUri")
+        animalImgUri= intent.getStringExtra("animalImgUri")
+        animalDescription = intent.getStringExtra("animalDescription")
+    }
 
 }

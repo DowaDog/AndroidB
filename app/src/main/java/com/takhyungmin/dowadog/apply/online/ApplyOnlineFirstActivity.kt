@@ -14,8 +14,9 @@ import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.presenter.activity.ApplyOnlineFristActiviyPresenter
+import com.takhyungmin.dowadog.utils.ApplicationData
 import kotlinx.android.synthetic.main.activity_apply_online_first.*
-import kotlinx.android.synthetic.main.activity_mypage_setting.*
+import org.jetbrains.anko.startActivity
 
 class ApplyOnlineFirstActivity : AppCompatActivity() {
 
@@ -26,6 +27,8 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
 
     val My_READ_STORAGE_REQUEST_CODE = 1111
     val REQ_CODE_SELECT_IMAGE = 88
+
+    var humanImgUri : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -39,6 +42,8 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
         applyOnlineFirstActiviyPresenter = ApplyOnlineFristActiviyPresenter()
         applyOnlineFirstActiviyPresenter.view = this
         applyOnlineFirstActiviyPresenter.initView()
+        Glide.with(this@ApplyOnlineFirstActivity).load(ApplicationData.userImage).into(img_apply_first)
+        tv_online_apply_first_name.text = ApplicationData.userName
     }
 
     private fun setBinding(){
@@ -61,6 +66,7 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
         }
 
         btn_apply_online_first_next.clicks().subscribe {
+                startActivity<ApplyOnlineSecondActivity>("address" to edit_online_apply_first_address.text.toString(), "job" to edit_online_apply_first_vocation.text.toString(), "humanImgUri" to humanImgUri)
             if(next){
                 startActivity(Intent(this, ApplyOnlineSecondActivity::class.java))
             }else{
@@ -124,6 +130,7 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
                 if (data != null) {
 
                     val selectedImageUri: Uri = data.data
+                    humanImgUri = selectedImageUri.toString()
                     //Uri를 getRealPathFromURI라는 메소드를 통해 절대 경로를 알아내고, 인스턴스 변수 imageURI에 넣어줍니다!
                     //imageURI = getRealPathFromURI(selectedImageUri)
 

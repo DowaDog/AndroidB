@@ -146,6 +146,7 @@
                     />
 
                 <TextView
+                    android:visibility="gone"
                     android:text="(남자, 23세)"
                     android:layout_toRightOf="@+id/tv_online_apply_first_name"
                     android:includeFontPadding="false"

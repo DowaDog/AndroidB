@@ -6,16 +6,28 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import com.takhyungmin.dowadog.apply.online.ApplyOnlineFourthActivity
 import com.takhyungmin.dowadog.utils.CustomSingleResDialog
 import kotlinx.android.synthetic.main.activity_apply_online_third_select_temp.*
+import org.jetbrains.anko.startActivity
 
 class ApplyOnlineThirdSelectTempActivity : BaseActivity(), View.OnClickListener {
 
+    var address : String = ""
+    var job : String = ""
+    var humanImgUri : String = ""
+
+    var animalImgUri : String = ""
+
+    var animalDescription = ""
+
+    var tempPossiblePeriod = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_online_third_select_temp)
 
         init()
+        getIntentItem()
         setEditTextChangeListener()
     }
 
@@ -54,6 +66,11 @@ class ApplyOnlineThirdSelectTempActivity : BaseActivity(), View.OnClickListener 
                     openDemandValidResponseDialog()
                 } else {
                     // 다음으로 넘어가기
+                    if(et_apply_online_third_select_temp_act.text.toString().length != 0){
+                        tempPossiblePeriod = et_apply_online_third_select_temp_act.text.toString()
+                    }
+                    startActivity<ApplyOnlineFourthActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
+                            "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "tempPossiblePeriod" to tempPossiblePeriod)
                 }
             }
 
@@ -103,4 +120,13 @@ class ApplyOnlineThirdSelectTempActivity : BaseActivity(), View.OnClickListener 
             }
         })
     }
+
+    fun getIntentItem(){
+        address = intent.getStringExtra("address")
+        job = intent.getStringExtra("job")
+        humanImgUri = intent.getStringExtra("humanImgUri")
+        animalImgUri= intent.getStringExtra("animalImgUri")
+        animalDescription = intent.getStringExtra("animalDescription")
+    }
+
 }
