@@ -2,7 +2,6 @@ package com.takhyungmin.dowadog.home.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.mancj.slideup.SlideUpBuilder
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.adopt.fragment.AdoptAnimalFindFragment
 import com.takhyungmin.dowadog.home.HomeObject
-import com.takhyungmin.dowadog.home.adapter.HomeFragmentLargePadeAdapter
 import com.takhyungmin.dowadog.presenter.fragment.HomeFragmentPresenter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home_slide_up.*
@@ -21,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_home_slide_up.*
 class HomeFragment : Fragment() {
     lateinit var slideUp : SlideUp
     lateinit var homeFragmentPresneter : HomeFragmentPresenter
+    var state  : String = "NO"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -36,6 +35,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeFragmentPresneter.init()
+        init()
         setBinding()
     }
 
@@ -45,30 +45,22 @@ class HomeFragment : Fragment() {
 
     }
 
+    fun addFragment(fragment : Fragment){
+        val fm = activity!!.supportFragmentManager
+        val transaction = fm.beginTransaction()
+        transaction.add(R.id.frame_fragment_slide_contents, fragment)
+        transaction.commitNow()
+    }
+
+    fun replaceFragment(fragment : Fragment){
+        val fm = activity!!.supportFragmentManager
+        val transaction = fm.beginTransaction()
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+        transaction.replace(R.id.frame_fragment_slide_contents, fragment)
+        transaction.commitNow()
+    }
+
     fun init(){
-        val slideAdapter = HomeFragmentLargePadeAdapter(childFragmentManager)
-
-        vp_home_fragment_slide_contents.adapter = slideAdapter
-        vp_home_fragment_slide_contents.currentItem = 0
-
-        vp_home_fragment_slide_contents.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(p0: Int) {
-            }
-
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-            }
-
-            override fun onPageSelected(p0: Int) {
-//                if(p0 == 1)
-//                    vp_home_fragment_slide_contents.swipeEnabled = false
-                //enable 되는 시점
-                //p0 != 1
-                //작은 페이지의 포지션이 0일 때
-                homeFragmentPresneter.changeIndicator(p0)
-            }
-
-        })
-
 
         slideUp = SlideUpBuilder(layout_home_fragment_slide_pannel)
                 .withListeners(object : SlideUp.Listener.Events {
@@ -84,6 +76,11 @@ class HomeFragment : Fragment() {
                     override fun onVisibilityChanged(visibility: Int) {
                         if (visibility == View.GONE) {
                             btn_home_fragment_slide.visibility = View.VISIBLE
+                        }
+
+                        if(visibility == View.VISIBLE){
+                            //TODO : 홈 통신
+                            homeFragmentPresneter.postHomeRead()
                         }
                     }
                 })
@@ -105,55 +102,14 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun swipeEnable(position : Int){
-        when(position){
-            0 -> {
-                vp_home_fragment_slide_contents.swipeEnabled = true
-            }
-            else -> {
-                vp_home_fragment_slide_contents.swipeEnabled = false
-            }
-        }
-
+    fun checkChange(check : Boolean){
+        if(check)
+            img_home_fragment_check.visibility = View.GONE
+        else
+            img_home_fragment_check.visibility = View.VISIBLE
     }
 
-    fun changeIndicator(position : Int){
-        when(position){
-            0->{
-                indicator_slide_first.setImageResource(R.drawable.dot_indicator_orange)
-                indicator_slide_second.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_third.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_fourth.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_fifth.setImageResource(R.drawable.dot_indicator_gray)
-            }
-            1->{
-                indicator_slide_first.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_second.setImageResource(R.drawable.dot_indicator_orange)
-                indicator_slide_third.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_fourth.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_fifth.setImageResource(R.drawable.dot_indicator_gray)
-            }
-            2->{
-                indicator_slide_first.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_second.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_third.setImageResource(R.drawable.dot_indicator_orange)
-                indicator_slide_fourth.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_fifth.setImageResource(R.drawable.dot_indicator_gray)
-            }
-            3->{
-                indicator_slide_first.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_second.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_third.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_fourth.setImageResource(R.drawable.dot_indicator_orange)
-                indicator_slide_fifth.setImageResource(R.drawable.dot_indicator_gray)
-            }
-            4->{
-                indicator_slide_first.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_second.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_third.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_fourth.setImageResource(R.drawable.dot_indicator_gray)
-                indicator_slide_fifth.setImageResource(R.drawable.dot_indicator_orange)
-            }
-        }
+    fun swipeEnable(position : Int){
+
     }
 }
