@@ -48,6 +48,11 @@ class AnimalFindNewAdapter(var newItems : ArrayList<UrgentAnimalData>, var newRe
             AdoptObject.adoptAnimalFindFragmentPresnter.toDtail(newItems[position].id)
         }
 
+        if(newItems[position].like)
+            holder.heart.setImageResource(R.drawable.heart_red_1227)
+        else
+            holder.heart.setImageResource(R.drawable.heart_gray_1227)
+
     }
 
     fun addAll(result : ArrayList<UrgentAnimalData>){

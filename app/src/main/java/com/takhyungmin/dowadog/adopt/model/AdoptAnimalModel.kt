@@ -80,12 +80,16 @@ class AdoptAnimalModel {
         Log.v("알려줘", contents.toString())
 
         contents.forEach { it ->
-            val endDate = sdf.parse(it.noticeEddt)
-            val diff = endDate.time - today.time
-            val dDay = diff / (24 * 60 * 60 * 1000)
-            if(it.kindCd == null)
-                it.kindCd = ""
-            urgentAnimalData.add(UrgentAnimalData(it.id, "D-" + dDay.toString(), it.thumbnailImg, it.kindCd!!, it.sexCd, "["+it.region+"] "))
+            if((it.remainDateState) and (from != 3)){
+                val endDate = sdf.parse(it.noticeEddt)
+                val diff = endDate.time - today.time
+                val dDay = diff / (24 * 60 * 60 * 1000)
+                if(it.kindCd == null)
+                    it.kindCd = ""
+                urgentAnimalData.add(UrgentAnimalData(it.id, "D-" + dDay.toString(), it.thumbnailImg, it.kindCd!!, it.sexCd, "["+it.region+"] ", it.liked))
+            }else{
+                urgentAnimalData.add(UrgentAnimalData(it.id, "", it.thumbnailImg, it.kindCd!!, it.sexCd, "["+it.region+"] ", it.liked))
+            }
         }
         Log.v("뭘까", urgentAnimalData.toString())
 
@@ -114,7 +118,18 @@ class AdoptAnimalModel {
                     .subscribe { it ->
                             AdoptObject.adoptAnimalFindFragmentPresnter.resposeUrgentListFromFragment(it)
                         }}
+
+        if(from == 3){
+            Observable.just(urgentAnimalData)
+                    .subscribe { it ->
+                        if(page == 0){
+                            AdoptObject.adoptUrgentAnimalActivityPresenter.firstResponseUrgentList(it)
+                        } else{
+                            AdoptObject.adoptUrgentAnimalActivityPresenter.responseUrgentList(it)
+                        }}
+            }
         }
+
 
     fun getAdoptDetail(id : Int){
         adoptNetworkService.getAdoptDetail(id).enqueue(object : Callback<GetAdoptPublicDetailResponse>{
@@ -153,6 +168,26 @@ class AdoptAnimalModel {
                 }
             }
 
+        })
+    }
+
+    fun getStroyAnimalList(page : Int, limit : Int){
+        adoptNetworkService.getStoryAnimalList(ApplicationData.auth, true, page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse> {
+            override fun onFailure(call: Call<GetAdoptPublicUrgentResponse>, t: Throwable) {
+                Log.v("AdoptUrgent", t.toString())
+            }
+
+            override fun onResponse(call: Call<GetAdoptPublicUrgentResponse>, response: Response<GetAdoptPublicUrgentResponse>) {
+                if (response.isSuccessful) {
+                    Log.v("AdoptUrgent", "successFragment")
+                    Log.v("AdoptUrgent", response.body()!!.data.content.toString())
+
+                    Observable.just(response.body()!!.data.content)
+                            .subscribe { contents -> manufactureContents(3, page, contents) }
+                } else {
+                    Log.v("AdoptUrgent", "fail")
+                }
+            }
         })
     }
 }

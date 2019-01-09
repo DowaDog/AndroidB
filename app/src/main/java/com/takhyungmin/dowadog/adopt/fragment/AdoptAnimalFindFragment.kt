@@ -64,7 +64,9 @@ class AdoptAnimalFindFragment : Fragment() {
         }
         // TODO : 스토리 있는애들 + 통신
         imag_fragment_fund_illus.clicks().subscribe{
-
+            val intent = Intent(activity!!, AdoptUrgentAnimalActivity::class.java)
+            intent.putExtra("flag", 1)
+            activity!!.startActivity(intent)
         }
     }
 
@@ -108,19 +110,15 @@ class AdoptAnimalFindFragment : Fragment() {
             Log.v("scroll", "scroll")
             if (scrollY == ( v.getChildAt(0).height - v.height )) {
                 //scroll in bottom
-                Log.v("scroll", "bottom")
                 if (!isLoading and !isLast) {
                     isLoading = true
                     Log.v("scroll", currentPage.toString())
                     currentPage++
                     Handler().postDelayed(Runnable {
-                        //communityFragmentPresenter.nextPage(currentPage, itemCount)
-                        Log.v("scroll", "more")
                         adoptAnimalFindFragmentPresenter.requestNewList(currentPage, pagingCount)
                     }, 800)
                 }
             }
-
         })
     }
 

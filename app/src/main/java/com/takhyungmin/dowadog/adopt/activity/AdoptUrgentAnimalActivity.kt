@@ -31,6 +31,7 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
     var isLast = false
     val totalPage = 3
     val pagingCount = 16
+    var flag = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -44,8 +45,16 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
     fun init(){
         adoptUrgentAnimalActivityPresenter = AdoptUrgentAnimalActivityPresenter()
         adoptUrgentAnimalActivityPresenter.view = this
-        AdoptObject.adoptUrgentAnimalActivityPresenter = adoptUrgentAnimalActivityPresenter
-        adoptUrgentAnimalActivityPresenter.requestUrgentList(currentPage, pagingCount)
+        flag = intent.getIntExtra("flag", 0)
+        Log.v("flag", flag.toString())
+
+        if(flag == 0){
+            AdoptObject.adoptUrgentAnimalActivityPresenter = adoptUrgentAnimalActivityPresenter
+            adoptUrgentAnimalActivityPresenter.requestUrgentList(currentPage, pagingCount)
+        }else{
+            AdoptObject.adoptUrgentAnimalActivityPresenter = adoptUrgentAnimalActivityPresenter
+            adoptUrgentAnimalActivityPresenter.requestStoryAnimalList(currentPage, pagingCount)
+        }
     }
 
     fun initView(urgentAnimalDatas : ArrayList<UrgentAnimalData>){
@@ -64,7 +73,10 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
                     Handler().postDelayed(Runnable {
                         //communityFragmentPresenter.nextPage(currentPage, itemCount)
                         Log.v("scroll", "more")
-                        adoptUrgentAnimalActivityPresenter.requestUrgentList(currentPage, pagingCount)
+                        if(flag == 0)
+                            adoptUrgentAnimalActivityPresenter.requestUrgentList(currentPage, pagingCount)
+                        else
+                            adoptUrgentAnimalActivityPresenter.requestStoryAnimalList(currentPage, pagingCount)
                     }, 800)
                 }
             }
@@ -93,7 +105,6 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
     fun loadNextPage(results : ArrayList<UrgentAnimalData>){
         Log.v("scroll", "add")
         urgentAnimalAdapter.addAll(results)
-        //currentPage += 1
         isLoading = false
         if (pagingCount > results.size) {
             isLast = true

@@ -2,6 +2,7 @@ package com.takhyungmin.dowadog.adopt.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,6 +61,9 @@ class UrgentAnimalAdapter(val ctx : Context, val dataList: ArrayList<UrgentAnima
             }
         }
 
+        Log.v("new", dataList[position].d_day)
+        if(dataList[position].d_day == "")
+            holder.urgentLayout.visibility = View.GONE
 
         Glide.with(ctx).load(dataList[position].ani_img).into(holder.ani_img)
         holder.ani_img.setClipToOutline(true)
@@ -93,6 +97,7 @@ class UrgentAnimalAdapter(val ctx : Context, val dataList: ArrayList<UrgentAnima
 
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView){
         var newFrame : LinearLayout = itemView.findViewById(R.id.rl_root_view_rv_item_urgent_anmal_act_box)
+        var urgentLayout : RelativeLayout = itemView.findViewById(R.id.layout_urgent)
 
         var heart_touch : RelativeLayout = itemView.findViewById(R.id.rl_heart_touch_rv_item_urgent_ani_act)
         var heart : ImageView = itemView.findViewById(R.id.img_heart_rv_item_urgent_ani_act)
