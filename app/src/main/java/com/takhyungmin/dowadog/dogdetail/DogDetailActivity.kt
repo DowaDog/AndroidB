@@ -10,8 +10,8 @@ import android.view.View
 import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.clicks
-import com.takhyungmin.dowadog.pressedadopt.PressedAdoptActivity
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.adopt.AdoptActivity
 import com.takhyungmin.dowadog.dogdetail.model.DogDetailObject
 import com.takhyungmin.dowadog.dogdetail.model.get.GetDogDetailData
 import com.takhyungmin.dowadog.dogdetail.model.get.GetDogDetailResponse
@@ -119,7 +119,8 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
                 // TODO : 왜 Intent가 안넘아가는지 확인
 
                 if(educationState){
-                    startActivity<PressedAdoptActivity>("num" to careTel, "spotName" to careName)
+                    startActivity<AdoptActivity>("num" to careTel, "spotName" to careName)
+                    Log.v("check","ToAdoptAct num : "+ careTel + " soptName " + careName)
                 }else{
                     completeDogDialog.show()
                 }
