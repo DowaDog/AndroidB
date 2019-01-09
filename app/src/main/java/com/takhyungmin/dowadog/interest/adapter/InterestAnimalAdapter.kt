@@ -10,10 +10,14 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.takhyungmin.dowadog.R
-import com.takhyungmin.dowadog.adopt.model.get.UrgentAnimalData
+import com.takhyungmin.dowadog.interest.model.InterestAnimalObject
+import com.takhyungmin.dowadog.interest.model.get.Data
+import java.text.SimpleDateFormat
+import java.util.*
 
-class InterestAnimalAdapter(val ctx : Context, val dataList : ArrayList<UrgentAnimalData> ) : RecyclerView.Adapter<InterestAnimalAdapter.Holder>()  {
+class InterestAnimalAdapter(val ctx : Context, val dataList : ArrayList<Data>, val requestManager: RequestManager ) : RecyclerView.Adapter<InterestAnimalAdapter.Holder>()  {
     var height = 0
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): Holder {
         val view: View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_urgent_animal_act_box, p0, false)
@@ -26,11 +30,34 @@ class InterestAnimalAdapter(val ctx : Context, val dataList : ArrayList<UrgentAn
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         //뷰 바인딩!!
-        holder.d_day.text = dataList[position].d_day
+        //holder.d_day.text = dataList[position].d_day
         //Log.v("image", dataList[position].ani_img)
-        //requestManager.load(dataList[position].ani_gender).into(holder.ani_gender)
-        //requestManager.load(dataList[position].ani_kind).into(holder.ani_kind)
-        holder.ani_region.text = dataList[position].ani_region
+
+        val now = System.currentTimeMillis()
+        val date = Date(now)
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+        val beginDate = sdf.format(date)
+        val today = sdf.parse(beginDate)
+
+        val endDate = sdf.parse(dataList[position].noticeEddt)
+        val diff = endDate.time - today.time
+        val dDay = diff / (24 * 60 * 60 * 1000)
+
+        holder.d_day.text = "D-" + dDay.toString()
+        holder.ani_region.text = "[" + dataList[position].region + "] "
+        requestManager.load(dataList[position].thumbnailImg).into(holder.ani_img)
+
+        if(dataList[position].sexCd == "F"){
+            holder.ani_gender.setImageResource(R.drawable.woman_icon_1227)
+        }else{
+            holder.ani_gender.setImageResource(R.drawable.man_icon_1227)
+        }
+
+        if(dataList[position].type == "개"){
+            holder.ani_kind.setImageResource(R.drawable.dog_icon_1227)
+        }else {
+            holder.ani_kind.setImageResource(R.drawable.cat_icon_1227)
+        }
 
         var heart_flag: Boolean = false
 
@@ -45,14 +72,20 @@ class InterestAnimalAdapter(val ctx : Context, val dataList : ArrayList<UrgentAn
             }
         }
 
+        Glide.with(ctx).load(dataList[position].thumbnailImg).into(holder.ani_img)
 
-        Glide.with(ctx).load(dataList[position].ani_img).into(holder.ani_img)
         holder.ani_img.setClipToOutline(true)
-        holder.tv_ani_kind.text = dataList[position].ani_kind
+        holder.tv_ani_kind.text = dataList[position].kindCd
 
         val params = holder.newFrame.layoutParams
         params.height = height
+
+        holder.newFrame.setOnClickListener {
+            // 컨텐츠디테일 액티비티로 넘어가기
+            InterestAnimalObject.interestAnimalActivityPresenter.animalDetailresponseData(dataList[position].id)
+        }
         holder.newFrame.layoutParams = params
+
     }
 
 
@@ -65,7 +98,8 @@ class InterestAnimalAdapter(val ctx : Context, val dataList : ArrayList<UrgentAn
         val tv_ani_kind: TextView = itemView.findViewById(R.id.tv_kind_dog_rv_item_urgent_ani_act) as TextView
         val d_day: TextView = itemView.findViewById(R.id.tv_day_rv_item_urgent_ani_act) as TextView
         val ani_img: ImageView = itemView.findViewById(R.id.img_item_urgent_ani_act) as ImageView
-        //val ani_gender : ImageView = itemView.findViewById(R.id.img_gender_rv_item_urgent_ani_act) as ImageView
+        val ani_kind : ImageView = itemView.findViewById(R.id.img_kind_rv_item_urgent_ani_act) as ImageView
+        val ani_gender : ImageView = itemView.findViewById(R.id.img_gender_rv_item_urgent_ani_act) as ImageView
         val ani_region: TextView = itemView.findViewById(R.id.tv_region_rv_item_urgent_ani_act) as TextView
 
     }
