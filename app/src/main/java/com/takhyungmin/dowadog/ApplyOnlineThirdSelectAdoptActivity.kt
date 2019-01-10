@@ -20,8 +20,13 @@ class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener
 
     var animalDescription = ""
 
+    var animalId = 9999
+
     var tempPossiblePeriod = ""
 
+    var havePet = false
+
+    var adoptType = ""
     private var isCheckFlag = 0
 
     private val customDialog : CustomSingleResDialog by lazy {
@@ -61,7 +66,8 @@ class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener
                 }else {
                     // 다음으로 넘어가기
                     startActivity<ApplyOnlineFourthActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
-                            "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "tempPossiblePeriod" to tempPossiblePeriod)
+                            "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "tempPossiblePeriod" to tempPossiblePeriod,
+                    "id" to animalId, "havePet" to havePet, "adoptType" to adoptType)
                 }
             }
         }
@@ -85,5 +91,8 @@ class ApplyOnlineThirdSelectAdoptActivity : BaseActivity(), View.OnClickListener
         humanImgUri = intent.getStringExtra("humanImgUri")
         animalImgUri= intent.getStringExtra("animalImgUri")
         animalDescription = intent.getStringExtra("animalDescription")
+        animalId= intent.getIntExtra("id", 9999)
+        havePet = intent.getBooleanExtra("havePet", false)
+        adoptType = intent.getStringExtra("adoptType")
     }
 }

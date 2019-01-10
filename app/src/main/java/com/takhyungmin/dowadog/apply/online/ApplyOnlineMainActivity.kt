@@ -1,6 +1,5 @@
 package com.takhyungmin.dowadog.apply.online
 
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,15 +9,19 @@ import android.view.View
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.utils.CustomTypeSpan
 import kotlinx.android.synthetic.main.activity_apply_online_main.*
+import org.jetbrains.anko.startActivity
 
 class ApplyOnlineMainActivity : AppCompatActivity() {
 
+    var animalId = 9999
     override fun onCreate(savedInstanceState: Bundle?) {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_online_main)
+        animalId = intent.getIntExtra("id", 9999)
         init()
-        setBinding()
+        setBinding(animalId)
+
     }
 
     fun init(){
@@ -37,9 +40,9 @@ class ApplyOnlineMainActivity : AppCompatActivity() {
 //        layout_online_apply_main_process.layoutParams = params
     }
 
-    fun setBinding(){
+    fun setBinding(animalId : Int){
         btn_apply_online_main_write.setOnClickListener {
-            startActivity(Intent(this, ApplyOnlineFirstActivity::class.java))
+            startActivity<ApplyOnlineFirstActivity>("id" to animalId)
         }
     }
 }

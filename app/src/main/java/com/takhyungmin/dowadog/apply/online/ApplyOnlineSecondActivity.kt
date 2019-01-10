@@ -15,14 +15,20 @@ import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.ApplyOnlineThirdTempOrAdoptActivity
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.utils.CustomSingleResDialog
 import kotlinx.android.synthetic.main.activity_apply_online_second.*
 import org.jetbrains.anko.startActivity
 
 class ApplyOnlineSecondActivity : AppCompatActivity() {
 
+    private val customDialog : CustomSingleResDialog by lazy {
+        CustomSingleResDialog(ApplyOnlineThirdTempOrAdoptActivity@ this, "필수 사항을 입력해주세요",responseListener, "확인")
+    }
+
     var address : String = ""
     var job : String = ""
     var humanImgUri : String = ""
+    var animalId = 9999
 
     var animalImgUri : String = ""
 
@@ -30,6 +36,9 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
 
     val My_READ_STORAGE_REQUEST_CODE = 1111
     val REQ_CODE_SELECT_IMAGE = 88
+
+    var havePetFlag = false
+    var isSelect = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +53,9 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
             btn_online_apply_second_disagree_check.setImageResource(R.drawable.adopt_1step_check_grey)
             btn_online_apply_second_agree_check.setImageResource(R.drawable.adopt_1step_check_orange)
             layout_apply_second_input.visibility = View.VISIBLE
-            btn_apply_online_second_next.setBackgroundColor(Color.parseColor("#e2e2e2"))
+            btn_apply_online_second_next.setBackgroundColor(Color.parseColor("#ffc233"))
+            havePetFlag = true
+            isSelect = true
         }
 
         btn_online_apply_second_disagree_check.clicks().subscribe {
@@ -52,18 +63,29 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
             btn_online_apply_second_disagree_check.setImageResource(R.drawable.adopt_1step_check_orange)
             layout_apply_second_input.visibility = View.INVISIBLE
             btn_apply_online_second_next.setBackgroundColor(Color.parseColor("#ffc233"))
+            havePetFlag = false
+            isSelect = true
         }
 
         btn_apply_online_second_next.clicks().subscribe{
             if(et_animal_description.text.toString().length != 0){
-                animalDescription = et_animal_description.toString()
+                animalDescription = et_animal_description.text.toString()
             }
-            startActivity<ApplyOnlineThirdTempOrAdoptActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
-                    "animalDescription" to animalDescription, "animalImgUri" to animalImgUri)
+            if(isSelect == true){
+                startActivity<ApplyOnlineThirdTempOrAdoptActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
+                        "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "id" to animalId, "havePet" to havePetFlag)
+            }else {
+                customDialog.show()
+            }
+
         }
 
         layout_apply_second_frame.clicks().subscribe{
             requestReadExternalStoragePermission()
+        }
+
+        btn_apply_second_back_real.clicks().subscribe{
+            finish()
         }
     }
 
@@ -71,6 +93,7 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
         address = intent.getStringExtra("address")
         job = intent.getStringExtra("job")
         humanImgUri = intent.getStringExtra("humanImgUri")
+        animalId = intent.getIntExtra("id", 9999)
     }
 
     // 저장소 권한 확인
@@ -135,4 +158,5 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
     }
 
 
+    private val responseListener = View.OnClickListener { customDialog!!.dismiss() }
 }

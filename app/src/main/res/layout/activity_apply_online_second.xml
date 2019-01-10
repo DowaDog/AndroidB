@@ -17,6 +17,7 @@
         android:background="#FFFFFF"
         >
         <RelativeLayout
+            android:id="@+id/btn_apply_second_back_real"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
@@ -116,7 +117,7 @@
                         android:id="@+id/img_apply_second"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/pic1"
+                        android:src="@drawable/dog_profile_img"
                         />
                     
                     <de.hdodenhof.circleimageview.CircleImageView

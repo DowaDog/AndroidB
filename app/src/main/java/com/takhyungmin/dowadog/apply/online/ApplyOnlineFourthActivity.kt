@@ -1,7 +1,10 @@
 package com.takhyungmin.dowadog.apply.online
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,12 +13,27 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.takhyungmin.dowadog.BaseActivity
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.apply.online.model.ApplyOnlineFouthObject
+import com.takhyungmin.dowadog.dogdetail.model.post.PostDogDetailHeartResponse
 import com.takhyungmin.dowadog.home.activity.HomeActivity
+import com.takhyungmin.dowadog.presenter.activity.ApplyOnlineFouthActivityPresenter
+import com.takhyungmin.dowadog.presenter.activity.HomeActivityPresenter
+import com.takhyungmin.dowadog.utils.ApplicationData
 import com.takhyungmin.dowadog.utils.CustomSingleResDialog
 import kotlinx.android.synthetic.main.activity_apply_online_fourth.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.InputStream
 
 class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
+
+    lateinit var homeActivityPresenter : HomeActivityPresenter
+
+    private lateinit var applyOnlineFouthActivityPresenter : ApplyOnlineFouthActivityPresenter
 
     var check: Boolean = false
     var allCheck : Boolean = false
@@ -33,6 +51,12 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
     var tempPossiblePeriod = ""
 
     var economyAbility = ""
+
+    var animalId = 9999
+
+    var havePet = false
+
+    var adoptType = ""
 
     private var checkOneFlag : Int = 0
     private var checkTwoFlag = 0
@@ -241,13 +265,25 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
                     applyFourthCustomSingleResDialog.show()
                 }else {
 
-                    if(et_apply_online_fourth_act.text.toString().length == 0){
+                    if(et_apply_online_fourth_act.text.toString().length != 0){
                         economyAbility = et_apply_online_fourth_act.text.toString()
                     }
                     // ## 다음뷰로 넘어가기 위한 통신하기
                     Log.v("check","address : " + address + "job : " + job + " humanImgUri : " + humanImgUri + " animalImgUri : " + animalImgUri
-                    + " animalDescription : " + animalDescription + " tempPossiblePeriod : " + tempPossiblePeriod + " economyAbility : " + economyAbility)
-                    startActivity<HomeActivity>()
+                    + " animalDescription : " + animalDescription + " tempPossiblePeriod : " + tempPossiblePeriod + " economyAbility : " + economyAbility+ " animalId: " + animalId
+                    + " havePet : " + havePet + "  ")
+
+                    val selectedImageUri: Uri = Uri.parse(animalImgUri)
+                    val options = BitmapFactory.Options()
+                    var inputstream: InputStream? = contentResolver.openInputStream(selectedImageUri)  // here, you need to get your context.
+                    val bitmap = BitmapFactory.decodeStream(inputstream, null, options)
+                    val byteArrayOutputStream = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+                    val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
+
+                    var mimage = MultipartBody.Part.createFormData("animalImg", File(selectedImageUri.toString()).name, photoBody)
+                    applyOnlineFouthActivityPresenter.requestData(ApplicationData.userPhone, ApplicationData.userEmail, address, job, havePet,"online", animalDescription,
+                            adoptType, animalId, animalImg = mimage)
                 }
             }
         }
@@ -259,8 +295,16 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
         getIntentItem()
         // 클릭리스너 달아주기
         init()
+        initPresenter()
 
         setEditTextChangedListener()
+
+        Log.e("마지막", ApplicationData.userPhone + "    " + ApplicationData.userEmail + "    " + address + "    " +
+        job + "    " + havePet + "    " + animalDescription + "    " + adoptType + "    " + animalId + "    " +animalImgUri)
+
+        Log.e("마지막2", ApplicationData.userPhone + "    " + ApplicationData.userEmail + "     " + "address : " + address + "job : " + job + " humanImgUri : " + humanImgUri + " animalImgUri : " + animalImgUri
+                + " animalDescription : " + animalDescription + " tempPossiblePeriod : " + tempPossiblePeriod + " economyAbility : " + economyAbility+ " animalId: " + animalId
+                + " havePet : " + havePet + "  " + " adoptType : " + adoptType)
     }
 
     private fun downKeyboard(view: View){
@@ -323,6 +367,20 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
         animalImgUri= intent.getStringExtra("animalImgUri")
         animalDescription = intent.getStringExtra("animalDescription")
         tempPossiblePeriod = intent.getStringExtra("tempPossiblePeriod")
+        animalId = intent.getIntExtra("id", 9999)
+        havePet = intent.getBooleanExtra("havePet", false)
+        adoptType = intent.getStringExtra("adoptType")
+    }
+
+    fun responseData(data : PostDogDetailHeartResponse){
+        Log.v("check", data.toString())
+        startActivity<HomeActivity>()
+    }
+
+    fun initPresenter(){
+        applyOnlineFouthActivityPresenter = ApplyOnlineFouthActivityPresenter()
+        applyOnlineFouthActivityPresenter.view = this
+        ApplyOnlineFouthObject.applyOnlineFouthActivityPresenter = applyOnlineFouthActivityPresenter
     }
 
 }

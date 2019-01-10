@@ -21,6 +21,10 @@ class ApplyOnlineThirdTempOrAdoptActivity : BaseActivity(), View.OnClickListener
 
     var animalDescription = ""
 
+    var animalId = 9999
+
+    var havePet = false
+
     private var isTempProtection : Int = 0
 
     private var isAdopt : Int = 0
@@ -92,10 +96,10 @@ class ApplyOnlineThirdTempOrAdoptActivity : BaseActivity(), View.OnClickListener
                     // 다음으로 넘어가기
                     if(isAdopt == 1){
                         startActivity<ApplyOnlineThirdSelectAdoptActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
-                                "animalDescription" to animalDescription, "animalImgUri" to animalImgUri)
+                                "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "id" to animalId, "havePet" to havePet, "adoptType" to "adopt")
                     }else {
                         startActivity<ApplyOnlineThirdSelectTempActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
-                                "animalDescription" to animalDescription, "animalImgUri" to animalImgUri)
+                                "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "id" to animalId, "havePet" to havePet, "adoptType" to "temp")
                     }
                 }
 
@@ -131,6 +135,8 @@ class ApplyOnlineThirdTempOrAdoptActivity : BaseActivity(), View.OnClickListener
         humanImgUri = intent.getStringExtra("humanImgUri")
         animalImgUri= intent.getStringExtra("animalImgUri")
         animalDescription = intent.getStringExtra("animalDescription")
+        animalId = intent.getIntExtra("id", 9999)
+        havePet = intent.getBooleanExtra("havePet", false)
     }
 
 }

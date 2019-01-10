@@ -21,7 +21,13 @@ class ApplyOnlineThirdSelectTempActivity : BaseActivity(), View.OnClickListener 
 
     var animalDescription = ""
 
+    var animalId = 9999
+
+    var havePet = false
+
     var tempPossiblePeriod = ""
+
+    var adoptType = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_online_third_select_temp)
@@ -70,7 +76,8 @@ class ApplyOnlineThirdSelectTempActivity : BaseActivity(), View.OnClickListener 
                         tempPossiblePeriod = et_apply_online_third_select_temp_act.text.toString()
                     }
                     startActivity<ApplyOnlineFourthActivity>("address" to address, "job" to job, "humanImgUri" to humanImgUri,
-                            "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "tempPossiblePeriod" to tempPossiblePeriod)
+                            "animalDescription" to animalDescription, "animalImgUri" to animalImgUri, "tempPossiblePeriod" to tempPossiblePeriod
+                    , "id" to animalId, "havePet" to havePet, "adoptType" to adoptType)
                 }
             }
 
@@ -127,6 +134,9 @@ class ApplyOnlineThirdSelectTempActivity : BaseActivity(), View.OnClickListener 
         humanImgUri = intent.getStringExtra("humanImgUri")
         animalImgUri= intent.getStringExtra("animalImgUri")
         animalDescription = intent.getStringExtra("animalDescription")
+        animalId= intent.getIntExtra("id", 9999)
+        havePet = intent.getBooleanExtra("havePet", false)
+        adoptType = intent.getStringExtra("adoptType")
     }
 
 }

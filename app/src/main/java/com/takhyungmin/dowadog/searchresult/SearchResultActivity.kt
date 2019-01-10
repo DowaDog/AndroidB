@@ -1,5 +1,6 @@
 package com.takhyungmin.dowadog.searchresult
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.widget.NestedScrollView
@@ -32,6 +33,11 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
 
     var remainDate : Int = 300
 
+    var isDog : Int = 999
+
+    var isCat : Int = 999
+
+    var areaNum : Int = 999
 
 
     lateinit var searchFilterResultResponse: ccc
@@ -60,10 +66,11 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
 
-        var isDog = intent.getIntExtra("isDog", 9999)
-        var isCat = intent.getIntExtra("isCat", 9999)
-        var areaNum = intent.getIntExtra("areaNum", 9999)
+        isDog = intent.getIntExtra("isDog", 9999)
+        isCat = intent.getIntExtra("isCat", 9999)
+        areaNum = intent.getIntExtra("areaNum", 9999)
         remainDate = intent.getIntExtra("remainDate", 9999)
+
         if (remainDate >= 15 ){
             remainDate = 300
         }
@@ -80,6 +87,89 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
                 경상 = 7
                 제주 = 8*/
 
+        setFilterRequest(isDog, isCat, areaNum)
+    }
+
+    private fun init() {
+        tv_keyword_search_act.text = "필터 검색 결과"
+        tv_temp_search_act.text = ""
+        btn_back_search_result_act.setOnClickListener(this)
+        nested_scroll_search_result_act.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            Log.v("scroll", "scroll")
+            if (scrollY == ( v.getChildAt(0).height - v.height )) {
+                //scroll in bottom
+                Log.v("scroll", "bottom")
+                if (!isLoading and !isLast) {
+                    //isLast = 스크롤의 마지막이 아니라 전체 아이템 중 마지
+                    isLoading = true
+                    Log.v("scroll", currentPage.toString())
+                    currentPage++
+                    Handler().postDelayed(Runnable {
+                        //communityFragmentPresenter.nextPage(currentPage, itemCount)
+                        Log.v("scroll", "more")
+                        searchResultActivityPresenter.responseData(type, region, remainDate, currentPage, 10)
+                    }, 800)
+                }
+            }
+
+        })
+    }
+
+    private fun setRVAdapter(dataList: ArrayList<Content>) {
+        //animalItem.add(UrgentAnimalData("D-3","", "","","[인천] 러시안 블루" ))
+
+        requestManager = Glide.with(this)
+        searchResultAdapter = SearchResultAdapter(this, dataList, requestManager)
+        rv_search_result_act.adapter = searchResultAdapter
+        rv_search_result_act.layoutManager = GridLayoutManager(this, 2)
+    }
+
+    fun requestResultData(type: String, region: String, remainDate: Int, page: Int, limit: Int) {
+        Log.v("TAGGG234", "type :" + type + "region :" + region + "remainDate :" +  remainDate + "page :" + page + "limit :" + limit)
+        searchResultActivityPresenter.responseData(type, region, remainDate, page, limit)
+    }
+
+    fun responseData(data: ccc) {
+        data?.let {
+            searchFilterResultResponse = data
+            Log.v("TAGGG", searchFilterResultResponse.toString())
+            setRVAdapter(searchFilterResultResponse.data.content)
+            if(data.data.content.size<= 0){
+                rl_no_search_result_act.visibility = View.VISIBLE
+                nested_scroll_search_result_act.visibility = View.GONE
+            }else {
+                rl_no_search_result_act.visibility = View.GONE
+                nested_scroll_search_result_act.visibility = View.VISIBLE
+            }
+
+        }
+    }
+
+    private fun initPresenter() {
+        searchResultActivityPresenter = SearchResultActivityPresenter()
+        // 뷰 붙여주는 작엄
+        searchResultActivityPresenter.view = this
+        SearchResultObject.searchResultActivityPresenter = searchResultActivityPresenter
+    }
+
+    fun loadNextPage(results : ArrayList<Content>){
+        Log.v("scroll", "add")
+        searchResultAdapter.addAll(results)
+        //currentPage += 1
+        isLoading = false
+        if (currentPage >= TOTAL_PAGE)
+            isLast = true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 2004){
+            Log.v("check", "다녀옴")
+            setFilterRequest(isDog, isCat, areaNum)
+        }
+    }
+
+    fun setFilterRequest(isDog : Int, isCat : Int, areaNum : Int){
         if (isDog == 0 && isCat == 0) {
             type = ""
             when (areaNum) {
@@ -201,76 +291,5 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
                 }
             }
         }
-    }
-
-    private fun init() {
-        tv_keyword_search_act.text = "필터 검색 결과"
-        tv_temp_search_act.text = ""
-        btn_back_search_result_act.setOnClickListener(this)
-        nested_scroll_search_result_act.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
-            Log.v("scroll", "scroll")
-            if (scrollY == ( v.getChildAt(0).height - v.height )) {
-                //scroll in bottom
-                Log.v("scroll", "bottom")
-                if (!isLoading and !isLast) {
-                    //isLast = 스크롤의 마지막이 아니라 전체 아이템 중 마지
-                    isLoading = true
-                    Log.v("scroll", currentPage.toString())
-                    currentPage++
-                    Handler().postDelayed(Runnable {
-                        //communityFragmentPresenter.nextPage(currentPage, itemCount)
-                        Log.v("scroll", "more")
-                        searchResultActivityPresenter.responseData(type, region, remainDate, currentPage, 10)
-                    }, 800)
-                }
-            }
-
-        })
-    }
-
-    private fun setRVAdapter(dataList: ArrayList<Content>) {
-        //animalItem.add(UrgentAnimalData("D-3","", "","","[인천] 러시안 블루" ))
-
-        requestManager = Glide.with(this)
-        searchResultAdapter = SearchResultAdapter(this, dataList, requestManager)
-        rv_search_result_act.adapter = searchResultAdapter
-        rv_search_result_act.layoutManager = GridLayoutManager(this, 2)
-    }
-
-    fun requestResultData(type: String, region: String, remainDate: Int, page: Int, limit: Int) {
-        Log.v("TAGGG234", "type :" + type + "region :" + region + "remainDate :" +  remainDate + "page :" + page + "limit :" + limit)
-        searchResultActivityPresenter.responseData(type, region, remainDate, page, limit)
-    }
-
-    fun responseData(data: ccc) {
-        data?.let {
-            searchFilterResultResponse = data
-            Log.v("TAGGG", searchFilterResultResponse.toString())
-            setRVAdapter(searchFilterResultResponse.data.content)
-            if(data.data.content.size<= 0){
-                rl_no_search_result_act.visibility = View.VISIBLE
-                nested_scroll_search_result_act.visibility = View.GONE
-            }else {
-                rl_no_search_result_act.visibility = View.GONE
-                nested_scroll_search_result_act.visibility = View.VISIBLE
-            }
-
-        }
-    }
-
-    private fun initPresenter() {
-        searchResultActivityPresenter = SearchResultActivityPresenter()
-        // 뷰 붙여주는 작엄
-        searchResultActivityPresenter.view = this
-        SearchResultObject.searchResultActivityPresenter = searchResultActivityPresenter
-    }
-
-    fun loadNextPage(results : ArrayList<Content>){
-        Log.v("scroll", "add")
-        searchResultAdapter.addAll(results)
-        //currentPage += 1
-        isLoading = false
-        if (currentPage >= TOTAL_PAGE)
-            isLast = true
     }
 }

@@ -60,6 +60,10 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         CustomThanksDogDialog(this@DogDetailActivity, "공유가 완료되었습니다.", View.OnClickListener { shareThanksDialog.dismiss() }, "확인")
     }
 
+    val likeThanksDialog: CustomThanksDogDialog by lazy {
+        CustomThanksDogDialog(this@DogDetailActivity, "관심동물에 등록되었습니다.", View.OnClickListener { likeThanksDialog.dismiss() }, "확인")
+    }
+
     override fun onClick(v: View?) {
         when (v) {
 
@@ -80,6 +84,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
                     isLike = 1
                     // 좋아요 통신
                     dogDetailActivityPresenter.requestHeartData(animalId)
+                    likeThanksDialog.show()
                 } else {
                     iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_line_icon)
                     isLike = 0
@@ -116,10 +121,8 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
             if(ApplicationData.auth == "")
                 logoutCustomDialog.show()
             else{
-                // TODO : 왜 Intent가 안넘아가는지 확인
-
                 if(educationState){
-                    startActivity<AdoptActivity>("num" to careTel, "spotName" to careName)
+                    startActivity<AdoptActivity>("num" to careTel, "spotName" to careName, "id" to animalId)
                     Log.v("check","ToAdoptAct num : "+ careTel + " soptName " + careName)
                 }else{
                     completeDogDialog.show()
@@ -239,6 +242,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun responseData(data : GetDogDetailResponse){
+
         data?.data?.also {
             initView(it)
 
@@ -250,6 +254,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun initView(data: GetDogDetailData){
+        Log.v("1231312", data.id.toString())
         Glide.with(this@DogDetailActivity).load(data.thumbnailImg).into(iv_top_dog_dog_detail_act)
 
         data.region?.let {
@@ -290,11 +295,22 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         // HM
-        data.animalStoryList?.let {
+        data.animalStoryListAos?.let {
             if (it.size > 0) {
+                Log.v("123123123", "!23123123")
                 it[0]?.let {
-                    Glide.with(this@DogDetailActivity).load(it[0]).into(iv_my_story_dog_detail_act)
+                    Log.v("123123123", it)
+                    Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act1)
                 }
+                it[1]?.let {
+                    Log.v("123123123", it)
+                    Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act2)
+                }
+                it[2]?.let {
+                    Log.v("123123123", it)
+                    Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act3)
+                }
+
             }
         }
 
