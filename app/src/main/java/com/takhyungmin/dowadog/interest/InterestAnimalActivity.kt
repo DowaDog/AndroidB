@@ -18,9 +18,6 @@ import com.takhyungmin.dowadog.interest.model.get.GETInterestAnimalResponse
 import com.takhyungmin.dowadog.mypage.model.Data
 import com.takhyungmin.dowadog.presenter.activity.InterestAnimalActivityPresenter
 import kotlinx.android.synthetic.main.activity_interest_animal.*
-import kotlinx.android.synthetic.main.activity_mypage.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
 
 class InterestAnimalActivity : BaseActivity(), View.OnClickListener {
 
@@ -83,11 +80,11 @@ class InterestAnimalActivity : BaseActivity(), View.OnClickListener {
 
         //var interestAnimalAdapter = InterestAnimalAdapter(this, animalItem)
 
-       // rv_interest_ani_act.adapter = interestAnimalAdapter
+        // rv_interest_ani_act.adapter = interestAnimalAdapter
         //rv_interest_ani_act.layoutManager = GridLayoutManager(this, 2)
     }
 
-    fun initView(contentsEduDetailItems : ArrayList<GETInterestAnimalResponse>){
+    fun initView(contentsEduDetailItems: ArrayList<GETInterestAnimalResponse>) {
         requestManager = Glide.with(this)
         //contentsEduDetailRvAdapter = ContentsEduDetailRvAdapter(contentsEduDetailItems, requestManager)
         rv_interest_ani_act.layoutManager = LinearLayoutManager(this)
@@ -100,16 +97,21 @@ class InterestAnimalActivity : BaseActivity(), View.OnClickListener {
 
             requestManager = Glide.with(this)
             InterestAnimalAdapter = InterestAnimalAdapter(this, data.data, requestManager)
-            rv_interest_ani_act.layoutManager = GridLayoutManager(this,2)
+            rv_interest_ani_act.layoutManager = GridLayoutManager(this, 2)
             rv_interest_ani_act.adapter = InterestAnimalAdapter
         }
     }
 
-    fun animalDetailResponseData(id : Int) {
+    fun animalDetailResponseData(id: Int) {
 
-        var intent = Intent(this, DogDetailActivity::class.java)
-        intent.putExtra("id", id)
-        startActivity(intent)
+//        var intent = Intent(this, DogDetailActivity::class.java)
+//        intent.putExtra("animalId", id)
+//        startActivity(intent)
+
+        var intent = Intent(this@InterestAnimalActivity, DogDetailActivity::class.java)
+        intent.putExtra("animalId", id)
+        startActivityForResult(intent, 6900)
+
 
         //startActivity<DogDetailActivity>("id" to Int)
     }
@@ -123,6 +125,13 @@ class InterestAnimalActivity : BaseActivity(), View.OnClickListener {
         InterestAnimalObject.interestAnimalActivityPresenter = interestAnimalActivityPresenter
 
         Log.v("TAGG", "Interest Animal 엑티비티 이닛프레젠터")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 6900) {
+            interestAnimalActivityPresenter.requestData()
+        }
     }
 
 }

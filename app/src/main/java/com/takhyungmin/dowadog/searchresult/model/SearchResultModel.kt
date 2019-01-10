@@ -37,12 +37,9 @@ class SearchResultModel {
                         ?.let {
                             when (page) {
                                 0 -> {
-                                    Log.v("TAGGG234", "type :" + type + " region :" + region + " remainNoticeDate :" + remainNoticeDate + " page :" + page + " limit :" + limit)
-                                    Log.v("TAGGG234", it.data.content[0].id.toString())
                                     SearchResultObject.searchResultActivityPresenter.requestData(it)
                                 }
                                 else -> {
-                                    Log.v("TAGGG23410101010", "type :" + type + "region :" + region + " remainNoticeDate :" + remainNoticeDate + " page :" + page + " limit :" + limit)
                                     SearchResultObject.searchResultActivityPresenter.responseMoreSearchResultList(it.data.content)
                                 }
                             }

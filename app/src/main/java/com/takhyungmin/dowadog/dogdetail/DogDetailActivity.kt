@@ -32,9 +32,9 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
     private var islinkShare = 0
 
 
-    lateinit var dogDetailActivityPresenter : DogDetailActivityPresenter
+    lateinit var dogDetailActivityPresenter: DogDetailActivityPresenter
 
-    var animalId : Int = 0
+    var animalId: Int = 0
 
     var educationState = true
 
@@ -118,13 +118,13 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         btn_heart_dog_detail_act.setOnClickListener(this)
         btn_adopt_dog_detail_act.clicks().subscribe {
 
-            if(ApplicationData.auth == "")
+            if (ApplicationData.auth == "")
                 logoutCustomDialog.show()
-            else{
-                if(educationState){
+            else {
+                if (educationState) {
                     startActivity<AdoptActivity>("num" to careTel, "spotName" to careName, "id" to animalId)
-                    Log.v("check","ToAdoptAct num : "+ careTel + " soptName " + careName)
-                }else{
+                    Log.v("check", "ToAdoptAct num : " + careTel + " soptName " + careName)
+                } else {
                     completeDogDialog.show()
                 }
 
@@ -134,8 +134,8 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    val logoutCustomDialog : CustomDialog  by lazy {
-        CustomDialog(this, "로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?", responseRight, responseLeft,"취소", "확인")
+    val logoutCustomDialog: CustomDialog  by lazy {
+        CustomDialog(this, "로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?", responseRight, responseLeft, "취소", "확인")
     }
 
     private val responseRight = View.OnClickListener {
@@ -241,7 +241,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         DogDetailObject.dogDetailActivityPresenter = dogDetailActivityPresenter
     }
 
-    fun responseData(data : GetDogDetailResponse){
+    fun responseData(data: GetDogDetailResponse) {
 
         data?.data?.also {
             initView(it)
@@ -253,7 +253,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun initView(data: GetDogDetailData){
+    fun initView(data: GetDogDetailData) {
         Log.v("1231312", data.id.toString())
         Glide.with(this@DogDetailActivity).load(data.thumbnailImg).into(iv_top_dog_dog_detail_act)
 
@@ -267,11 +267,11 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
             tv_description_dog_detail_act.text = it
         }
 
-        data.sexCd?.let{
-            if(it == "M") {
+        data.sexCd?.let {
+            if (it == "M") {
                 iv_sex_dog_detail_act.setImageResource(R.drawable.findingdetail_woman_icon)
                 tv_sex_dog_detail_act.text = "남아"
-            }else {
+            } else {
                 iv_sex_dog_detail_act.setImageResource(R.drawable.findingdetail_man_icon)
                 tv_sex_dog_detail_act.text = "여아"
             }
@@ -279,9 +279,9 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
 
 
         data.type?.let {
-            if(it == "개"){
+            if (it == "개") {
                 iv_dog_or_cat_dog_detail_act.setImageResource(R.drawable.findingdetail_dog_icon)
-            }else {
+            } else {
                 iv_dog_or_cat_dog_detail_act.setImageResource(R.drawable.findingdetail_cat_icon)
             }
         }
@@ -298,23 +298,41 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         data.animalStoryListAos?.let {
             if (it.size > 0) {
                 Log.v("123123123", "!23123123")
-                it[0]?.let {
-                    Log.v("123123123", it)
-                    Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act1)
-                }
-                it[1]?.let {
-                    Log.v("123123123", it)
-                    Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act2)
-                }
-                it[2]?.let {
-                    Log.v("123123123", it)
-                    Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act3)
-                }
 
+                if (it.size == 1) {
+                    it[0]?.let {
+                        Log.v("123123123", it)
+                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act1)
+                    }
+                }
+                else if (it.size == 2){
+                    it[0]?.let {
+                        Log.v("123123123", it)
+                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act1)
+                    }
+                    it[1]?.let {
+                        Log.v("123123123", it)
+                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act2)
+                    }
+                }
+                else if (it.size == 3) {
+                    it[0]?.let {
+                        Log.v("123123123", it)
+                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act1)
+                    }
+                    it[1]?.let {
+                        Log.v("123123123", it)
+                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act2)
+                    }
+                    it[2]?.let {
+                        Log.v("123123123", it)
+                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act3)
+                    }
+                }
             }
         }
 
-        if (data.noticeEddt != null && data.noticeStdt != null){
+        if (data.noticeEddt != null && data.noticeStdt != null) {
             tv_term_dog_detail_act.text = data.noticeStdt.replace("-", ".") + " - " + data.noticeEddt.replace("-", ".")
             val now = System.currentTimeMillis()
             val date = Date(now)
@@ -337,13 +355,13 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
             tv_protect_spot_dog_detail_act.text = it
         }
 
-        data.careTel?.let{
+        data.careTel?.let {
             tv_protect_spot_telephone_num_dog_detail_act.text = it
         }
 
-        if(data.liked == true){
+        if (data.liked == true) {
             iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_full_icon)
-        }else {
+        } else {
             iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_line_icon)
         }
     }

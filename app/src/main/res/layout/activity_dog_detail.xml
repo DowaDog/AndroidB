@@ -369,7 +369,7 @@
                 <TextView
                     android:id="@+id/tv_protect_spot_telephone_num_dog_detail_act"
                     android:layout_below="@+id/tv_protect_spot_dog_detail_act"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="02) 000-0000"
@@ -386,22 +386,20 @@
                 android:id="@+id/iv_my_story_dog_detail_act1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="72dp"
                 android:scaleType="fitXY"
                 />
             <ImageView
                 android:id="@+id/iv_my_story_dog_detail_act2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="72dp"
                 android:scaleType="fitXY"
                 />
             <ImageView
                 android:id="@+id/iv_my_story_dog_detail_act3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="72dp"
                 android:scaleType="fitXY"
+                android:layout_marginBottom="72dp"
                 />
         </LinearLayout>
 
