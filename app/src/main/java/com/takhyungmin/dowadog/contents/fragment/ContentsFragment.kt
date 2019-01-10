@@ -37,7 +37,7 @@ class ContentsFragment : Fragment(){
             val tabAdapter = ContentsAdapter(childFragmentManager)
 
             vp_contents.adapter = tabAdapter
-            vp_contents.currentItem = 0
+            vp_contents.currentItem = ContentsObject.current
             vp_contents.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_contents))
 
 

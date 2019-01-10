@@ -121,7 +121,9 @@ class CommunityFragment : Fragment() {
         communityAdapter.addAll(results)
         //currentPage += 1
         isLoading = false
-        if (pagingCount > results.size)
+        if (pagingCount > results.size){
+            progress_community_main.visibility = View.GONE
             isLast = true
+        }
     }
 }

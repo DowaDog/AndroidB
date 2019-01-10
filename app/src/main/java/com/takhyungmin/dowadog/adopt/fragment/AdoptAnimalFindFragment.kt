@@ -129,6 +129,7 @@ class AdoptAnimalFindFragment : Fragment() {
         isLoading = false
         if (pagingCount > results.size) {
             isLast = true
+            progress_community_adopt_maind.visibility = View.GONE
             //rv_urgent_ani_act.stopScroll()
         }
     }

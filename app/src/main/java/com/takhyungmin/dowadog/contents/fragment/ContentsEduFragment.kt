@@ -44,11 +44,14 @@ class ContentsEduFragment : Fragment(){
     }
 
     var num = 0
-    fun toDetail(id : Int, num : Int, image : String){
+    fun toDetail(id : Int, num : Int, image : String, edu : Boolean, scrap : Boolean){
         val intent = Intent(context, ContentsEduDetailActivity::class.java)
         intent.putExtra("id", id)
         intent.putExtra("num", num)
         intent.putExtra("image", image)
+        intent.putExtra("edu", edu)
+        intent.putExtra("scrap", scrap)
+
         activity!!.startActivity(intent)
     }
 

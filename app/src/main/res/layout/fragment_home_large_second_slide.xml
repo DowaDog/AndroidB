@@ -24,7 +24,7 @@
             android:textColor="#707070"
             android:lineSpacingExtra="13sp"
             android:gravity="center_horizontal"
-            android:text="@string/home_slide_second_1"
+            android:text=""
             />
 
         <TextView

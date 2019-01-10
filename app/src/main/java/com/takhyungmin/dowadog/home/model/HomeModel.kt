@@ -4,6 +4,7 @@ import android.util.Log
 import com.takhyungmin.dowadog.home.HomeObject
 import com.takhyungmin.dowadog.home.fragment.*
 import com.takhyungmin.dowadog.home.model.get.GetDuplicateResponse
+import com.takhyungmin.dowadog.home.model.get.GetFragmentData
 import com.takhyungmin.dowadog.home.model.get.GetFragmentResponse
 import com.takhyungmin.dowadog.home.model.get.GetUserInfoResponse
 import com.takhyungmin.dowadog.utils.ApplicationData
@@ -65,7 +66,7 @@ class HomeModel {
                 if(response.isSuccessful){
 
                     Observable.just(response.body()!!.data)
-                            .subscribe { it -> changeFragment(it.view, it.userCheck) }
+                            .subscribe { it -> changeFragment(it) }
                     //HomeObject.homeFragmentPresenter.init(response.body()!!.data.view)
                 }
             }
@@ -73,11 +74,10 @@ class HomeModel {
         })
     }
 
-    val changeFragment = { view : String, check : Boolean ->
-        when(view){
+    val changeFragment = { it : GetFragmentData ->
+        when(it.view){
             "NO"->{
                 Log.v("success", "in")
-
                 HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentLargeFristSlide())
                 //HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentLargeSecondSlide())
                 //HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentFirstSlide())
@@ -88,25 +88,31 @@ class HomeModel {
                 //HomeFragmentLargeFristSlide == NO
             }
             "S0"->{
-                HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentLargeSecondSlide())
-            }
-            "S1"->{
                 HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentFirstSlide())
             }
-            "S2"->{
+            "S1"->{
                 HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentSecondSlide())
             }
-            "S3"->{
+            "S2"->{
                 HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentThirdSlide())
+                if(it.time == null)
+                    HomeObject.date = ""
+                if(it.place == null)
+                    HomeObject.place = ""
+                //3-1
+            }
+            "S3"->{
+                HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentFourthSlide())
+                //3-2
             }
             "COMPLETE"->{
-                HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentFourthSlide())
-            }
-            "DENY"->{
                 HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentFifthSlide())
             }
+            "DENY"->{
+                HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentLargeSecondSlide())
+            }
         }
-        HomeObject.homeFragmentPresenter.changeCheck(check)
+        HomeObject.homeFragmentPresenter.changeCheck(it.userCheck)
 
         //입양 안했을 때(단계시작전) : NO
         //main 1단계 입양신청 : S0

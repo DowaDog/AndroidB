@@ -16,10 +16,6 @@ import kotlinx.android.synthetic.main.fragment_home_large_second_slide.*
 class HomeFragmentLargeSecondSlide : Fragment(){
 
     lateinit var homeFragmentLargeSecondSlidePresenter: HomeFragmentLargeSecondSlidePresenter
-    var currentPage = 0
-
-    val DELAY_MS: Long = 500//delay in milliseconds before task is to be executed
-    val PERIOD_MS: Long = 3000
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home_large_second_slide, container, false)
     }
@@ -43,10 +39,10 @@ class HomeFragmentLargeSecondSlide : Fragment(){
         val font2 = Typeface.createFromAsset(activity!!.assets, "nanum_square_light.ttf")
 
         val ssb = SpannableStringBuilder("입양이\n승인되지 않았습니다.")
-        ssb.setSpan(CustomTypeSpan("", font1), 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
-        ssb.setSpan(CustomTypeSpan("", font2), 2, 2, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
-        ssb.setSpan(CustomTypeSpan("", font1), 3, 4, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
-        ssb.setSpan(CustomTypeSpan("", font2), 5, "입양이\n승인되지 않았습니다.".length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
+        ssb.setSpan(CustomTypeSpan("", font1), 0, 2, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
+        ssb.setSpan(CustomTypeSpan("", font2), 2, 3, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
+        ssb.setSpan(CustomTypeSpan("", font1), 4, 6, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
+        ssb.setSpan(CustomTypeSpan("", font2), 6, "입양이\n승인되지 않았습니다.".length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
 
         tv_home_fragment_slide_text.text = ssb
 

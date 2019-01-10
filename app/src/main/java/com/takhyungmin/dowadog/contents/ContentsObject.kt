@@ -6,6 +6,7 @@ import com.takhyungmin.dowadog.presenter.fragment.ContentsSenseFragmentPresenter
 object ContentsObject {
     var isCreated = false
     var position = 0
+    var current = 0
     lateinit var contentsEduFragmentPresenter: ContentsEduFragmentPresenter
     lateinit var contentsSenseFragmentPresenter: ContentsSenseFragmentPresenter
 }

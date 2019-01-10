@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.contents.ContentsObject
 import com.takhyungmin.dowadog.contents.adapter.ContentsSenseDetailRvAdapter
 import com.takhyungmin.dowadog.contents.model.ContentsSenseDetailObject
 import com.takhyungmin.dowadog.contents.model.get.ContentSenseDetailResponse
@@ -19,7 +20,6 @@ import com.takhyungmin.dowadog.login.LoginActivity
 import com.takhyungmin.dowadog.presenter.activity.ContentsSenseDetailActivityPresenter
 import com.takhyungmin.dowadog.utils.ApplicationData
 import com.takhyungmin.dowadog.utils.CustomDialog
-import kotlinx.android.synthetic.main.activity_contents_edu_detail.*
 import kotlinx.android.synthetic.main.activity_contents_sense_detail.*
 
 class ContentsSenseDetailActivity : AppCompatActivity() {
@@ -47,11 +47,13 @@ class ContentsSenseDetailActivity : AppCompatActivity() {
     private fun init(){
         contentsSenseDetailActivityPresenter = ContentsSenseDetailActivityPresenter()
         contentsSenseDetailActivityPresenter.view = this
+        ContentsObject.current = 1
 
 
         id = intent.getIntExtra("id", 27)
         contentsSenseDetailActivityPresenter.requestData(id)
-        //contentsSenseDetailActivityPresenter.initView()
+
+        responseScrap(intent.getBooleanExtra("scrap", false))
         setScrollListener()
         initPresenter()
     }
@@ -151,14 +153,14 @@ class ContentsSenseDetailActivity : AppCompatActivity() {
             if(ApplicationData.auth == "")
                 logoutCustomDialog.show()
             else
-                contentsSenseDetailActivityPresenter.requestScrap(id)
+                contentsSenseDetailActivityPresenter.requestSenseScrap(id)
         }
 
         btn_contents_sense_detail_scrap2.clicks().subscribe {
             if(ApplicationData.auth == "")
                 logoutCustomDialog.show()
             else
-                contentsSenseDetailActivityPresenter.requestScrap(id)
+                contentsSenseDetailActivityPresenter.requestSenseScrap(id)
         }
     }
 
@@ -179,10 +181,10 @@ class ContentsSenseDetailActivity : AppCompatActivity() {
     fun responseScrap(clear : Boolean){
         if(!clear){
             btn_contents_sense_detail_scrap1_1.setImageResource(R.drawable.contents_scrap_btn)
-            btn_contents_edu_detail_scrap2_1.setImageResource(R.drawable.contents_scrap_btn)
+            btn_contents_sense_detail_scrap2_1.setImageResource(R.drawable.contents_scrap_btn)
         }else{
-            btn_contents_edu_detail_scrap1_1.setImageResource(R.drawable.contents_unscrap_btn)
-            btn_contents_edu_detail_scrap2_1.setImageResource(R.drawable.contents_unscrap_btn)
+            btn_contents_sense_detail_scrap1_1.setImageResource(R.drawable.contents_unscrap_btn)
+            btn_contents_sense_detail_scrap2_1.setImageResource(R.drawable.contents_unscrap_btn)
         }
     }
 

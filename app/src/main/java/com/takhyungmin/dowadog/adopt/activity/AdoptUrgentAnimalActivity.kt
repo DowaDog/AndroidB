@@ -3,6 +3,7 @@ package com.takhyungmin.dowadog.adopt.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
@@ -10,7 +11,6 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.jakewharton.rxbinding2.view.clicks
-import com.jakewharton.rxbinding2.view.scrollChangeEvents
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.adopt.AdoptObject
 import com.takhyungmin.dowadog.adopt.adapter.UrgentAnimalAdapter
@@ -64,8 +64,12 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
         rv_urgent_ani_act.adapter = urgentAnimalAdapter
         rv_urgent_ani_act.layoutManager = GridLayoutManager(this, 2)
 
-        rv_urgent_ani_act.scrollChangeEvents().subscribe {
-            if(!rv_urgent_ani_act.canScrollVertically(1)){
+        scroll_urgent_adopt_frame.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            Log.v("scroll", "scroll")
+            if (scrollY == ( v.getChildAt(0).height - v.height )) {
+                //scroll in bottom
+                Log.v("scroll", "bottom")
+
                 if (!isLoading and !isLast) {
                     isLoading = true
                     Log.v("scroll", currentPage.toString())
@@ -73,15 +77,11 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
                     Handler().postDelayed(Runnable {
                         //communityFragmentPresenter.nextPage(currentPage, itemCount)
                         Log.v("scroll", "more")
-                        if(flag == 0)
-                            adoptUrgentAnimalActivityPresenter.requestUrgentList(currentPage, pagingCount)
-                        else
-                            adoptUrgentAnimalActivityPresenter.requestStoryAnimalList(currentPage, pagingCount)
+                        adoptUrgentAnimalActivityPresenter.requestUrgentList(currentPage, pagingCount)
                     }, 800)
                 }
             }
-        }
-
+        })
 //        rv_urgent_ani_act.addOnScrollListener(object : RecyclerView.OnScrollListener(){
 //            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 //                super.onScrolled(recyclerView, dx, dy)
@@ -107,6 +107,7 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
         urgentAnimalAdapter.addAll(results)
         isLoading = false
         if (pagingCount > results.size) {
+            progress_community_adopt_urgent.visibility = View.GONE
             isLast = true
         }
     }
