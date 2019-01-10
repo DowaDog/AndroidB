@@ -9,8 +9,11 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.adoptedanimal.model.AdoptedAnimalObject
+import com.takhyungmin.dowadog.adoptedanimal.model.get.Data
+import com.takhyungmin.dowadog.interest.model.InterestAnimalObject
 
-class AdoptedAnimalAdapter(var ctx: Context, var dataList: ArrayList<AdoptedAnmalAdapterData>): RecyclerView.Adapter<AdoptedAnimalAdapter.AdoptedAnimalViewHolder>() {
+class AdoptedAnimalAdapter(var ctx: Context, var dataList: ArrayList<Data>): RecyclerView.Adapter<AdoptedAnimalAdapter.AdoptedAnimalViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): AdoptedAnimalViewHolder {
         var v : View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_mypage_act, p0, false)
@@ -23,16 +26,33 @@ class AdoptedAnimalAdapter(var ctx: Context, var dataList: ArrayList<AdoptedAnma
 
         holder.name.text = dataList[position].name
         holder.kind.text = dataList[position].kind
-        holder.age.text = dataList[position].age.toString()
-        holder.sex.text = dataList[position].sex
+        holder.age.text = dataList[position].age.toString() + "살"
 
-        if (dataList[position].isDog == 0){
-            holder.dogOrCatIconimg.setImageResource(R.drawable.mypage_adopt_cat_img)
-        }else {
-            holder.dogOrCatIconimg.setImageResource(R.drawable.mypage_adopt_dog_img)
+        if(dataList[position].gender == "M")
+        {
+            holder.sex.text = "수컷"
         }
+        else{
+            holder.sex.text = "암컷"
+        }
+
+        if (dataList[position].animalType == "개"){
+            holder.dogOrCatIconimg.setImageResource(R.drawable.dog_icon_1227)
+            holder.img.setImageResource(R.drawable.mypage_adopt_dog_img)
+        }else {
+            holder.dogOrCatIconimg.setImageResource(R.drawable.cat_icon_1227)
+            holder.img.setImageResource(R.drawable.mypage_adopt_cat_img)
+        }
+
+        if(position%2==0){
+            holder.root.setBackgroundResource(R.drawable.rv_item_adopted_animal_act_first_box)
+        }else{
+            holder.root.setBackgroundResource(R.drawable.rv_item_adopted_animal_act_second_box)
+        }
+
         when (position) {
             0 -> {
+
             }
             1 -> {
 
@@ -47,6 +67,10 @@ class AdoptedAnimalAdapter(var ctx: Context, var dataList: ArrayList<AdoptedAnma
                 layoutParams.bottomMargin = (40 * dp).toInt()
                 holder.root.layoutParams = layoutParams
             }
+        }
+        holder.root.setOnClickListener {
+            // 입양한 동물 상세보기 액티비티로 넘어가기
+            AdoptedAnimalObject.adoptedAnimalActivityPresenter.adoptedDetailResponseData(dataList[position].id)
         }
     }
 
