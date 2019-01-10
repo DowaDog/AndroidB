@@ -59,6 +59,12 @@ class InterestAnimalAdapter(val ctx : Context, val dataList : ArrayList<Data>, v
             holder.ani_kind.setImageResource(R.drawable.cat_icon_1227)
         }
 
+        if(dataList[position].liked == true){
+            holder.heart.isSelected = true
+        }else {
+            holder.heart.isSelected = false
+        }
+
         var heart_flag: Boolean = false
 
         holder.heart_touch.setOnClickListener {
@@ -83,6 +89,9 @@ class InterestAnimalAdapter(val ctx : Context, val dataList : ArrayList<Data>, v
         holder.newFrame.setOnClickListener {
             // 컨텐츠디테일 액티비티로 넘어가기
             InterestAnimalObject.interestAnimalActivityPresenter.animalDetailresponseData(dataList[position].id)
+//            var intent = Intent(ctx, DogDetailActivity::class.java)
+//            intent.putExtra("animalId", dataList[position].id)
+//            (ctx as Activity).startActivityForResult(intent, 6900)
         }
         holder.newFrame.layoutParams = params
 
