@@ -36,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="입양된 동물"
+                    android:text="입양한 동물"
                     android:textSize="19sp"
                     android:textColor="#707070"
                     android:fontFamily="@font/nanum_bold"

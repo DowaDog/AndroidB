@@ -28,8 +28,9 @@ class InterestAnimalActivityPresenter : BasePresenter<InterestAnimalActivity>() 
         view!!.responseData(data)
     }
 
-    fun animalDetailresponseData(id : Int){
-        view!!.animalDetailResponseData(id)
+    //animal id
+    fun animalDetailresponseData(animalid : Int){
+        view!!.animalDetailResponseData(animalid)
 
     }
 

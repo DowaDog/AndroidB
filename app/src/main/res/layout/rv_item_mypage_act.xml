@@ -106,6 +106,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_alignParentBottom="true"
+        android:src="@drawable/mypage_adopt_dog_img"
         />
 
 </RelativeLayout>

@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.BaseActivity
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.adoptedanimal.AdoptedAnimalActivity
+import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.interest.InterestAnimalActivity
 import com.takhyungmin.dowadog.letter.LetterActivity
 import com.takhyungmin.dowadog.mypage.model.Data
@@ -83,8 +85,9 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
             startActivity(Intent(this, MyCommunityPostActivity::class.java))
             //val intent = Intent(this, MyCommunityPostActivity::class.java)
         }
+        //입양한 우리아이
         btn_adopt_animal_mypage_act.clicks().subscribe{
-            //입양한 우리아이
+            startActivity(Intent(this, AdoptedAnimalActivity::class.java))
 
         }
     }
