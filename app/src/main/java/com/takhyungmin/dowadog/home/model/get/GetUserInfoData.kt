@@ -4,5 +4,6 @@ data class GetUserInfoData (
     var name : String,
     var thumbnailImg : String,
     var birth : String,
-    var phone : String
+    var phone : String,
+    var email : String
 )

@@ -1,6 +1,8 @@
 package com.takhyungmin.dowadog.searchresult.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +17,6 @@ import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.dogdetail.model.DogDetailObject
 import com.takhyungmin.dowadog.searchresult.model.ggg.Content
-import org.jetbrains.anko.startActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -78,7 +79,11 @@ class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, va
         }
 
         holder.newFrame.setOnClickListener {
-            ctx.startActivity<DogDetailActivity>("animalId" to dataList[position].id)
+//            ctx.startActivity<DogDetailActivity>("animalId" to dataList[position].id)
+            var intent = Intent(ctx,  DogDetailActivity::class.java)
+            intent.putExtra("animalId", dataList[position].id)
+
+            (ctx as Activity).startActivityForResult(intent, 2004)
         }
 
         // 좋아요 버튼

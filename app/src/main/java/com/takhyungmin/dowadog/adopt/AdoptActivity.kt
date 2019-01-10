@@ -20,6 +20,7 @@ class AdoptActivity : BaseActivity(), View.OnClickListener {
 
     private var num = ""
     private var spotName = ""
+    private var animalId :Int = 0
 
     override fun onClick(v: View?) {
         when (v) {
@@ -59,11 +60,11 @@ class AdoptActivity : BaseActivity(), View.OnClickListener {
                     openDialog()
                 } else {
                     if(isOnlineApply == 1){
-                        startActivity<ApplyOnlineMainActivity>()
+                        startActivity<ApplyOnlineMainActivity>("id" to animalId)
 
                     }else if(isRealVisit == 1){
                         Log.v("check","AdoptAct num : "+ num + " spotName " + spotName)
-                        startActivity<PressedAdoptActivity>("num" to num, "spotName" to spotName)
+                        startActivity<PressedAdoptActivity>("num" to num, "spotName" to spotName, "id" to animalId)
                     }
                 }
             }
@@ -76,6 +77,8 @@ class AdoptActivity : BaseActivity(), View.OnClickListener {
 
         num =intent.getStringExtra("num")
         spotName = intent.getStringExtra("spotName")
+        animalId = intent.getIntExtra("id", 0)
+        Log.v("check", animalId.toString())
 
         init()
     }

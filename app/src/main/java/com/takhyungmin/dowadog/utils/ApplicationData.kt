@@ -21,4 +21,6 @@ object ApplicationData {
     var userPhone = ""
 
     var userImage = ""
+
+    var userEmail = ""
 }

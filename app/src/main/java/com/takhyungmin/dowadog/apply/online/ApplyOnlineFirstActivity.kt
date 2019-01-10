@@ -4,17 +4,23 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.mypage.MypageSettingActivity
 import com.takhyungmin.dowadog.presenter.activity.ApplyOnlineFristActiviyPresenter
 import com.takhyungmin.dowadog.utils.ApplicationData
+import com.takhyungmin.dowadog.utils.CustomSingleResDialog
 import kotlinx.android.synthetic.main.activity_apply_online_first.*
 import org.jetbrains.anko.startActivity
 
@@ -25,17 +31,30 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
     private var disagreeClick = false
     private var next = false
 
+    var id = 9999
+
     val My_READ_STORAGE_REQUEST_CODE = 1111
     val REQ_CODE_SELECT_IMAGE = 88
 
     var humanImgUri : String = ""
 
+    var animalId = 9999
+
+    var firstEditFlag = false
+
+    var secondEditFlag = false
+
+    private val customDialog : CustomSingleResDialog by lazy {
+        CustomSingleResDialog(ApplyOnlineThirdTempOrAdoptActivity@ this, "필수 사항을 입력해주세요",responseListener, "확인")
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_online_first)
+        animalId = intent.getIntExtra("id", 9999)
         init()
         setBinding()
+
     }
 
     fun init(){
@@ -44,6 +63,7 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
         applyOnlineFirstActiviyPresenter.initView()
         Glide.with(this@ApplyOnlineFirstActivity).load(ApplicationData.userImage).into(img_apply_first)
         tv_online_apply_first_name.text = ApplicationData.userName
+
     }
 
     private fun setBinding(){
@@ -52,8 +72,15 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
                 btn_online_apply_first_agree_check.setImageResource(R.drawable.adopt_1step_check_grey)
             }else{
                 btn_online_apply_first_agree_check.setImageResource(R.drawable.adopt_1step_check_orange)
+
             }
             agreeClick = !agreeClick
+
+            if (firstEditFlag == true && secondEditFlag == true && agreeClick == true) {
+                btn_apply_online_first_next.setBackgroundColor(Color.parseColor("#ffc233"))
+            }else {
+                btn_apply_online_first_next.setBackgroundColor(Color.parseColor("#e2e2e2"))
+            }
         }
 
         btn_online_apply_first_disagree_check.clicks().subscribe {
@@ -66,12 +93,13 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
         }
 
         btn_apply_online_first_next.clicks().subscribe {
-                startActivity<ApplyOnlineSecondActivity>("address" to edit_online_apply_first_address.text.toString(), "job" to edit_online_apply_first_vocation.text.toString(), "humanImgUri" to humanImgUri)
+
             if(next){
-                startActivity(Intent(this, ApplyOnlineSecondActivity::class.java))
+                startActivity<ApplyOnlineSecondActivity>("address" to edit_online_apply_first_address.text.toString(), "job" to edit_online_apply_first_vocation.text.toString(), "humanImgUri" to humanImgUri, "id" to animalId)
             }else{
                 //btn_apply_online_first_next.setBackgroundColor(Color.parseColor("#e2e2e2"))
                 //팝업
+                customDialog.show()
             }
 
             next = !next
@@ -80,6 +108,55 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
         layout_apply_first_frame.clicks().subscribe{
             requestReadExternalStoragePermission()
         }
+        btn_online_apply_first_modify_mypage.clicks().subscribe{
+            if (firstEditFlag == true && secondEditFlag == true && agreeClick == true) {
+                var intent = Intent(this@ApplyOnlineFirstActivity ,MypageSettingActivity::class.java)
+                startActivityForResult(intent, 3003)
+            }
+        }
+        btn_apply_first_back.clicks().subscribe{
+            finish()
+        }
+
+        edit_online_apply_first_address.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(edit_online_apply_first_address.text.length >0){
+                    firstEditFlag = true
+                    if (firstEditFlag == true && secondEditFlag == true && agreeClick == true) {
+                        btn_apply_online_first_next.setBackgroundColor(Color.parseColor("#ffc233"))
+                    }
+                }else{
+                    firstEditFlag = false
+                    btn_apply_online_first_next.setBackgroundColor(Color.parseColor("#e2e2e2"))
+                }
+            }
+        })
+
+        edit_online_apply_first_vocation.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(edit_online_apply_first_vocation.text.length >0) {
+                    secondEditFlag = true
+                    if (firstEditFlag == true && secondEditFlag == true && agreeClick == true) {
+                        btn_apply_online_first_next.setBackgroundColor(Color.parseColor("#ffc233"))
+                    }
+                }else{
+                    secondEditFlag= false
+                    btn_apply_online_first_next.setBackgroundColor(Color.parseColor("#e2e2e2"))
+                }
+            }
+        })
     }
 
     // 저장소 권한 확인
@@ -141,8 +218,14 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
                 }
             }
         }
-    }
 
+        // 마이페이지 수정 다녀온 이후
+        if(requestCode == 3003){
+            Log.v("TAGG", "마이페이지 다녀옴")
+            init()
+        }
+    }
+    private val responseListener = View.OnClickListener { customDialog!!.dismiss() }
     fun initView(){
 
     }

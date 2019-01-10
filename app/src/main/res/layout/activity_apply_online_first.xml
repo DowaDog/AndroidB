@@ -18,6 +18,7 @@
         android:background="#FFFFFF"
         >
         <RelativeLayout
+            android:id="@+id/btn_back_apply_first"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
@@ -109,7 +110,7 @@
                 android:id="@+id/img_apply_first"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/pic1"
+                android:src="@drawable/dog_profile_img"
                 />
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/btn_applpy_first_upload"
@@ -118,6 +119,7 @@
                     android:src="@drawable/adopt_camera_icon"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
+                    android:visibility="gone"
                     />
             </RelativeLayout>
 
@@ -160,6 +162,7 @@
                     />
                 
                 <RelativeLayout
+                    android:id="@+id/btn_online_apply_first_modify_mypage"
                     android:layout_width="78dp"
                     android:layout_height="26dp"
                     android:layout_alignParentBottom="true"
@@ -377,7 +380,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="가족 동의 여부"
+                android:text="함께 거주하고 있는 가족이
+입양 여부에 대해 동의하셨습니까?"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/nanum_bold"
@@ -388,21 +392,10 @@
                 android:id="@+id/layout_online_apply_first_agree"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="16dp"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/layout_online_apply_first_disagree"
+                android:layout_alignParentRight="true"
                 android:orientation="horizontal">
-                
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#707070"
-                    android:text="동의함"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/nanum_round"
-
-                    />
 
                 <ImageView
                     android:id="@+id/btn_online_apply_first_agree_check"
@@ -414,6 +407,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/layout_online_apply_first_disagree"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
@@ -453,7 +447,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="11"
-        android:background="#ffc223">
+        android:background="#e2e2e2">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -2,7 +2,7 @@ package com.takhyungmin.dowadog.dogdetail.model.get
 
 data class GetDogDetailData(
         val age: String,
-        val animalStoryList: ArrayList<String>,
+        val animalStoryListAos: ArrayList<String>,
         val careName: String,
         val careTel: String,
         val educationState: Boolean,

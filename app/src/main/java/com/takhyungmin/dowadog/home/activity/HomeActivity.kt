@@ -94,6 +94,7 @@ class HomeActivity : AppCompatActivity() {
         ApplicationData.userBirth = userData.birth
         ApplicationData.userPhone = userData.phone
         ApplicationData.userImage = userData.thumbnailImg
+        ApplicationData.userEmail = userData.email
     }
 
     fun responseData(data : GetDuplicateResponse){

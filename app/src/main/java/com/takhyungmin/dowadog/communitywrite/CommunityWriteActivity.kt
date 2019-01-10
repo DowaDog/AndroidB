@@ -276,7 +276,7 @@ class CommunityWriteActivity : BaseActivity(), View.OnClickListener {
 
                             // uri 가져오기
                             val preUri = clipData.getItemAt(i).uri.toString()
-                            val uri = Uri.parse(preUri.split('%')[0])
+                            val uri = Uri.parse(preUri)
                             Log.v("ygyg", uri.toString())
 
 
@@ -509,6 +509,8 @@ class CommunityWriteActivity : BaseActivity(), View.OnClickListener {
             val bitmap = BitmapFactory.decodeStream(input, null, options) // InputStream 으로부터 Bitmap 을 만들어 준다.
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos)
+            // var abc = abc()
+            // abc.fixOrientation(bitmap, input).compress(Bitmap.CompressFormat.JPEG, 20, baos)
             // fixOrientation(bitmap, uri.toString())
             // val photo = File(uri.toString())
             val photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray())

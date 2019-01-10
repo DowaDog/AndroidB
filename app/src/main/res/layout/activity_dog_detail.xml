@@ -383,10 +383,23 @@
 
 
             <ImageView
-                android:id="@+id/iv_my_story_dog_detail_act"
+                android:id="@+id/iv_my_story_dog_detail_act1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="72dp"
+                android:scaleType="fitXY"
+                />
+            <ImageView
+                android:id="@+id/iv_my_story_dog_detail_act2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="72dp"
+                android:scaleType="fitXY"
+                />
+            <ImageView
+                android:id="@+id/iv_my_story_dog_detail_act3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="72dp"
                 android:scaleType="fitXY"
                 />
