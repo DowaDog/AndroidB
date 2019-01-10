@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background = "#ffffff">
 
     <RelativeLayout
         android:id="@+id/rl_sign_id_set_act"
@@ -155,9 +156,11 @@
                             android:layout_centerVertical="true"
                             android:layout_marginStart="16dp"
                             android:background="@null"
+                            android:inputType="text"
+                            android:textCursorDrawable="@null"
                             android:fontFamily="@font/nanum_round"
                             android:hint="아이디(영문 6자 이상)"
-                            android:inputType="textShortMessage"
+                            android:maxLines="1"
                             android:textColorHint="#cecece"
                             android:textSize="13sp" />
                     </RelativeLayout>
@@ -199,9 +202,11 @@
                         android:layout_marginStart="16dp"
                         android:background="@null"
                         android:textColor="#000000"
+                        android:textCursorDrawable="@null"
                         android:fontFamily="@font/nanum_round"
                         android:hint="패스워드(영문,숫자,특수문자 조합 8자 이상)"
                         android:inputType="textPassword"
+                        android:maxLines="1"
                         android:textColorHint="#cecece"
                         android:textSize="13sp" />
 
@@ -224,6 +229,7 @@
                         android:background="@null"
                         android:fontFamily="@font/nanum_round"
                         android:hint="패스워드 확인"
+                        android:maxLines="1"
                         android:textColor="#000000"
                         android:inputType="textPassword"
                         android:textColorHint="#cecece"

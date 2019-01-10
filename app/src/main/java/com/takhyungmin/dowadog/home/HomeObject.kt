@@ -6,4 +6,6 @@ import com.takhyungmin.dowadog.presenter.fragment.HomeFragmentPresenter
 object HomeObject {
     lateinit var homeFragmentPresenter : HomeFragmentPresenter
     lateinit var homeActivityPresenter : HomeActivityPresenter
+    var place :  String? = ""
+    var date : String? = ""
 }

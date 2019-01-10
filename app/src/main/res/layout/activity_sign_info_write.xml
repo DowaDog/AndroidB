@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background = "#ffffff">
 
     <RelativeLayout
         android:id="@+id/rl_sign_info_wr_act"
@@ -168,7 +169,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
+                        android:textCursorDrawable="@null"
                         android:layout_marginStart="16dp"
+                        android:maxLines="1"
+                        android:inputType="text"
                         android:background="@null"
                         android:fontFamily="@font/nanum_round"
                         android:hint="이름"
@@ -188,7 +192,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
+                        android:textCursorDrawable="@null"
                         android:layout_marginStart="16dp"
+                        android:maxLines="1"
                         android:background="@null"
                         android:fontFamily="@font/nanum_round"
                         android:inputType="date"
@@ -223,10 +229,11 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:background="@null"
+                        android:maxLines="1"
                         android:fontFamily="@font/nanum_round"
                         android:inputType="phone"
                         android:hint="전화번호(000-0000-0000)"
-
+                        android:textCursorDrawable="@null"
                         android:textColorHint="#cecece"
                         android:textSize="14sp" />
 
@@ -261,8 +268,10 @@
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="16dp"
+                            android:textCursorDrawable="@null"
                             android:background="@null"
                             android:fontFamily="@font/nanum_round"
+                            android:maxLines="1"
                             android:hint="이메일(email@example.com)"
                             android:inputType="textEmailAddress"
                             android:textColorHint="#cecece"

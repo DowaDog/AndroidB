@@ -42,10 +42,11 @@ class ContentsSenseFragment : Fragment() {
     }
 
 
-    fun toDetail(id : Int, image : String){
+    fun toDetail(id : Int, image : String, scrap : Boolean){
         val intent = Intent(context, ContentsSenseDetailActivity::class.java)
         intent.putExtra("id", id)
         intent.putExtra("image", image)
+        intent.putExtra("scrap", scrap)
 
         activity!!.startActivity(intent)
     }

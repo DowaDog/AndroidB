@@ -143,12 +143,11 @@
             android:layout_marginTop="25dp"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp"
-            android:background="@drawable/b_main_slide_1step_img"
+            android:background="@drawable/b_main_slide_2step_img"
             android:layout_below="@+id/layout_home_fragment_large_second_process"
             android:layout_above="@+id/layout_fragment_home_large_second_description"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent"/>
 
         <RelativeLayout
             android:id="@+id/layout_fragment_home_large_second_description"

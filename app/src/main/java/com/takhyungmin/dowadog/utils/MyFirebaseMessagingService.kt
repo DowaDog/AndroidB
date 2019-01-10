@@ -30,7 +30,7 @@ class MyFirebaseMessagingService : com.google.firebase.messaging.FirebaseMessagi
                 PendingIntent.FLAG_CANCEL_CURRENT)
 
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this)
+        val notificationBuilder = NotificationCompat.Builder(this, "waitforudog")
                 .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.wait_for_u_dog_app_icon))
                 .setSmallIcon(R.drawable.wait_for_u_dog_app_icon)
                 .setContentTitle(title)

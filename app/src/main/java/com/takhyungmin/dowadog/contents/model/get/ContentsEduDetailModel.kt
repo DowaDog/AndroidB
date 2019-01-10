@@ -68,6 +68,29 @@ class ContentsEduDetailModel {
         })
     }
 
+    fun postSenseContentsScrap(id : Int){
+        contentsEduDetailNetworkService.postScrapEduContents(ApplicationData.auth, id).enqueue(object : Callback<PostScrapResponse>{
+            override fun onFailure(call: Call<PostScrapResponse>, t: Throwable) {
+                Log.v("EduContents", t.toString())
+            }
+
+            override fun onResponse(call: Call<PostScrapResponse>, response: Response<PostScrapResponse>) {
+                if(response.isSuccessful){
+                    Log.v("EduContents", response.message())
+                    if(response.body()!!.message.contains("추가"))
+                        ContentsSenseDetailObject.contentsSenseDetailActivityPresenter.responseScrap(true)
+                    else
+                        ContentsSenseDetailObject.contentsSenseDetailActivityPresenter.responseScrap(false)
+                }else{
+                    Log.v("EduContents", "fail")
+                }
+            }
+        })
+    }
+
+
+
+
     fun postEduContentsComplete(id : Int){
         contentsEduDetailNetworkService.postCompleteEduContents(ApplicationData.auth, id).enqueue(object : Callback<Unit>{
             override fun onFailure(call: Call<Unit>, t: Throwable) {

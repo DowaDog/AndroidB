@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.contents.ContentsObject
 import com.takhyungmin.dowadog.contents.adapter.ContentsEduDetailItem
 import com.takhyungmin.dowadog.contents.adapter.ContentsEduDetailRvAdapter
 import com.takhyungmin.dowadog.contents.model.ContentEduDetailObject
@@ -50,10 +51,16 @@ class ContentsEduDetailActivity : AppCompatActivity() {
     private fun init(){
         contentsEduDetailActivityPresenter = ContentsEduDetailActivityPresenter()
         contentsEduDetailActivityPresenter.view = this
+        ContentsObject.current = 0
         id = intent.getIntExtra("id", 20)
         Log.v("image", intent.getStringExtra("image"))
         Glide.with(this).load(intent.getStringExtra("image")).into(img_contents_edu_detail)
         contentsEduDetailActivityPresenter.requestData(id)
+        if(intent.getBooleanExtra("edu", false))
+            btn_contents_edu_detail_complete_frame.visibility = View.GONE
+
+        responseScrap(intent.getBooleanExtra("scrap", false))
+
         //contentsEduDetailActivityPresenter.initView()
         initPresenter()
         setScrollListener()
@@ -212,8 +219,10 @@ class ContentsEduDetailActivity : AppCompatActivity() {
     fun responseComplete(clear : Boolean){
         if(clear){
             val num = intent.getIntExtra("num", 0) + 1
+
             eduCompleteCustomDialog = CustomPartlyCompleteDogDialog(this, num.toString(), responseListener, "확인")
             eduCompleteCustomDialog.show()
+            btn_contents_edu_detail_complete_frame.visibility = View.GONE
         }
     }
 

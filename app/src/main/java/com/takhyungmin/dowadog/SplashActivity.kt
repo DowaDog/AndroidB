@@ -1,6 +1,12 @@
 package com.takhyungmin.dowadog
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
@@ -20,6 +26,20 @@ class SplashActivity : AppCompatActivity() {
         ApplicationData.applicationContext = applicationContext
 
         Glide.with(this).load(R.drawable.splash).into(GifDrawableImageViewTarget(splash_image,1))
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationChannel = NotificationChannel("waitforudog", "기다릴개", NotificationManager.IMPORTANCE_DEFAULT)
+            notificationChannel.description = "기다릴개"
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.parseColor("#ffc233")
+            notificationChannel.enableVibration(true)
+            notificationChannel.vibrationPattern = longArrayOf(100, 200, 100, 200)
+            notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+
+
 
         val handler = Handler()
         handler.postDelayed(Runnable {

@@ -7,5 +7,6 @@ data class GetEduContentsContents (
         var type : String,
         var imgPath : String,
         var educated : Boolean,
-        var auth : Boolean
+        var auth : Boolean,
+        var scrap : Boolean
 )

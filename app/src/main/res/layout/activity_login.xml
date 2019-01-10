@@ -74,11 +74,11 @@
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="16dp"
+                            android:inputType="text"
                             android:background="@null"
                             android:fontFamily="@font/nanum_round"
                             android:hint="아이디"
                             android:textCursorDrawable="@null"
-                            android:inputType="textShortMessage"
                             android:textColorHint="#cecece"
                             android:textSize="14sp" />
                     </RelativeLayout>
@@ -94,7 +94,7 @@
                     <EditText
                         android:id="@+id/et_pw_login_act"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
                         android:background="@null"
