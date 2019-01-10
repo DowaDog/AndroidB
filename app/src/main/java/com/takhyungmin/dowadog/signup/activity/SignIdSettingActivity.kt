@@ -353,7 +353,6 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
                 data?.let {
 
                     this.data = data!!.data
-                    Log.v("이미지", this.data.toString())
 
                     val options = BitmapFactory.Options()
 

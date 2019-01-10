@@ -39,6 +39,7 @@ class ContentsSenseDetailActivity : AppCompatActivity() {
         Glide.with(this).load(intent.getStringExtra("image")).into(img_contents_sense_detail)
         tv_contents_sense_detail_title.text = intent.getStringExtra("title")
         rv_contents_sense_detail_content.setFocusable(false)
+        tv_contents_sense_detail_title.text = intent.getStringExtra("title")
         layout_sense_detail.requestFocus()
         setOnBinding()
         init()

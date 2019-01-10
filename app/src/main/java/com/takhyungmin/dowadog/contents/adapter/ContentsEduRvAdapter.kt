@@ -40,7 +40,7 @@ class ContentsEduRvAdapter(private var contentsEduItems : ArrayList<GetEduConten
                     num++
             }
             ContentsObject.contentsEduFragmentPresenter.toDetail(contentsEduItems[position].id, num, contentsEduItems[position].imgPath,
-                    contentsEduItems[position].educated, contentsEduItems[position].scrap)
+                    contentsEduItems[position].educated, contentsEduItems[position].scrap, contentsEduItems[position].title)
         }
 
         // 여기부
