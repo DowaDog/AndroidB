@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="135dp"
+    android:layout_marginHorizontal="16dp"
+    android:background="@drawable/rv_item_adopted_animal_act_first_box"
+    android:layout_marginTop="14dp"
+    android:elevation="1dp"
+    android:id="@+id/rl_root_rv_item_mypage_act">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_bottom_text_box"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_name_rv_item_mypage_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="미키"
+            android:textSize="20sp"
+            android:textColor="#434343"
+            android:fontFamily="@font/nanum_bold"
+            android:layout_gravity="center_vertical"
+            />
+
+        <ImageView
+            android:id="@+id/iv_dog_or_cat_rv_item_mypage_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/dog_icon_1227"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_text_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_kind_rv_item_mypage_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="치와와"
+            android:textSize="12sp"
+            android:textColor="#434343"
+            android:fontFamily="@font/nanum_round"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" I "
+            android:textSize="12sp"
+            android:textColor="#434343"
+            android:fontFamily="@font/nanum_round"
+            />
+
+        <TextView
+            android:id="@+id/tv_age_rv_item_mypage_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1살"
+            android:textSize="12sp"
+            android:textColor="#434343"
+            android:fontFamily="@font/nanum_round"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" I "
+            android:textSize="12sp"
+            android:textColor="#434343"
+            android:fontFamily="@font/nanum_round"
+            />
+
+        <TextView
+            android:id="@+id/sex_rv_item_mypage_act"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="암컷"
+            android:textSize="12sp"
+            android:textColor="#434343"
+            android:fontFamily="@font/nanum_round"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_rv_item_mypage_act"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>
