@@ -59,6 +59,7 @@ class ContentsEduDetailActivity : AppCompatActivity() {
         if(intent.getBooleanExtra("edu", false))
             btn_contents_edu_detail_complete_frame.visibility = View.GONE
 
+        tv_contents_edu_detail_title.text = intent.getStringExtra("title")
         responseScrap(intent.getBooleanExtra("scrap", false))
 
         //contentsEduDetailActivityPresenter.initView()

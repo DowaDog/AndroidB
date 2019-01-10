@@ -18,8 +18,8 @@ class ContentsSenseFragmentPresenter : BasePresenter<ContentsSenseFragment>() {
 //        view!!.toDetail(width, height, left, top, title, sub)
 //    }
 
-    val toDetail = {id : Int, image : String, scrap : Boolean ->
-        view!!.toDetail(id, image, scrap)
+    val toDetail = {id : Int, image : String, scrap : Boolean, title : String ->
+        view!!.toDetail(id, image, scrap, title)
     }
 
     val requestData = {
