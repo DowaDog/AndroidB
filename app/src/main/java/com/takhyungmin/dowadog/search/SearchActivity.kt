@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
@@ -76,6 +77,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         btn_back_search_act.setOnClickListener(this)
         et_keyword_search_act.setOnClickListener(this)
         rv_search_act.setOnClickListener(this)
+        setOnEnterListener()
     }
 
 
@@ -140,6 +142,14 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-
+    fun setOnEnterListener() {
+        et_keyword_search_act.setOnKeyListener { v, keyCode, event ->
+            if((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                btn_search_search_act.performClick()
+                true
+            }
+            false
+        }
+    }
 }
 

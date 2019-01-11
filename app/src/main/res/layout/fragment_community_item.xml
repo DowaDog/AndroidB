@@ -72,7 +72,6 @@
             android:id="@+id/img_community_item_main1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:rotation="@integer/google_play_services_version"
             android:scaleType="fitXY"
             />
         <LinearLayout

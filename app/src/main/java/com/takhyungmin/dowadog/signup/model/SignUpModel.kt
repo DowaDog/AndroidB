@@ -9,6 +9,7 @@ import io.reactivex.Observable
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,6 +53,13 @@ class SignUpModel {
                 .enqueue(object : Callback<PostSignIdSettingResponse> {
                     override fun onFailure(call: Call<PostSignIdSettingResponse>?, t: Throwable?) {
                         Log.e("회원가입 통신실패", t.toString())
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
+
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
                     }
                     override fun onResponse(call: Call<PostSignIdSettingResponse>?, response: Response<PostSignIdSettingResponse>?) {
 
@@ -70,6 +78,14 @@ class SignUpModel {
         signUpNetworkService.checkDuplicate(id).enqueue(object : Callback<GetDuplicateResponse> {
             override fun onFailure(call: Call<GetDuplicateResponse>, t: Throwable) {
                 Log.v("fail", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
+
             }
 
             override fun onResponse(call: Call<GetDuplicateResponse>, response: Response<GetDuplicateResponse>) {

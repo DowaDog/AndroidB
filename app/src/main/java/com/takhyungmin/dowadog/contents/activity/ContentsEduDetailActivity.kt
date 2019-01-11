@@ -251,5 +251,7 @@ class ContentsEduDetailActivity : AppCompatActivity() {
         }
     }
 
-    private val responseListener = View.OnClickListener { eduCompleteCustomDialog.dismiss() }
+    private val responseListener = View.OnClickListener {
+        finish()
+        eduCompleteCustomDialog.dismiss() }
 }

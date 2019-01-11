@@ -4,6 +4,7 @@ import android.util.Log
 import com.takhyungmin.dowadog.pressedadopt.model.get.PressedAdoptNetwork
 import com.takhyungmin.dowadog.pressedadopt.model.post.PostDirectAdoptRequest
 import com.takhyungmin.dowadog.utils.ApplicationData
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +27,13 @@ class PressedAdoptModel{
         pressedAdoptNetwork.postDirectAdoptRequest(ApplicationData.auth,
                 PostDirectAdoptRequest(animalId)).enqueue(object : Callback<Unit>{
             override fun onFailure(call: Call<Unit>, t: Throwable) {
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {

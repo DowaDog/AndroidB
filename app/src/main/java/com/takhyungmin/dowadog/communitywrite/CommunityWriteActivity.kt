@@ -472,21 +472,21 @@ class CommunityWriteActivity : BaseActivity(), View.OnClickListener {
 
     fun selectData() {
         // 제목이 없을 때 분기
-        Log.v("잘돼", "눌림1")
+
+
+
         if (et_title_community_write_act.text.toString().isNotEmpty()) {
-            // 내용이 없을 때 분기
-            Log.v("잘돼", "눌림2")
+
             if (et_content_community_write_act.text.toString().isNotEmpty()) {
-                Log.v("잘돼", "눌3")
+
+                progress_community_write.visibility = View.VISIBLE
                 communityWriteActivityPresenter.requestData(et_title_community_write_act.text.toString(), et_content_community_write_act.text.toString(), converToImage(imagesEncodedList))
             } else {
-                Log.v("잘돼", "눌림4")
-                toast("제목을 입력해주세요")
+                toast("컨텐츠를 입력해주세요.")
             }
 
         } else {
-            Log.v("잘돼", "눌림5")
-            toast("제목을 입력해주세요")
+            toast("제목을 입력해주세요.")
         }
     }
 
@@ -520,4 +520,5 @@ class CommunityWriteActivity : BaseActivity(), View.OnClickListener {
         return image
 
     }
+
 }

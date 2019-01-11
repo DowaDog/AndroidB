@@ -104,6 +104,7 @@ class CommunityDetailActivity : BaseActivity(), View.OnClickListener {
 
     fun init() {
         btn_three_dot_community_detail.setOnClickListener(this)
+        setOnEnterListener()
         btn_back_community_detail.clicks().subscribe {
             finish()
         }
@@ -112,8 +113,12 @@ class CommunityDetailActivity : BaseActivity(), View.OnClickListener {
             if(ApplicationData.auth == "")
                 logoutCustomDialog.show()
             else{
-                communityDetailActivityPresenter.requestCommentWriteData(communityId, et_comment_write_community_detail_act.text.toString())
-                et_comment_write_community_detail_act.text.clear()
+                if(et_comment_write_community_detail_act.text.length <= 0){
+                    toast("댓글을 입력해주세요")
+                }else{
+                    communityDetailActivityPresenter.requestCommentWriteData(communityId, et_comment_write_community_detail_act.text.toString())
+                    et_comment_write_community_detail_act.text.clear()
+                }
             }
         }
     }
@@ -333,6 +338,18 @@ class CommunityDetailActivity : BaseActivity(), View.OnClickListener {
             Glide.with(this@CommunityDetailActivity).load(it).into(iv_writter_comment_community_detail_act2)
         }
     }
+
+    fun setOnEnterListener() {
+        et_comment_write_community_detail_act.setOnKeyListener { v, keyCode, event ->
+            if((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                btn_comment_write_community_detail_act.performClick()
+                true
+            }
+            false
+        }
+    }
+
+
 }
 
 

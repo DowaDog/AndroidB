@@ -5,6 +5,7 @@ import com.takhyungmin.dowadog.contents.ContentsObject
 import com.takhyungmin.dowadog.contents.model.get.GetEduContentsResponse
 import com.takhyungmin.dowadog.utils.ApplicationData
 import io.reactivex.Observable
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +30,13 @@ class ContentsModel {
             override fun onFailure(call: Call<GetEduContentsResponse>, t: Throwable) {
                 Log.v("ConetnstList", t.toString())
                 Log.v("들어옴3", "들어옴3")
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetEduContentsResponse>, response: Response<GetEduContentsResponse>) {
@@ -50,6 +58,13 @@ class ContentsModel {
         contentsNetworkService.getSenseContentsList(ApplicationData.auth, 0, 10).enqueue(object : Callback<GetEduContentsResponse>{
             override fun onFailure(call: Call<GetEduContentsResponse>, t: Throwable) {
                 Log.v("ConetnstList", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetEduContentsResponse>, response: Response<GetEduContentsResponse>) {

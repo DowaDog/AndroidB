@@ -4,6 +4,7 @@ import android.util.Log
 import com.takhyungmin.dowadog.community.CommunityObject
 import com.takhyungmin.dowadog.community.model.get.GetCommunityResponse
 import com.takhyungmin.dowadog.utils.ApplicationData
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,6 +28,13 @@ class CommunityModel {
         communityNetworkService.getCommunityList(ApplicationData.auth, page, limit).enqueue(object : Callback<GetCommunityResponse> {
             override fun onFailure(call: Call<GetCommunityResponse>, t: Throwable) {
                 Log.v("fail", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetCommunityResponse>, response: Response<GetCommunityResponse>) {

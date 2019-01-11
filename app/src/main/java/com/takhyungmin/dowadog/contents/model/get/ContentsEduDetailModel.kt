@@ -6,6 +6,7 @@ import com.takhyungmin.dowadog.contents.model.ContentsEduDetailNetworkService
 import com.takhyungmin.dowadog.contents.model.ContentsSenseDetailObject
 import com.takhyungmin.dowadog.contents.model.post.PostScrapResponse
 import com.takhyungmin.dowadog.utils.ApplicationData
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +33,13 @@ class ContentsEduDetailModel {
 
                     override fun onFailure(call: Call<GETContentsEduDetailResponse>?, t: Throwable?) {
                         Log.e("eduDetail통신 실패", t.toString())
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
+
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
                     }
 
                     override fun onResponse(call: Call<GETContentsEduDetailResponse>?, response: Response<GETContentsEduDetailResponse>?) {
@@ -52,6 +60,13 @@ class ContentsEduDetailModel {
         contentsEduDetailNetworkService.postScrapEduContents(ApplicationData.auth, id).enqueue(object : Callback<PostScrapResponse>{
             override fun onFailure(call: Call<PostScrapResponse>, t: Throwable) {
                 Log.v("EduContents", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<PostScrapResponse>, response: Response<PostScrapResponse>) {
@@ -72,6 +87,13 @@ class ContentsEduDetailModel {
         contentsEduDetailNetworkService.postScrapEduContents(ApplicationData.auth, id).enqueue(object : Callback<PostScrapResponse>{
             override fun onFailure(call: Call<PostScrapResponse>, t: Throwable) {
                 Log.v("EduContents", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<PostScrapResponse>, response: Response<PostScrapResponse>) {
@@ -95,6 +117,13 @@ class ContentsEduDetailModel {
         contentsEduDetailNetworkService.postCompleteEduContents(ApplicationData.auth, id).enqueue(object : Callback<Unit>{
             override fun onFailure(call: Call<Unit>, t: Throwable) {
                 Log.v("EduContents", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
@@ -112,7 +141,13 @@ class ContentsEduDetailModel {
                 .enqueue(object : Callback<ContentSenseDetailResponse> {
 
                     override fun onFailure(call: Call<ContentSenseDetailResponse>?, t: Throwable?) {
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
 
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
                     }
 
                     override fun onResponse(call: Call<ContentSenseDetailResponse>?, response: Response<ContentSenseDetailResponse>?) {

@@ -48,16 +48,16 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:textColor="#e2e2e2"
-                    tools:text="2018. 04. 07"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/nanum_round"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/tv_contents_sense_detail_title"
                     android:id="@+id/tv_contents_sense_detail_date"
-                    android:layout_marginTop="13dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_contents_sense_detail_title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="13dp"
+                    android:fontFamily="@font/nanum_round"
+                    android:textColor="#e2e2e2"
+                    android:textSize="14sp"
+                    tools:text="2018. 04. 07" />
 
             </RelativeLayout>
 
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:backgroundTint="#ffffff"
+                android:tint="#ffffff"
                 android:layout_marginHorizontal="16dp"
                 android:src="@drawable/contents_unscrap_btn"/>
         </RelativeLayout>

@@ -1,14 +1,11 @@
 package com.takhyungmin.dowadog.scrap
 
-import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
-import com.bumptech.glide.Glide
 import com.takhyungmin.dowadog.BaseActivity
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.contents.activity.ContentsEduDetailActivity
@@ -17,7 +14,6 @@ import com.takhyungmin.dowadog.presenter.activity.ScrapActivityPresenter
 import com.takhyungmin.dowadog.scrap.scrapmodel.ScrapObject
 import com.takhyungmin.dowadog.scrap.scrapmodel.get.GetMyScrapData
 import com.takhyungmin.dowadog.scrap.scrapmodel.get.GetMyScrapResponse
-import kotlinx.android.synthetic.main.activity_apply_online_first.*
 import kotlinx.android.synthetic.main.activity_scrap.*
 
 class ScrapActivity : BaseActivity(), View.OnClickListener {
@@ -84,7 +80,7 @@ class ScrapActivity : BaseActivity(), View.OnClickListener {
 
     }
 
-    fun scrapEducationDetail(id: Int, type : String) {
+    fun scrapEducationDetail(id: Int, type : String, title : String) {
 
 //        var intent = Intent(this, DogDetailActivity::class.java)
 //        intent.putExtra("animalId", id)
@@ -93,10 +89,14 @@ class ScrapActivity : BaseActivity(), View.OnClickListener {
         if(type=="education"){
             var intent = Intent(this@ScrapActivity, ContentsEduDetailActivity::class.java)
             intent.putExtra("id", id)
+            intent.putExtra("scrap", true)
+            intent.putExtra("title", title)
             startActivityForResult(intent, 6001)
         }else{
             var intent = Intent(this@ScrapActivity, ContentsSenseDetailActivity::class.java)
             intent.putExtra("id", id)
+            intent.putExtra("scrap", true)
+            intent.putExtra("title", title)
             startActivityForResult(intent, 6001)
         }
 

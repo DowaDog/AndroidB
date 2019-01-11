@@ -8,6 +8,7 @@ import com.takhyungmin.dowadog.adopt.model.get.GetAdoptPublicUrgentResponse
 import com.takhyungmin.dowadog.adopt.model.get.UrgentAnimalData
 import com.takhyungmin.dowadog.utils.ApplicationData
 import io.reactivex.Observable
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,13 @@ class AdoptAnimalModel {
         adoptNetworkService.getCommunityList(page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse>{
             override fun onFailure(call: Call<GetAdoptPublicUrgentResponse>, t: Throwable) {
                 Log.v("AdoptUrgent", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetAdoptPublicUrgentResponse>, response: Response<GetAdoptPublicUrgentResponse>) {
@@ -53,6 +61,13 @@ class AdoptAnimalModel {
         adoptNetworkService.getCommunityList(page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse>{
             override fun onFailure(call: Call<GetAdoptPublicUrgentResponse>, t: Throwable) {
                 Log.v("AdoptUrgent", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetAdoptPublicUrgentResponse>, response: Response<GetAdoptPublicUrgentResponse>) {
@@ -135,6 +150,13 @@ class AdoptAnimalModel {
         adoptNetworkService.getAdoptDetail(id).enqueue(object : Callback<GetAdoptPublicDetailResponse>{
             override fun onFailure(call: Call<GetAdoptPublicDetailResponse>, t: Throwable) {
                 Log.v("AdoptUrgent", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetAdoptPublicDetailResponse>, response: Response<GetAdoptPublicDetailResponse>) {
@@ -154,6 +176,13 @@ class AdoptAnimalModel {
         adoptNetworkService.getAnimalList(ApplicationData.auth, page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse>{
             override fun onFailure(call: Call<GetAdoptPublicUrgentResponse>, t: Throwable) {
                 Log.v("AdoptUrgent", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetAdoptPublicUrgentResponse>, response: Response<GetAdoptPublicUrgentResponse>) {
@@ -175,6 +204,13 @@ class AdoptAnimalModel {
         adoptNetworkService.getStoryAnimalList(ApplicationData.auth, true, page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse> {
             override fun onFailure(call: Call<GetAdoptPublicUrgentResponse>, t: Throwable) {
                 Log.v("AdoptUrgent", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetAdoptPublicUrgentResponse>, response: Response<GetAdoptPublicUrgentResponse>) {
