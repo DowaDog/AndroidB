@@ -18,4 +18,9 @@ class ScrapActivityPresenter : BasePresenter<ScrapActivity>() {
     fun responseMyScrapList(data: GetMyScrapResponse) {
         view!!.responseScrapData(data)
     }
+
+    fun scrapContentsDetail(id : Int, type : String){
+        view!!.scrapEducationDetail(id, type)
+    }
+
 }

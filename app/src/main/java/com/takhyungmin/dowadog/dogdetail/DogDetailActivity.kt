@@ -64,6 +64,10 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         CustomThanksDogDialog(this@DogDetailActivity, "관심동물에 등록되었습니다.", View.OnClickListener { likeThanksDialog.dismiss() }, "확인")
     }
 
+    val likeDeleteDialog: CustomThanksDogDialog by lazy {
+        CustomThanksDogDialog(this@DogDetailActivity, "관심동물에 삭제되었습니다.", View.OnClickListener { likeDeleteDialog.dismiss() }, "확인")
+    }
+
     override fun onClick(v: View?) {
         when (v) {
 
@@ -90,10 +94,10 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
                     isLike = 0
                     // 좋아요 취소 통신
                     dogDetailActivityPresenter.requestHeartData(animalId)
+                    likeDeleteDialog.show()
+
                 }
             }
-
-
         }
     }
 
@@ -199,7 +203,6 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
             islinkShare = 0
             isKakaoShare = 1
         }
-
     }
     private val shareCancleListener = View.OnClickListener {
         islinkShare = 0
@@ -217,9 +220,6 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
             shareDogDialog.tv_link_share_custom_dialog_community_detail.setTextColor(Color.parseColor("#434343"))
             islinkShare = 0
             isKakaoShare = 0
-
-
-
 
             shareThanksDialog.show()
         } else {
@@ -361,9 +361,11 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         if (data.liked == true) {
             iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_full_icon)
+            isLike = 1
+
         } else {
             iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_line_icon)
+            isLike = 0
         }
     }
 }
-
