@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.view.View
+import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.utils.CustomTypeSpan
 import kotlinx.android.synthetic.main.activity_apply_online_main.*
@@ -43,6 +44,9 @@ class ApplyOnlineMainActivity : AppCompatActivity() {
     fun setBinding(animalId : Int){
         btn_apply_online_main_write.setOnClickListener {
             startActivity<ApplyOnlineFirstActivity>("id" to animalId)
+        }
+        real_btn_apply_main_back.clicks().subscribe{
+            finish()
         }
     }
 }

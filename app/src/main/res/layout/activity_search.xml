@@ -103,19 +103,11 @@
                 />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_one_recommend_search_act"
-                android:layout_below="@+id/tv_recommend_keyword_search_act"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                />
-
-            <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_two_recommend_search_act"
                 android:layout_below="@+id/rv_one_recommend_search_act"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="8dp"
                 />
 
             <android.support.v7.widget.RecyclerView
@@ -123,8 +115,15 @@
                 android:layout_below="@+id/rv_two_recommend_search_act"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="8dp"
                 />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_one_recommend_search_act"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_recommend_keyword_search_act" />
 
 
         </RelativeLayout>

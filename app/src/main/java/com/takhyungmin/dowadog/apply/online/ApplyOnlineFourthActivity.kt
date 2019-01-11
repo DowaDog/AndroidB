@@ -1,6 +1,7 @@
 package com.takhyungmin.dowadog.apply.online
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -24,27 +25,27 @@ import kotlinx.android.synthetic.main.activity_apply_online_fourth.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.jetbrains.anko.startActivity
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.InputStream
 
 class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
 
-    lateinit var homeActivityPresenter : HomeActivityPresenter
+    lateinit var homeActivityPresenter: HomeActivityPresenter
 
-    private lateinit var applyOnlineFouthActivityPresenter : ApplyOnlineFouthActivityPresenter
+    private lateinit var applyOnlineFouthActivityPresenter: ApplyOnlineFouthActivityPresenter
 
     var check: Boolean = false
-    var allCheck : Boolean = false
-    var etFlag : Boolean = false
-    var completeBtnFlag :  Boolean = false
+    var allCheck: Boolean = false
+    var etFlag: Boolean = false
+    var completeBtnFlag: Boolean = false
 
-    var address : String = ""
-    var job : String = ""
-    var humanImgUri : String = ""
+    var address: String = ""
+    var job: String = ""
+    var humanImgUri: String = ""
 
-    var animalImgUri : String = ""
+    var animalImgUri: String = ""
 
     var animalDescription = ""
 
@@ -58,32 +59,41 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
 
     var adoptType = ""
 
-    private var checkOneFlag : Int = 0
+    private var checkOneFlag: Int = 0
     private var checkTwoFlag = 0
     private var checkThreeFlag = 0
     private var checkFourFlag = 0
     private var checkFiveFlag = 0
 
     // 1단계 다이얼로그 사용을 위한 객체만들기
-    val applyFourthCustomSingleResDialog : CustomSingleResDialog by lazy{
+    val applyFourthCustomSingleResDialog: CustomSingleResDialog by lazy {
         CustomSingleResDialog(this@ApplyOnlineFourthActivity, "필수 항목을 입력해주세요.", reponseListener, "확인")
     }
 
+    // 1단계 다이얼로그 사용을 위한 객체만들기
+    val alrightSingleResDialog: CustomSingleResDialog by lazy {
+        CustomSingleResDialog(this@ApplyOnlineFourthActivity, "신청서가 접수되었습니다.", alrightReponseListener, "확인")
+    }
+
+    val failureSingleResDialog: CustomSingleResDialog by lazy {
+        CustomSingleResDialog(this@ApplyOnlineFourthActivity, "이미 진행 중인 신청서가 있습니다.",failuReponseListener , "확인")
+    }
+
     override fun onClick(v: View?) {
-        when(v) {
-            // 전체뷰
+        when (v) {
+        // 전체뷰
             rl_full_apply_online_fourth_act -> {
                 downKeyboard(rl_full_apply_online_fourth_act)
             }
 
-            // 리니어뷰
+        // 리니어뷰
             ll_apply_online_fourth_act -> {
                 downKeyboard(ll_apply_online_fourth_act)
             }
 
-            // 모두 동의 버튼
+        // 모두 동의 버튼
             rl_all_agree_apply_online_fourth_act -> {
-                if (allCheck == false){
+                if (allCheck == false) {
                     rl_check1_apply_online_fourth_act.isSelected = true
                     checkOneFlag = 1
                     rl_check2_apply_online_fourth_act.isSelected = true
@@ -97,12 +107,12 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
                     allCheck = true
                     rl_all_agree_apply_online_fourth_act.isSelected = true
 
-                    if(etFlag == true){
+                    if (etFlag == true) {
                         rl_complete_apply_online_fourth_act.setBackgroundColor(Color.parseColor("#ffc233"))
                         completeBtnFlag = true
                     }
 
-                }else {
+                } else {
                     rl_check1_apply_online_fourth_act.isSelected = false
                     checkOneFlag = 0
                     rl_check2_apply_online_fourth_act.isSelected = false
@@ -123,18 +133,18 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
 
             }
 
-            // 첫 체크박스
+        // 첫 체크박스
             rl_check1_apply_online_fourth_act -> {
 
                 // 회색일 때
-                if(checkOneFlag == 0){
+                if (checkOneFlag == 0) {
                     checkOneFlag = 1
                     rl_check1_apply_online_fourth_act.isSelected = true
-                    if(checkTwoFlag == 1 && checkThreeFlag == 1 && checkFourFlag == 1 && checkFiveFlag ==1) {
+                    if (checkTwoFlag == 1 && checkThreeFlag == 1 && checkFourFlag == 1 && checkFiveFlag == 1) {
                         rl_all_agree_apply_online_fourth_act.isSelected = true
                         allCheck = true
 
-                        if(etFlag == true){
+                        if (etFlag == true) {
                             completeBtnFlag = true
                             rl_complete_apply_online_fourth_act.setBackgroundColor(Color.parseColor("#ffc233"))
                         }
@@ -154,14 +164,14 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
             }
             rl_check2_apply_online_fourth_act -> {
                 // 회색일 때
-                if(checkTwoFlag== 0){
+                if (checkTwoFlag == 0) {
                     checkTwoFlag = 1
                     rl_check2_apply_online_fourth_act.isSelected = true
-                    if(checkOneFlag == 1 && checkThreeFlag == 1 && checkFourFlag == 1 && checkFiveFlag ==1) {
+                    if (checkOneFlag == 1 && checkThreeFlag == 1 && checkFourFlag == 1 && checkFiveFlag == 1) {
                         rl_all_agree_apply_online_fourth_act.isSelected = true
                         allCheck = true
 
-                        if(etFlag == true){
+                        if (etFlag == true) {
                             completeBtnFlag = true
                             rl_complete_apply_online_fourth_act.setBackgroundColor(Color.parseColor("#ffc233"))
                         }
@@ -180,14 +190,14 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
 
             rl_check3_apply_online_fourth_act -> {
                 // 회색일 때
-                if(checkThreeFlag == 0){
+                if (checkThreeFlag == 0) {
                     checkThreeFlag = 1
                     rl_check3_apply_online_fourth_act.isSelected = true
-                    if(checkTwoFlag == 1 && checkOneFlag == 1 && checkFourFlag == 1 && checkFiveFlag ==1) {
+                    if (checkTwoFlag == 1 && checkOneFlag == 1 && checkFourFlag == 1 && checkFiveFlag == 1) {
                         rl_all_agree_apply_online_fourth_act.isSelected = true
                         allCheck = true
 
-                        if(etFlag == true){
+                        if (etFlag == true) {
                             completeBtnFlag = true
                             rl_complete_apply_online_fourth_act.setBackgroundColor(Color.parseColor("#ffc233"))
                         }
@@ -207,14 +217,14 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
 
             rl_check4_apply_online_fourth_act -> {
                 // 회색일 때
-                if(checkFourFlag == 0){
+                if (checkFourFlag == 0) {
                     checkFourFlag = 1
                     rl_check4_apply_online_fourth_act.isSelected = true
-                    if(checkTwoFlag == 1 && checkThreeFlag == 1 && checkOneFlag == 1 && checkFiveFlag ==1) {
+                    if (checkTwoFlag == 1 && checkThreeFlag == 1 && checkOneFlag == 1 && checkFiveFlag == 1) {
                         rl_all_agree_apply_online_fourth_act.isSelected = true
                         allCheck = true
 
-                        if(etFlag == true){
+                        if (etFlag == true) {
                             completeBtnFlag = true
                             rl_complete_apply_online_fourth_act.setBackgroundColor(Color.parseColor("#ffc233"))
                         }
@@ -234,14 +244,14 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
 
             rl_check5_apply_online_fourth_act -> {
                 // 회색일 때
-                if(checkFiveFlag == 0){
+                if (checkFiveFlag == 0) {
                     checkFiveFlag = 1
                     rl_check5_apply_online_fourth_act.isSelected = true
-                    if(checkTwoFlag == 1 && checkThreeFlag == 1 && checkFourFlag == 1 && checkOneFlag ==1) {
+                    if (checkTwoFlag == 1 && checkThreeFlag == 1 && checkFourFlag == 1 && checkOneFlag == 1) {
                         rl_all_agree_apply_online_fourth_act.isSelected = true
                         allCheck = true
 
-                        if(etFlag == true){
+                        if (etFlag == true) {
                             completeBtnFlag = true
                             rl_complete_apply_online_fourth_act.setBackgroundColor(Color.parseColor("#ffc233"))
                         }
@@ -260,29 +270,41 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
             }
 
             rl_complete_apply_online_fourth_act -> {
-                if(completeBtnFlag == false){
+                if (completeBtnFlag == false) {
                     // 다이얼로그 띄우기
                     applyFourthCustomSingleResDialog.show()
-                }else {
+                } else {
 
-                    if(et_apply_online_fourth_act.text.toString().length != 0){
+                    if (et_apply_online_fourth_act.text.toString().length != 0) {
                         economyAbility = et_apply_online_fourth_act.text.toString()
                     }
                     // ## 다음뷰로 넘어가기 위한 통신하기
-                    Log.v("check","address : " + address + "job : " + job + " humanImgUri : " + humanImgUri + " animalImgUri : " + animalImgUri
-                    + " animalDescription : " + animalDescription + " tempPossiblePeriod : " + tempPossiblePeriod + " economyAbility : " + economyAbility+ " animalId: " + animalId
-                    + " havePet : " + havePet + "  ")
+                    Log.v("check", "address : " + address + "job : " + job + " humanImgUri : " + humanImgUri + " animalImgUri : " + animalImgUri
+                            + " animalDescription : " + animalDescription + " tempPossiblePeriod : " + tempPossiblePeriod + " economyAbility : " + economyAbility + " animalId: " + animalId
+                            + " havePet : " + havePet + "  ")
+
 
                     val selectedImageUri: Uri = Uri.parse(animalImgUri)
                     val options = BitmapFactory.Options()
-                    var inputstream: InputStream? = contentResolver.openInputStream(selectedImageUri)  // here, you need to get your context.
-                    val bitmap = BitmapFactory.decodeStream(inputstream, null, options)
+                    // var inputstream: InputStream? = contentResolver.openInputStream(selectedImageUri)  // here, you need to get your context.
+                    var input: InputStream? = null // here, you need to get your context.
+                    try {
+                        input = contentResolver.openInputStream(selectedImageUri)
+                    } catch (e: FileNotFoundException) {
+                        e.printStackTrace()
+                    }
+                    val bitmap = BitmapFactory.decodeStream(input, null, options)
                     val byteArrayOutputStream = ByteArrayOutputStream()
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-                    val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
 
-                    var mimage = MultipartBody.Part.createFormData("animalImg", File(selectedImageUri.toString()).name, photoBody)
-                    applyOnlineFouthActivityPresenter.requestData(ApplicationData.userPhone, ApplicationData.userEmail, address, job, havePet,"online", animalDescription,
+                    var mimage : MultipartBody.Part? = null
+                    if(bitmap != null){
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+                        val photoBody = RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
+                        mimage = MultipartBody.Part.createFormData("animalImg", File(selectedImageUri.toString()).name, photoBody)
+                    }else {
+                    }
+
+                    applyOnlineFouthActivityPresenter.requestData(ApplicationData.userPhone, ApplicationData.userEmail, address, job, havePet, "online", animalDescription,
                             adoptType, animalId, animalImg = mimage)
                 }
             }
@@ -300,19 +322,19 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
         setEditTextChangedListener()
 
         Log.e("마지막", ApplicationData.userPhone + "    " + ApplicationData.userEmail + "    " + address + "    " +
-        job + "    " + havePet + "    " + animalDescription + "    " + adoptType + "    " + animalId + "    " +animalImgUri)
+                job + "    " + havePet + "    " + animalDescription + "    " + adoptType + "    " + animalId + "    " + animalImgUri)
 
         Log.e("마지막2", ApplicationData.userPhone + "    " + ApplicationData.userEmail + "     " + "address : " + address + "job : " + job + " humanImgUri : " + humanImgUri + " animalImgUri : " + animalImgUri
-                + " animalDescription : " + animalDescription + " tempPossiblePeriod : " + tempPossiblePeriod + " economyAbility : " + economyAbility+ " animalId: " + animalId
+                + " animalDescription : " + animalDescription + " tempPossiblePeriod : " + tempPossiblePeriod + " economyAbility : " + economyAbility + " animalId: " + animalId
                 + " havePet : " + havePet + "  " + " adoptType : " + adoptType)
     }
 
-    private fun downKeyboard(view: View){
+    private fun downKeyboard(view: View) {
         val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun init(){
+    private fun init() {
 
         //키보드 내려가게 하는 함수
         rl_full_apply_online_fourth_act.setOnClickListener(this)
@@ -321,7 +343,7 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
         ll_apply_online_fourth_act.setOnClickListener(this)
 
         //모두 동의 버튼을 누르면!
-        rl_all_agree_apply_online_fourth_act.setOnClickListener (this)
+        rl_all_agree_apply_online_fourth_act.setOnClickListener(this)
 
         rl_check1_apply_online_fourth_act.setOnClickListener(this)
         rl_check2_apply_online_fourth_act.setOnClickListener(this)
@@ -331,8 +353,8 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
         rl_complete_apply_online_fourth_act.setOnClickListener(this)
     }
 
-    private fun setEditTextChangedListener(){
-        et_apply_online_fourth_act.addTextChangedListener(object: TextWatcher {
+    private fun setEditTextChangedListener() {
+        et_apply_online_fourth_act.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -342,14 +364,13 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (et_apply_online_fourth_act.text.toString().length <= 0){
+                if (et_apply_online_fourth_act.text.toString().length <= 0) {
                     etFlag = false
                     rl_complete_apply_online_fourth_act.setBackgroundColor(Color.parseColor("#c7c7c7"))
                     completeBtnFlag = false
-                }
-                else {
+                } else {
                     etFlag = true
-                    if(allCheck == true){
+                    if (allCheck == true) {
                         rl_complete_apply_online_fourth_act.setBackgroundColor(Color.parseColor("#ffc233"))
                         completeBtnFlag = true
                     }
@@ -360,11 +381,26 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
 
     private val reponseListener = View.OnClickListener { applyFourthCustomSingleResDialog!!.dismiss() }
 
-    fun getIntentItem(){
+    private val alrightReponseListener = View.OnClickListener {
+        alrightSingleResDialog!!.dismiss()
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        // startActivity<HomeActivity>()
+    }
+
+    private val failuReponseListener = View.OnClickListener {
+        failureSingleResDialog!!.dismiss()
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        //startActivity<HomeActivity>()
+    }
+    fun getIntentItem() {
         address = intent.getStringExtra("address")
         job = intent.getStringExtra("job")
         humanImgUri = intent.getStringExtra("humanImgUri")
-        animalImgUri= intent.getStringExtra("animalImgUri")
+        animalImgUri = intent.getStringExtra("animalImgUri")
         animalDescription = intent.getStringExtra("animalDescription")
         tempPossiblePeriod = intent.getStringExtra("tempPossiblePeriod")
         animalId = intent.getIntExtra("id", 9999)
@@ -372,12 +408,22 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
         adoptType = intent.getStringExtra("adoptType")
     }
 
-    fun responseData(data : PostDogDetailHeartResponse){
-        Log.v("check", data.toString())
-        startActivity<HomeActivity>()
+    fun responseData(data: PostDogDetailHeartResponse) {
+        data?.let {
+            if(it.message != null){
+                if(it.message == "신청서 정보 작성 성공"){
+                    alrightSingleResDialog.show()
+                }else{
+                    failureSingleResDialog.show()
+                }
+
+            }
+
+        }
+
     }
 
-    fun initPresenter(){
+    fun initPresenter() {
         applyOnlineFouthActivityPresenter = ApplyOnlineFouthActivityPresenter()
         applyOnlineFouthActivityPresenter.view = this
         ApplyOnlineFouthObject.applyOnlineFouthActivityPresenter = applyOnlineFouthActivityPresenter

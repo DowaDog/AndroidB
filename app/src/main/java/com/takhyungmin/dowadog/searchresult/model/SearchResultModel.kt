@@ -51,6 +51,36 @@ class SearchResultModel {
         })
     }
 
+    fun getSearchEditTextResulData(type: String, region: String, remainNoticeDate: Int, page: Int, limit: Int, searchKeyword: String) {
+ Log.v("TAGGG2", type + " /// " + region + " /// " + remainNoticeDate + " /// " + page + " /// " + limit + " /// " + searchKeyword)
+        searchResultNetwork.getSearchResultFilterResponse(ApplicationData.auth,
+                type, region, remainNoticeDate, page, limit, searchKeyword).enqueue(object : Callback<ccc> {
+            override fun onFailure(call: Call<ccc>?, t: Throwable?) {
+                Log.e("SearchResultData 통신 실패", t.toString())
+            }
+
+            override fun onResponse(call: Call<ccc>?, response: Response<ccc>?) {
+
+                response?.takeIf { it.isSuccessful }
+                        ?.body()
+                        ?.let {
+                            when (page) {
+                                0 -> {
+                                    SearchResultObject.searchEditTextActivityPresenter.requestData(it)
+                                }
+                                else -> {
+                                    SearchResultObject.searchEditTextActivityPresenter.responseMoreSearchResultList(it.data.content)
+                                }
+                            }
+
+                            // 서버에서 보내기 직전 데이터 보기
+                            // 데이터 자료형이 틀린지 확인하기
+                        }
+            }
+        })
+    }
+
+//    // 요녀석
 //    fun getKeywordSearchResulData(type: String, region: String, remainNoticeDate: Int, page: Int, limit: Int, searchKeyword: String) {
 //
 //        searchResultNetwork.getSearchResultFilterResponse(ApplicationData.auth,
@@ -66,10 +96,10 @@ class SearchResultModel {
 //                        ?.let {
 //                            when (page) {
 //                                0 -> {
-//                                    SearchResultObject.searchKeywordResultActivityPresenter.requestData(it)
+//                                    SearchResultObject.searchEditTextActivityPresenter.requestData(it)
 //                                }
 //                                else -> {
-//                                    SearchResultObject.searchKeywordResultActivityPresenter.responseMoreSearchResultList(it.data.content)
+//                                    SearchResultObject.searchEditTextActivityPresenter.responseMoreSearchResultList(it.data.content)
 //                                }
 //                            }
 //

@@ -2,6 +2,7 @@ package com.takhyungmin.dowadog.apply.online
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -11,6 +12,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.ApplyOnlineThirdTempOrAdoptActivity
@@ -56,6 +58,9 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
             btn_apply_online_second_next.setBackgroundColor(Color.parseColor("#ffc233"))
             havePetFlag = true
             isSelect = true
+
+            second_layout_temp2.visibility = View.VISIBLE
+            layout_apply_second_input.visibility = View.VISIBLE
         }
 
         btn_online_apply_second_disagree_check.clicks().subscribe {
@@ -65,6 +70,9 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
             btn_apply_online_second_next.setBackgroundColor(Color.parseColor("#ffc233"))
             havePetFlag = false
             isSelect = true
+
+            second_layout_temp2.visibility = View.GONE
+            layout_apply_second_input.visibility = View.GONE
         }
 
         btn_apply_online_second_next.clicks().subscribe{
@@ -86,6 +94,10 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
 
         btn_apply_second_back_real.clicks().subscribe{
             finish()
+        }
+        root_view_apply_second_back_real.clicks().subscribe(){
+            val imm: InputMethodManager = applicationContext!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(root_view_apply_second_back_real.windowToken, 0)
         }
     }
 

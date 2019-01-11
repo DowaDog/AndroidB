@@ -54,6 +54,7 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
         }else{
             AdoptObject.adoptUrgentAnimalActivityPresenter = adoptUrgentAnimalActivityPresenter
             adoptUrgentAnimalActivityPresenter.requestStoryAnimalList(currentPage, pagingCount)
+            tv_title_urgent_ani_act.text = "제 이야기를 들어볼래요?"
         }
     }
 
@@ -63,6 +64,11 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
         //rv_urgent_ani_act.setFocusable(false)
         rv_urgent_ani_act.adapter = urgentAnimalAdapter
         rv_urgent_ani_act.layoutManager = GridLayoutManager(this, 2)
+
+        if(pagingCount > urgentAnimalDatas.size){
+            isLast = true
+            progress_community_adopt_urgent.visibility = View.GONE
+        }
 
         scroll_urgent_adopt_frame.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             Log.v("scroll", "scroll")

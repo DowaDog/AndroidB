@@ -72,7 +72,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_search_result_act"
                 android:layout_width="match_parent"
@@ -81,7 +81,20 @@
                 android:layout_marginBottom="4dp"
                 android:layout_marginHorizontal="11dp"
                 android:visibility="visible"></android.support.v7.widget.RecyclerView>
+
+            <ProgressBar
+                android:id="@+id/progress_search_result"
+                android:layout_below="@+id/rv_search_result_act"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:theme="@style/CircularProgress"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible"/>
         </RelativeLayout>
+
+
 
     </android.support.v4.widget.NestedScrollView>
 

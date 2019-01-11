@@ -29,4 +29,6 @@ class HomeFragmentPresenter : BasePresenter<HomeFragment>() {
     val changeCheck = {check : Boolean ->
         view!!.checkChange(check)
     }
+
+    val setCount = {count : Int -> view!!.setCount(count)}
 }

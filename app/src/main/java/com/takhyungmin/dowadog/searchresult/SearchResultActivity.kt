@@ -17,11 +17,15 @@ import com.takhyungmin.dowadog.searchresult.model.ggg.Content
 import com.takhyungmin.dowadog.searchresult.model.ggg.ccc
 import kotlinx.android.synthetic.main.activity_search_result.*
 
+
+// 필터에서 넘어오는 부분
 class SearchResultActivity : BaseActivity(), View.OnClickListener {
 
     var isLoading = false
 
     var currentPage = 0
+
+    val pagingCount = 16
 
     var TOTAL_PAGE = 10
 
@@ -74,7 +78,10 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
         if (remainDate >= 15 ){
             remainDate = 300
         }
-        init()
+
+        tv_keyword_search_act.text = "필터 검색 결과"
+        tv_temp_search_act.text = ""
+        btn_back_search_result_act.setOnClickListener(this)
         initPresenter()
 
         /*전체 지역 = 0
@@ -88,12 +95,18 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
                 제주 = 8*/
 
         setFilterRequest(isDog, isCat, areaNum)
+
+
     }
 
-    private fun init() {
-        tv_keyword_search_act.text = "필터 검색 결과"
-        tv_temp_search_act.text = ""
-        btn_back_search_result_act.setOnClickListener(this)
+    private fun init(dataList: ArrayList<Content>) {
+
+
+        if(pagingCount > dataList.size){
+            isLast = true
+            progress_search_result.visibility = View.GONE
+        }
+
         nested_scroll_search_result_act.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             Log.v("scroll", "scroll")
             if (scrollY == ( v.getChildAt(0).height - v.height )) {
@@ -107,11 +120,10 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
                     Handler().postDelayed(Runnable {
                         //communityFragmentPresenter.nextPage(currentPage, itemCount)
                         Log.v("scroll", "more")
-                        searchResultActivityPresenter.responseData(type, region, remainDate, currentPage, 10)
+                        searchResultActivityPresenter.responseData(type, region, remainDate, currentPage, pagingCount)
                     }, 800)
                 }
             }
-
         })
     }
 
@@ -137,11 +149,12 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
             if(data.data.content.size<= 0){
                 rl_no_search_result_act.visibility = View.VISIBLE
                 nested_scroll_search_result_act.visibility = View.GONE
+                init(data.data.content)
             }else {
                 rl_no_search_result_act.visibility = View.GONE
                 nested_scroll_search_result_act.visibility = View.VISIBLE
+                init(data.data.content)
             }
-
         }
     }
 
@@ -153,12 +166,16 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun loadNextPage(results : ArrayList<Content>){
-        Log.v("scroll", "add")
+
+        Log.v("TAGGG234", 0.toString())
         searchResultAdapter.addAll(results)
-        //currentPage += 1
+        Log.v("TAGGG234", 1.toString())
         isLoading = false
-        if (currentPage >= TOTAL_PAGE)
+        if (pagingCount > results.size) {
+            Log.v("TAGGG234", 2.toString())
+            progress_search_result.visibility = View.GONE
             isLast = true
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -174,39 +191,39 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
             type = ""
             when (areaNum) {
                 0 -> {
-                    requestResultData("", "", remainDate, 0, 10)
+                    requestResultData("", "", remainDate, currentPage, pagingCount)
                     region = ""
                 }
                 1 -> {
-                    requestResultData("", "서울", remainDate, 0, 10)
+                    requestResultData("", "서울", remainDate, currentPage, pagingCount)
                     region = "서울"
                 }
                 2 -> {
-                    requestResultData("", "경기", remainDate, 0, 10)
+                    requestResultData("", "경기", remainDate, currentPage, pagingCount)
                     region = "경기"
                 }
                 3 -> {
-                    requestResultData("", "인천", remainDate, 0, 10)
+                    requestResultData("", "인천", remainDate, currentPage, pagingCount)
                     region = "인천"
                 }
                 4 -> {
-                    requestResultData("", "강원", remainDate, 0, 10)
+                    requestResultData("", "강원", remainDate, currentPage, pagingCount)
                     region = "강원"
                 }
                 5 -> {
-                    requestResultData("", "충청", remainDate, 0, 10)
+                    requestResultData("", "충청", remainDate, currentPage, pagingCount)
                     region = "충청"
                 }
                 6 -> {
-                    requestResultData("", "전라", remainDate, 0, 10)
+                    requestResultData("", "전라", remainDate, currentPage, pagingCount)
                     region = "전라"
                 }
                 7 -> {
-                    requestResultData("", "경상", remainDate, 0, 10)
+                    requestResultData("", "경상", remainDate, currentPage, pagingCount)
                     region = "경상"
                 }
                 8 -> {
-                    requestResultData("", "제주", remainDate, 0, 10)
+                    requestResultData("", "제주", remainDate, currentPage, pagingCount)
                     region = "제주"
                 }
             }
@@ -214,39 +231,39 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
             type = "개"
             when (areaNum) {
                 0 -> {
-                    requestResultData("개", "", remainDate, 0, 10)
+                    requestResultData("개", "", remainDate, currentPage, pagingCount)
                     region = ""
                 }
                 1 -> {
-                    requestResultData("개", "서울", remainDate, 0, 10)
+                    requestResultData("개", "서울", remainDate, currentPage, pagingCount)
                     region = "서울"
                 }
                 2 -> {
-                    requestResultData("개", "경기", remainDate, 0, 10)
+                    requestResultData("개", "경기", remainDate, currentPage, pagingCount)
                     region = "경기"
                 }
                 3 -> {
-                    requestResultData("개", "인천", remainDate, 0, 10)
+                    requestResultData("개", "인천", remainDate, currentPage, pagingCount)
                     region = "인천"
                 }
                 4 -> {
-                    requestResultData("개", "강원", remainDate, 0, 10)
+                    requestResultData("개", "강원", remainDate, currentPage, pagingCount)
                     region = "강원"
                 }
                 5 -> {
-                    requestResultData("개", "충청", remainDate, 0, 10)
+                    requestResultData("개", "충청", remainDate, currentPage, pagingCount)
                     region = "충청"
                 }
                 6 -> {
-                    requestResultData("개", "전라", remainDate, 0, 10)
+                    requestResultData("개", "전라", remainDate, currentPage, pagingCount)
                     region = "전라"
                 }
                 7 -> {
-                    requestResultData("개", "경상", remainDate, 0, 10)
+                    requestResultData("개", "경상", remainDate, currentPage, pagingCount)
                     region = "경상"
                 }
                 8 -> {
-                    requestResultData("개", "제주", remainDate, 0, 10)
+                    requestResultData("개", "제주", remainDate, currentPage, pagingCount)
                     region = "제주"
                 }
             }
@@ -254,39 +271,39 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
             type = "고양이"
             when (areaNum) {
                 0 -> {
-                    requestResultData("고양이", "", remainDate, 0, 10)
+                    requestResultData("고양이", "", remainDate, currentPage, pagingCount)
                     region = ""
                 }
                 1 -> {
-                    requestResultData("고양이", "서울", remainDate, 0, 10)
+                    requestResultData("고양이", "서울", remainDate, currentPage, pagingCount)
                     region = "서울"
                 }
                 2 -> {
-                    requestResultData("고양이", "경기", remainDate, 0, 10)
+                    requestResultData("고양이", "경기", remainDate, currentPage, pagingCount)
                     region = "경기"
                 }
                 3 -> {
-                    requestResultData("고양이", "인천", remainDate, 0, 10)
+                    requestResultData("고양이", "인천", remainDate, currentPage, pagingCount)
                     region = "인천"
                 }
                 4 -> {
-                    requestResultData("고양이", "강원", remainDate, 0, 10)
+                    requestResultData("고양이", "강원", remainDate, currentPage, pagingCount)
                     region = "강원"
                 }
                 5 -> {
-                    requestResultData("고양이", "충청", remainDate, 0, 10)
+                    requestResultData("고양이", "충청", remainDate, currentPage, pagingCount)
                     region = "충청"
                 }
                 6 -> {
-                    requestResultData("고양이", "전라", remainDate, 0, 10)
+                    requestResultData("고양이", "전라", remainDate, currentPage, pagingCount)
                     region = "전라"
                 }
                 7 -> {
-                    requestResultData("고양이", "경상", remainDate, 0, 10)
+                    requestResultData("고양이", "경상", remainDate, currentPage, pagingCount)
                     region = "경상"
                 }
                 8 -> {
-                    requestResultData("고양이", "제주", remainDate, 0, 10)
+                    requestResultData("고양이", "제주", remainDate, currentPage, pagingCount)
                     region = "제주"
                 }
             }
