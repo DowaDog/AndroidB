@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.Glide
@@ -47,6 +48,7 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_apply_online_second)
         getIntentItem()
         setOnBinding()
+        setOnEnterListener()
 
     }
 
@@ -169,6 +171,16 @@ class ApplyOnlineSecondActivity : AppCompatActivity() {
         }
     }
 
+
+    fun setOnEnterListener() {
+        et_animal_description.setOnKeyListener { v, keyCode, event ->
+            if((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                btn_apply_online_second_next.performClick()
+                true
+            }
+            false
+        }
+    }
 
     private val responseListener = View.OnClickListener { customDialog!!.dismiss() }
 }

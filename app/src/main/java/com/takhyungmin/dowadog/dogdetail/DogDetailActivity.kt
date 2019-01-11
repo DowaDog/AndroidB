@@ -83,19 +83,22 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         // 좋아요 버튼
             btn_heart_dog_detail_act -> {
-                if (isLike == 0) {
-                    iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_full_icon)
-                    isLike = 1
-                    // 좋아요 통신
-                    dogDetailActivityPresenter.requestHeartData(animalId)
-                    likeThanksDialog.show()
-                } else {
-                    iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_line_icon)
-                    isLike = 0
-                    // 좋아요 취소 통신
-                    dogDetailActivityPresenter.requestHeartData(animalId)
-                    likeDeleteDialog.show()
-
+                if (ApplicationData.auth == "")
+                    logoutCustomDialog.show()
+                else {
+                    if (isLike == 0) {
+                        iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_full_icon)
+                        isLike = 1
+                        // 좋아요 통신
+                        dogDetailActivityPresenter.requestHeartData(animalId)
+                        likeThanksDialog.show()
+                    } else {
+                        iv_heart_dog_detail_act.setImageResource(R.drawable.hearts_line_icon)
+                        isLike = 0
+                        // 좋아요 취소 통신
+                        dogDetailActivityPresenter.requestHeartData(animalId)
+                        likeDeleteDialog.show()
+                    }
                 }
             }
         }
@@ -258,7 +261,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         Glide.with(this@DogDetailActivity).load(data.thumbnailImg).into(iv_top_dog_dog_detail_act)
 
         data.region?.let {
-            tv_area_dog_detail_act.text = it
+            tv_area_dog_detail_act.text = "["+it+"] "
         }
 
         data.kindCd?.let { tv_kind_dog_detail_act.text = it }
@@ -287,11 +290,11 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         data.age?.let {
-            tv_age_dog_detail_act.text = it
+            tv_age_dog_detail_act.text = it + "살"
         }
 
         data.weight?.let {
-            tv_weight_dog_detail_act.text = it
+            tv_weight_dog_detail_act.text = it + "kg"
         }
 
         // HM

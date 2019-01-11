@@ -9,6 +9,7 @@ import com.takhyungmin.dowadog.utils.ApplicationData
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +36,13 @@ class MypageSettingModel {
 
                     override fun onFailure(call: Call<GETMypageSettingResponse>?, t: Throwable?) {
                         Log.e("mypageset 회원정보 get통신 실패", t.toString())
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
+
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
                     }
 
                     override fun onResponse(call: Call<GETMypageSettingResponse>?, response: Response<GETMypageSettingResponse>?) {
@@ -67,6 +75,14 @@ class MypageSettingModel {
 
                     override fun onFailure(call: Call<PUTMypageSettingResponse>?, t: Throwable?) {
                         Log.e("회원정보 put 통신 실패", t.toString())
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
+
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
+
                     }
 
                     override fun onResponse(call: Call<PUTMypageSettingResponse>?, response: Response<PUTMypageSettingResponse>?) {

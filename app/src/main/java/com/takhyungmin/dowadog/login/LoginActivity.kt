@@ -3,6 +3,7 @@ package com.takhyungmin.dowadog.login
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -78,6 +79,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         rl_login_act.setOnClickListener(this)
         btn_login_act.setOnClickListener(this)
+        setOnEnterListener()
         loginActivityPresenter = LoginActivityPresenter()
         loginActivityPresenter.view = this
         LoginObject.loginActivityPresenter = loginActivityPresenter
@@ -145,4 +147,15 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     fun toast(){
         toast("계정 정보가 일치하지 않습니다.")
     }
+
+    fun setOnEnterListener() {
+        et_pw_login_act.setOnKeyListener { v, keyCode, event ->
+            if((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                btn_login_act.performClick()
+                true
+            }
+            false
+        }
+    }
+
 }

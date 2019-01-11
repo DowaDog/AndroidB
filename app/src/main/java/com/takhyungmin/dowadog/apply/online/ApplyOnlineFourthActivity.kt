@@ -304,6 +304,8 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
                     }else {
                     }
 
+                    progress_apply_complete.visibility = View.VISIBLE
+
                     applyOnlineFouthActivityPresenter.requestData(ApplicationData.userPhone, ApplicationData.userEmail, address, job, havePet, "online", animalDescription,
                             adoptType, animalId, animalImg = mimage)
                 }
@@ -412,6 +414,7 @@ class ApplyOnlineFourthActivity : BaseActivity(), View.OnClickListener {
         data?.let {
             if(it.message != null){
                 if(it.message == "신청서 정보 작성 성공"){
+                    progress_apply_complete.visibility = View.GONE
                     alrightSingleResDialog.show()
                 }else{
                     failureSingleResDialog.show()

@@ -10,6 +10,7 @@ import com.takhyungmin.dowadog.communitydetail.model.get.GetCommunityCommentResp
 import com.takhyungmin.dowadog.communitydetail.model.get.GetCommunityPostDetailResponse
 import com.takhyungmin.dowadog.communitydetail.model.post.PostCommunityCommentWriteResponse
 import com.takhyungmin.dowadog.utils.ApplicationData
+import org.jetbrains.anko.toast
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,6 +51,13 @@ class CommunityDetailModel {
                 "application/json", communityId).enqueue(object : Callback<GetCommunityPostDetailResponse> {
             override fun onFailure(call: Call<GetCommunityPostDetailResponse>?, t: Throwable?) {
                 Log.e("CommunityDetail통신실패", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetCommunityPostDetailResponse>?, response: Response<GetCommunityPostDetailResponse>?) {
@@ -68,6 +76,13 @@ class CommunityDetailModel {
                 communityId).enqueue(object : Callback<DeleteCommunityDetailPostResponse> {
             override fun onFailure(call: Call<DeleteCommunityDetailPostResponse>?, t: Throwable?) {
                 Log.e("커뮤니티 디테일 모델 통신 실패", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<DeleteCommunityDetailPostResponse>?, response: Response<DeleteCommunityDetailPostResponse>?) {
@@ -86,6 +101,13 @@ class CommunityDetailModel {
         communityDetailNetworkService.getCommunityCommentResponse(ApplicationData.auth, communityId).enqueue(object : Callback<GetCommunityCommentResponse> {
             override fun onFailure(call: Call<GetCommunityCommentResponse>?, t: Throwable?) {
                 Log.e("커뮤니티 디테일 댓글 모델 통신 실패", t.toString())
+                if (t.toString().contains("Failed to connect to")) {
+                    ApplicationData.applicationContext.toast("점검 중입니다.")
+                }
+
+                if (t.toString().contains("Unable to resolve host")) {
+                    ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                }
             }
 
             override fun onResponse(call: Call<GetCommunityCommentResponse>?, response: Response<GetCommunityCommentResponse>?) {
@@ -110,6 +132,13 @@ class CommunityDetailModel {
                 .enqueue(object: Callback<PostCommunityCommentWriteResponse>{
                     override fun onFailure(call: Call<PostCommunityCommentWriteResponse>?, t: Throwable?) {
                         Log.e("커뮤니티 디테일 댓글 쓰기 통신 실패", t.toString())
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
+
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
                     }
 
                     override fun onResponse(call: Call<PostCommunityCommentWriteResponse>?, response: Response<PostCommunityCommentWriteResponse>?) {
@@ -128,6 +157,13 @@ class CommunityDetailModel {
                 .enqueue(object : Callback<DeleteCommunityCommentResponse>{
                     override fun onFailure(call: Call<DeleteCommunityCommentResponse>?, t: Throwable?) {
                         Log.e("커뮤니티 디테일 댓글 삭제 통신 실패", t.toString())
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
+
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
                     }
 
                     override fun onResponse(call: Call<DeleteCommunityCommentResponse>?, response: Response<DeleteCommunityCommentResponse>?) {

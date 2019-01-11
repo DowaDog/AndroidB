@@ -15,6 +15,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -104,6 +105,8 @@ class MypageSettingActivity : BaseActivity(), View.OnClickListener {
     fun init() {
         img_profile_mypage_set_act.setOnClickListener(this)
         img_camera_mypage_set_act.setOnClickListener(this)
+
+        setOnEnterListener()
 
         //et_name 수정
         et_name_mod_mypage_setting_act.setOnClickListener(this)
@@ -335,6 +338,17 @@ class MypageSettingActivity : BaseActivity(), View.OnClickListener {
         //finish()
 
     }
+
+    fun setOnEnterListener() {
+        et_phone_mod_mypage_setting_act.setOnKeyListener { v, keyCode, event ->
+            if((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                btn_confirm_mypage_setting_act.performClick()
+                true
+            }
+            false
+        }
+    }
+
 }
 
 

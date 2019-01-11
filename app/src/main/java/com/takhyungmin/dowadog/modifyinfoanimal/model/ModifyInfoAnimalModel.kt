@@ -7,6 +7,7 @@ import com.takhyungmin.dowadog.utils.ApplicationData
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +34,13 @@ class ModifyInfoAnimalModel {
 
                     override fun onFailure(call: Call<GETModifyInfoAnimalResponse>?, t: Throwable?) {
                         Log.e("modifyInfo통신 실패", t.toString())
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
+
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
                     }
 
                     override fun onResponse(call: Call<GETModifyInfoAnimalResponse>?, response: Response<GETModifyInfoAnimalResponse>?) {
@@ -77,6 +85,14 @@ class ModifyInfoAnimalModel {
                 .enqueue(object : Callback<PUTModifyInfoAnimalResponse> {
                     override fun onFailure(call: Call<PUTModifyInfoAnimalResponse>, t: Throwable) {
                         Log.v("modifyInfoAnimal 통신 실패!", t.toString())
+                        if (t.toString().contains("Failed to connect to")) {
+                            ApplicationData.applicationContext.toast("점검 중입니다.")
+                        }
+
+                        if (t.toString().contains("Unable to resolve host")) {
+                            ApplicationData.applicationContext.toast("인터넷 연결 상태를 확인해주세요.")
+                        }
+
                     }
 
                     override fun onResponse(call: Call<PUTModifyInfoAnimalResponse>?, response: Response<PUTModifyInfoAnimalResponse>?) {

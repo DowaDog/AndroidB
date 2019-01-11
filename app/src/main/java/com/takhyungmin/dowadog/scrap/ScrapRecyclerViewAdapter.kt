@@ -39,7 +39,7 @@ class ScrapRecyclerViewAdapter(var ctx: Context, var dataList: ArrayList<GetMySc
 
         holder.btn.setOnClickListener {
             // 컨텐츠디테일 액티비티로 넘어가기
-            ScrapObject.scrapActivityPresenter.scrapContentsDetail(dataList[position].id, dataList[position].type)
+            ScrapObject.scrapActivityPresenter.scrapContentsDetail(dataList[position].id, dataList[position].type, dataList[position].title)
 
 //            var intent = Intent(ctx, DogDetailActivity::class.java)
 //            intent.putExtra("animalId", dataList[position].id)
