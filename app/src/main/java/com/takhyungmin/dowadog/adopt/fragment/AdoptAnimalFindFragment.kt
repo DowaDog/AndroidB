@@ -45,7 +45,7 @@ class AdoptAnimalFindFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adoptAnimalFindFragmentPresenter = AdoptAnimalFindFragmentPresenter()
         adoptAnimalFindFragmentPresenter.view = this
-        adoptAnimalFindFragmentPresenter.init()
+        //adoptAnimalFindFragmentPresenter.init()
         setOnBinding()
 
         AdoptObject.adoptAnimalFindFragmentPresnter = adoptAnimalFindFragmentPresenter
@@ -142,8 +142,14 @@ class AdoptAnimalFindFragment : Fragment() {
     fun toDetail(id : Int){
         val intent = Intent(Intent(activity!!, DogDetailActivity::class.java))
         intent.putExtra("animalId", id)
-        activity!!.startActivity(intent)
+        activity!!.startActivityForResult(intent, 7009)
     }
 
-
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if(requestCode == 7009){
+//            adoptAnimalFindFragmentPresenter.requestNewList(currentPage, pagingCount)
+//            adoptAnimalFindFragmentPresenter.requestUrgentList(currentPage, 2)
+//        }
+//    }
 }

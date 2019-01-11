@@ -12,8 +12,10 @@ interface AdoptNetworkService {
 
     //긴급 동물 조회(from 공공)
     @GET("api/normal/animals/emergency")
-    fun getCommunityList(@Query("page") page : Int,
-                         @Query("limit") limit : Int): Call<GetAdoptPublicUrgentResponse>
+    fun getCommunityList(
+            @Header("Authorization") auth : String,
+            @Query("page") page : Int,
+            @Query("limit") limit : Int): Call<GetAdoptPublicUrgentResponse>
 
     @GET("openapi/animals/{animalId}")
     fun getAdoptDetail(@Path("animalId") animalId : Int) : Call<GetAdoptPublicDetailResponse>

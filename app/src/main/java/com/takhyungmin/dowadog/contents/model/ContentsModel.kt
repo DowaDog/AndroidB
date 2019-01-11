@@ -55,7 +55,7 @@ class ContentsModel {
     }
 
     fun requestSenseList(){
-        contentsNetworkService.getSenseContentsList(ApplicationData.auth, 0, 10).enqueue(object : Callback<GetEduContentsResponse>{
+        contentsNetworkService.getSenseContentsList(ApplicationData.auth, 0, 20).enqueue(object : Callback<GetEduContentsResponse>{
             override fun onFailure(call: Call<GetEduContentsResponse>, t: Throwable) {
                 Log.v("ConetnstList", t.toString())
                 if (t.toString().contains("Failed to connect to")) {

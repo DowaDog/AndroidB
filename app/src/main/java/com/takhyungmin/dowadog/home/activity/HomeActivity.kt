@@ -109,7 +109,7 @@ class HomeActivity : AppCompatActivity() {
     fun addFragment(fragment : Fragment){
         val fm = supportFragmentManager
         val transaction = fm.beginTransaction()
-        transaction.add(R.id.frame_home, fragment)
+        transaction.replace(R.id.frame_home, fragment)
         transaction.commitNow()
     }
 
@@ -329,6 +329,10 @@ class HomeActivity : AppCompatActivity() {
         if(requestCode == 3009){
             tv_navi_name.text = ApplicationData.userName + "님,"
             Glide.with(this).load(ApplicationData.userImage).into(img_navi_profile)
+        }
+
+        if(requestCode == 7009){
+            homeActivityPresenter.addFragment(AdoptAnimalFindFragment())
         }
     }
 }

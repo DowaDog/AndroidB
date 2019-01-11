@@ -51,7 +51,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(intent)
             }else{
                 val intent = Intent(this, HomeActivity::class.java)
-                ApplicationData.auth = SharedPreferenceController.getAccessToken(this)
+                ApplicationData.auth = SharedPreferenceController.getRefreshToken(this)
                 ApplicationData.loginState = true
                 startActivity(intent)
             }

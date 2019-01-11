@@ -7,5 +7,5 @@ data class UrgentAnimalData (
         var ani_kind : String,
         var ani_gender : String,
         var ani_region : String,
-        var like : Boolean
+        var liked : Boolean
 )

@@ -1,7 +1,6 @@
 package com.takhyungmin.dowadog.adopt.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,11 +48,9 @@ class AnimalFindNewAdapter(var newItems : ArrayList<UrgentAnimalData>, var newRe
             AdoptObject.adoptAnimalFindFragmentPresnter.toDtail(newItems[position].id)
         }
 
-        Log.v("position", position.toString())
-        Log.v("heart", newItems[position].like.toString())
 
 
-        if(newItems[position].like)
+        if(newItems[position].liked)
             newRequestManager.load(R.drawable.heart_red_1227).into(holder.heart)
         else
             newRequestManager.load(R.drawable.heart_gray_1227).into(holder.heart)
