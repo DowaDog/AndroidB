@@ -12,9 +12,11 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.bumptech.glide.Glide
+import com.takhyungmin.dowadog.home.activity.HomeActivity
 import com.takhyungmin.dowadog.login.LoginActivity
 import com.takhyungmin.dowadog.utils.ApplicationData
 import com.takhyungmin.dowadog.utils.GifDrawableImageViewTarget
+import com.takhyungmin.dowadog.utils.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -43,9 +45,16 @@ class SplashActivity : AppCompatActivity() {
 
         val handler = Handler()
         handler.postDelayed(Runnable {
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra("splash", 1)
-            startActivity(intent)
+            if(SharedPreferenceController.getAccessToken(this).isEmpty()){
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("splash", 1)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this, HomeActivity::class.java)
+                ApplicationData.auth = SharedPreferenceController.getAccessToken(this)
+                ApplicationData.loginState = true
+                startActivity(intent)
+            }
             //startActivity<LoginActivity>()
             finish()
         }, 3000)

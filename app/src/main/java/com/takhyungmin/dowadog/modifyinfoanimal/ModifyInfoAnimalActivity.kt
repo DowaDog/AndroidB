@@ -72,12 +72,13 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                 if (cutFlag == 0) {
                     iv_dog_cut_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     cutFlag = 1
-
+                    neuterYn = true
                     iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     Log.v("TAG", "4")
                 } else {
                     iv_dog_cut_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     cutFlag = 0
+                    neuterYn = false
                     Log.v("TAG", "3")
                 }
             }
@@ -88,13 +89,14 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     //체크 된 상태
                     iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     cutFlag = 0
-
+                    neuterYn = true
                     Log.v("TAG", "1")
                     iv_dog_cut_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 } else {
                     //체크 안 된 상태
                     iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     cutFlag = 1
+                    neuterYn = false
                     Log.v("TAG", "2")
                 }
 
@@ -224,7 +226,7 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     name = modifyGetData.name
                 }
                 if (!et_dog_birth_modify_info_animal_act.text.isEmpty())
-                    age = et_dog_birth_weight_info_animal_act.text.toString()
+                    age = et_dog_birth_modify_info_animal_act.text.toString()
                 else
                     age = modifyGetData.age
                 if(!et_dog_birth_weight_info_animal_act.text.isEmpty())
@@ -370,11 +372,13 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                 iv_dog_cut_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                 iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 cutFlag = 1
+                neuterYn = true
 
             } else {
                 iv_dog_cut_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                 cutFlag = 0
+                neuterYn = false
             }
 
             if (modifyGetData.gender == "M") {
@@ -465,19 +469,20 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
             //startActivity<MypageActivity>()
             if (!et_dog_name_modify_info_animal_act.text.isEmpty())
                 name = et_dog_name_modify_info_animal_act.text.toString()
-            if (!et_dog_birth_weight_info_animal_act.text.isEmpty())
-                age = et_dog_birth_weight_info_animal_act.text.toString()
+            if (!et_dog_birth_modify_info_animal_act_tv.text.isEmpty())
+                age = et_dog_birth_modify_info_animal_act_tv.text.toString()
             if(!et_dog_birth_weight_info_animal_act.text.isEmpty())
                 weight = et_dog_birth_weight_info_animal_act.text.toString()
 
             //중성화 여부
-            if(cutFlag ==1)
-            {
-                neuterYn = true
-            }else
-            {
-                neuterYn = false
-            }
+            neuterYn = (cutFlag == 1)
+//            if(cutFlag ==1)
+//            {
+//                neuterYn = true
+//            }else
+//            {
+//                neuterYn = false
+//            }
 
 
 
