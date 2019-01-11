@@ -112,8 +112,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         SharedPreferenceController.setAccessTokenExpired(this, data.accessToken.expiredAt)
         SharedPreferenceController.setId(this, et_id_login_act.text.toString())
         SharedPreferenceController.setPwd(this, et_pw_login_act.text.toString())
-        ApplicationData.auth = data.accessToken.data
         ApplicationData.loginState = true
+        ApplicationData.auth = data.refreshToken.data
 
 
 

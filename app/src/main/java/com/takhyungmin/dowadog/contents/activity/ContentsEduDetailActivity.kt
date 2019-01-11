@@ -190,9 +190,15 @@ class ContentsEduDetailActivity : AppCompatActivity() {
             //여기에 받아온 데이터들을 가져와서 보여주는 것을 해야함 (함수로 만들던 여기에 구현하던)
             Log.v("ygyg", it.data.content.toString())
 
-            eduCompleted = data.data.edu.allComplete
+            if(data.data.edu.allComplete != null){
+                eduCompleted = data.data.edu.allComplete
+            }
+
+            if(data.data.edu.allEducate != null){
+                eduAllCount = data.data.edu.allEducate
+            }
             //eduCount = data.data.edu.userEducate
-            eduAllCount = data.data.edu.allEducate
+
 
             Glide.with(this).load(data.data.cardnewsThumbnail).into(img_contents_edu_detail)
 

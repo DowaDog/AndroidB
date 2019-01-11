@@ -431,7 +431,7 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
         SharedPreferenceController.setId(this, this.id)
         SharedPreferenceController.setPwd(this, this.pwd)
         ApplicationData.loginState = true
-        ApplicationData.auth = getLoginData.accessToken.data
+        ApplicationData.auth = getLoginData.refreshToken.data
         val intent = Intent(this, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

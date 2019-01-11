@@ -22,6 +22,10 @@ class HomeActivityPresenter : BasePresenter<HomeActivity>() {
         view!!.replaceFragment(fragment)
     }
 
+    fun addFragment(fragment: Fragment){
+        view!!.addFragment(fragment)
+    }
+
     fun adjustDim(percent : Float){
         view!!.adjustDim(percent)
     }

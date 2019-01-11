@@ -32,7 +32,7 @@ class AdoptAnimalModel {
     }
 
     fun getAdoptUrgentPublicList(page : Int, limit : Int){
-        adoptNetworkService.getCommunityList(page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse>{
+        adoptNetworkService.getCommunityList(ApplicationData.auth, page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse>{
             override fun onFailure(call: Call<GetAdoptPublicUrgentResponse>, t: Throwable) {
                 Log.v("AdoptUrgent", t.toString())
                 if (t.toString().contains("Failed to connect to")) {
@@ -58,7 +58,7 @@ class AdoptAnimalModel {
     }
 
     fun getAdoptUrgentPublicListFromFragment(page : Int, limit : Int){
-        adoptNetworkService.getCommunityList(page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse>{
+        adoptNetworkService.getCommunityList(ApplicationData.auth, page, limit).enqueue(object : Callback<GetAdoptPublicUrgentResponse>{
             override fun onFailure(call: Call<GetAdoptPublicUrgentResponse>, t: Throwable) {
                 Log.v("AdoptUrgent", t.toString())
                 if (t.toString().contains("Failed to connect to")) {

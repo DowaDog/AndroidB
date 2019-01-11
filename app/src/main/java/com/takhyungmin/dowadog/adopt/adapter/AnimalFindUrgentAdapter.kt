@@ -1,7 +1,6 @@
 package com.takhyungmin.dowadog.adopt.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,10 +50,7 @@ class AnimalFindUrgentAdapter(var urgentItems : ArrayList<UrgentAnimalData>,
             AdoptObject.adoptAnimalFindFragmentPresnter.toDtail(urgentItems[position].id)
         }
 
-        Log.v("position", position.toString())
-        Log.v("urgent", urgentItems[position].like.toString())
-
-        if(urgentItems[position].like)
+        if(urgentItems[position].liked)
             urgentRequestManager.load(R.drawable.heart_red_1227).into(holder.heart)
         else
             urgentRequestManager.load(R.drawable.heart_gray_1227).into(holder.heart)

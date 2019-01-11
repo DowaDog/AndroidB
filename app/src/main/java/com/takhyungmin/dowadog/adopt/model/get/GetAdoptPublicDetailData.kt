@@ -17,5 +17,6 @@ data class GetAdoptPublicDetailData (
         var thumbnailImg : String,
         var happenPlace : String,
         var careName : String,
-        var careTel : String
+        var careTel : String,
+        var liked : Boolean
 )

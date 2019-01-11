@@ -80,7 +80,7 @@ class PressedAdoptActivity : BaseActivity() {
             } else {
                 //아래 코드는 권한을 요청하는 메시지를 띄우는 기능을 합니다! 요청에 대한 결과는 callback으로 onRequestPermissionsResult 메소드에서 받습니다!!!
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), 4009)
-                Log.v("ygyg", "ygyg2")
+                startActivityForResult(intent, 4009)
             }
         } else {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num))
