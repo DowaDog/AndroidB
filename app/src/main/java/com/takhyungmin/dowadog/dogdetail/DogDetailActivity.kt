@@ -302,31 +302,31 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
                 if (it.size == 1) {
                     it[0]?.let {
                         Log.v("123123123", it)
-                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act1)
+                        Glide.with(this@DogDetailActivity).load(it).into(iv_my_story_dog_detail_act1)
                     }
                 }
                 else if (it.size == 2){
                     it[0]?.let {
                         Log.v("123123123", it)
-                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act1)
+                        Glide.with(this@DogDetailActivity).load(it).into(iv_my_story_dog_detail_act1)
                     }
                     it[1]?.let {
                         Log.v("123123123", it)
-                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act2)
+                        Glide.with(this@DogDetailActivity).load(it).into(iv_my_story_dog_detail_act2)
                     }
                 }
                 else if (it.size == 3) {
                     it[0]?.let {
                         Log.v("123123123", it)
-                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act1)
+                        Glide.with(this@DogDetailActivity).load(it).into(iv_my_story_dog_detail_act1)
                     }
                     it[1]?.let {
                         Log.v("123123123", it)
-                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act2)
+                        Glide.with(this@DogDetailActivity).load(it).into(iv_my_story_dog_detail_act2)
                     }
                     it[2]?.let {
                         Log.v("123123123", it)
-                        Glide.with(this@DogDetailActivity).load(it).thumbnail(0.1f).into(iv_my_story_dog_detail_act3)
+                        Glide.with(this@DogDetailActivity).load(it).into(iv_my_story_dog_detail_act3)
                     }
                 }
             }
