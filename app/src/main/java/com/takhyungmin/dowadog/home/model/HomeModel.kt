@@ -75,6 +75,7 @@ class HomeModel {
     }
 
     val changeFragment = { it : GetFragmentData ->
+        Log.v("화끈", it.view)
         when(it.view){
             "NO"->{
                 Log.v("success", "in")
@@ -94,11 +95,17 @@ class HomeModel {
                 HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentSecondSlide())
             }
             "S2"->{
-                HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentThirdSlide())
                 if(it.time == null)
                     HomeObject.date = ""
+                else
+                    HomeObject.date = it.time
                 if(it.place == null)
                     HomeObject.place = ""
+                else
+                    HomeObject.place = it.place
+
+                HomeObject.homeFragmentPresenter.changeIndicator(HomeFragmentThirdSlide())
+
                 //3-1
             }
             "S3"->{
@@ -113,6 +120,7 @@ class HomeModel {
             }
         }
         HomeObject.homeFragmentPresenter.changeCheck(it.userCheck)
+        HomeObject.homeFragmentPresenter.setCount(it.totalCount)
 
         //입양 안했을 때(단계시작전) : NO
         //main 1단계 입양신청 : S0

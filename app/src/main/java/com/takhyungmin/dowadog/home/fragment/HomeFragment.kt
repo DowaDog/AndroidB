@@ -75,6 +75,7 @@ class HomeFragment : Fragment() {
 
                     override fun onVisibilityChanged(visibility: Int) {
                         if (visibility == View.GONE) {
+                            homeFragmentPresneter.init()
                             btn_home_fragment_slide.visibility = View.VISIBLE
                         }
 
@@ -107,6 +108,10 @@ class HomeFragment : Fragment() {
             img_home_fragment_check.visibility = View.GONE
         else
             img_home_fragment_check.visibility = View.VISIBLE
+    }
+
+    fun setCount(count : Int){
+        tv_home_fragment_count.text = count.toString()
     }
 
     fun swipeEnable(position : Int){

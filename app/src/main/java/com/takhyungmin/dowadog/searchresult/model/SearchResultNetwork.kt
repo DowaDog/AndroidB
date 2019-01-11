@@ -26,4 +26,16 @@ interface SearchResultNetwork {
             @Query("tag") tag: String,
             @Query("limit") limit: Int
     ): Call<ccc>
+
+    // 공공데이터 조건별 검색
+    @GET("api/normal/animals")
+    fun getSearchEditTextResultResponse(
+            @Header("Authorization") authorization: String,
+            @Query("type") type: String?,
+            @Query("region") region: String?,
+            @Query("remainNoticeDate") remainNoticeDate: Int?,
+            @Query("page") page: Int?,
+            @Query("limit") limit: Int?,
+            @Query("searchWord") searchWord: String?
+    ): Call<ccc>
 }

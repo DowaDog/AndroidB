@@ -1,13 +1,17 @@
 package com.takhyungmin.dowadog
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.apply.online.ApplyOnlineFourthActivity
 import com.takhyungmin.dowadog.utils.CustomSingleResDialog
+import kotlinx.android.synthetic.main.activity_apply_online_second.*
 import kotlinx.android.synthetic.main.activity_apply_online_third_select_temp.*
 import org.jetbrains.anko.startActivity
 
@@ -91,6 +95,11 @@ class ApplyOnlineThirdSelectTempActivity : BaseActivity(), View.OnClickListener 
         btn_back_apply_online_third_select_temp_act.setOnClickListener(this)
         btn_check_box_apply_online_third_select_temp_act.setOnClickListener(this)
         btn_next_apply_online_third_select_temp_act.setOnClickListener(this)
+        root_view_apply_online_third_select_temp_act.clicks().subscribe{
+            val imm: InputMethodManager = applicationContext!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(root_view_apply_online_third_select_temp_act.windowToken, 0)
+        }
+
     }
 
     private fun openDemandValidResponseDialog() {

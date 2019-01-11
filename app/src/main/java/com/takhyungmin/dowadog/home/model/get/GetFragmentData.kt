@@ -6,5 +6,6 @@ data class GetFragmentData (
     var place : String?,
     var time : String?,
     var material : String?,
-    var view : String
+    var view : String,
+    var totalCount : Int
 )

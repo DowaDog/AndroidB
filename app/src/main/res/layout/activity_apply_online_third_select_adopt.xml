@@ -7,6 +7,7 @@
     xmlns:attrs="http://schemas.android.com/apk/res-auto"
     tools:context=".ApplyOnlineThirdSelectAdoptActivity"
     android:background="#FFFFFF"
+    android:id="@+id/root_apply_online_third_select_adopt_act"
     >
 
     <!--상단바-->

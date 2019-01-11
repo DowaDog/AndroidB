@@ -59,9 +59,10 @@ class SearchKeywordResultActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun init() {
-        tv_keyword_search_act.text = "\'" + tag + "\' "+ "태그 " + "검색결과"
+        tv_keyword_search_act.text = "\'" + tag + "\' " + "태그 " + "검색결과"
         tv_temp_search_act.text = ""
         btn_back_search_result_act.setOnClickListener(this)
+        progress_search_result.visibility = View.GONE
 //        nested_scroll_search_result_act.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
 //            Log.v("scroll", "scroll")
 //            if (scrollY == (v.getChildAt(0).height - v.height)) {
@@ -73,7 +74,7 @@ class SearchKeywordResultActivity : BaseActivity(), View.OnClickListener {
 //                    Log.v("scroll", currentPage.toString())
 //                    currentPage++
 //                    Handler().postDelayed(Runnable {
-//                        //communityFragmentPresenter.nextPage(currentPage, itemCount)
+//                        //communityFragmentPresenter.nextPage(currentPage, TOTAL_PAGE)
 //                        Log.v("scroll", "more")
 //                        searchKeywordResultActivityPresenter.requestTagData(tag)
 //                    }, 800)
@@ -123,8 +124,11 @@ class SearchKeywordResultActivity : BaseActivity(), View.OnClickListener {
 //        searchResultAdapter.addAll(results)
 //        //currentPage += 1
 //        isLoading = false
-//        if (currentPage >= TOTAL_PAGE)
-//            isLast = true
+//        if (TOTAL_PAGE > results.size){
+//          isLast = true
+//
+//        }
+//
 //    }
 
     fun responseTagData(data: ccc) {

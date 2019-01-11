@@ -7,7 +7,8 @@
     tools:context=".apply.online.ApplyOnlineSecondActivity"
     android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:id="@+id/root_view_apply_second_back_real">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -98,7 +99,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_below="@+id/second_layout_temp"
+            android:layout_below="@+id/second_layout_temp4"
             android:id="@+id/second_layout_temp2"
             android:layout_width="match_parent"
             android:layout_height="69dp"
@@ -119,7 +120,7 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/dog_profile_img"
                         />
-                    
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
@@ -135,7 +136,7 @@
 
         <RelativeLayout
             android:id="@+id/second_layout_temp3"
-            android:layout_below="@+id/second_layout_temp2"
+            android:layout_below="@+id/second_layout_temp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"
@@ -221,13 +222,12 @@
         <LinearLayout
             android:id="@+id/layout_apply_second_input"
             android:layout_marginTop="21dp"
-            android:layout_below="@+id/second_layout_temp4"
+            android:layout_below="@+id/second_layout_temp2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="24dp"
             android:orientation="vertical"
-            android:visibility="invisible"
             >
 
             <TextView
@@ -265,7 +265,7 @@
                 android:textCursorDrawable="@null"
                 android:layout_marginTop="16dp"
                 android:gravity="top|left"
-                android:layout_marginBottom="29dp"
+                android:layout_marginBottom="31dp"
                 />
 
 

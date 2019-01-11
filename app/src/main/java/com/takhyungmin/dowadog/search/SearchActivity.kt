@@ -1,6 +1,7 @@
 package com.takhyungmin.dowadog.search
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -9,7 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import com.takhyungmin.dowadog.BaseActivity
 import com.takhyungmin.dowadog.R
-import com.takhyungmin.dowadog.searchkeywordresult.SearchKeywordResultActivity
+import com.takhyungmin.dowadog.SearchEditTextActivity
 import kotlinx.android.synthetic.main.activity_search.*
 import org.jetbrains.anko.sdk25.coroutines.textChangedListener
 import org.jetbrains.anko.startActivity
@@ -26,7 +27,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                 if(et_keyword_search_act.text.length <= 0){
                     toast("키워드를 입력해주세요")
                 }else {
-                    startActivity<SearchKeywordResultActivity>("keyword" to et_keyword_search_act.text.toString())
+                    startActivity<SearchEditTextActivity>("keyword" to et_keyword_search_act.text.toString())
                 }
             }
             btn_back_search_act -> {
@@ -54,19 +55,19 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
 
         var recommendKeyword: ArrayList<String> = ArrayList()
         recommendKeyword.add("대형견")
-        recommendKeyword.add("웰시 코기")
-        recommendKeyword.add("서울")
+        recommendKeyword.add("사설보호소")
+        recommendKeyword.add("동물병원")
         setFirstRVAdapter(recommendKeyword)
         var recommendKeyword2: ArrayList<String> = ArrayList()
-        recommendKeyword2.add("고양이")
-        recommendKeyword2.add("보호소")
-        recommendKeyword2.add("강아지")
+        recommendKeyword2.add("수도권지역")
+        recommendKeyword2.add("소형견")
+        recommendKeyword2.add("공공보호소")
 
         setSecondRVAdapter(recommendKeyword2)
         var recommendKeyword3: ArrayList<String> = ArrayList()
-        recommendKeyword3.add("동물병원")
-        recommendKeyword3.add("말라뮤트")
-        recommendKeyword3.add("믹스견")
+        recommendKeyword3.add("케어입양센터")
+        recommendKeyword3.add("서울지역")
+        recommendKeyword3.add("중형견")
         setThirdRVAdapter(recommendKeyword3)
     }
 
@@ -92,28 +93,53 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun setFirstRVAdapter(recommendKeyword: ArrayList<String>) {
-        var recyclerViewAdapter = SearchRecyclerViewAdapter(applicationContext, recommendKeyword)
+        var recyclerViewAdapter = SearchRecyclerViewAdapter(this@SearchActivity, recommendKeyword)
         rv_one_recommend_search_act.adapter = recyclerViewAdapter
-        rv_one_recommend_search_act.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.HORIZONTAL, false)
+        rv_one_recommend_search_act.layoutManager = LinearLayoutManager(this@SearchActivity, LinearLayout.HORIZONTAL, false)
     }
 
     fun setSecondRVAdapter(recommendKeyword: ArrayList<String>){
-        var recyclerViewAdapter = SearchRecyclerViewAdapter(applicationContext, recommendKeyword)
+        var recyclerViewAdapter = SearchRecyclerViewAdapter(this@SearchActivity, recommendKeyword)
         rv_two_recommend_search_act.adapter = recyclerViewAdapter
-        rv_two_recommend_search_act.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.HORIZONTAL, false)
+        rv_two_recommend_search_act.layoutManager = LinearLayoutManager(this@SearchActivity, LinearLayout.HORIZONTAL, false)
     }
 
     fun setThirdRVAdapter(recommendKeyword: ArrayList<String>){
-        var recyclerViewAdapter = SearchRecyclerViewAdapter(applicationContext, recommendKeyword)
+        var recyclerViewAdapter = SearchRecyclerViewAdapter(this@SearchActivity, recommendKeyword)
         rv_three_recommend_search_act.adapter = recyclerViewAdapter
-        rv_three_recommend_search_act.layoutManager = LinearLayoutManager(applicationContext, LinearLayout.HORIZONTAL, false)
+        rv_three_recommend_search_act.layoutManager = LinearLayoutManager(this@SearchActivity, LinearLayout.HORIZONTAL, false)
     }
 
     fun setPastSearchKeywordRVAdapter(pastKeyword: ArrayList<String>){
-        var searchPastKeywordRVAdapter = SearchPastKeywordRVAdapter(applicationContext, pastKeyword)
+        var searchPastKeywordRVAdapter = SearchPastKeywordRVAdapter(this@SearchActivity, pastKeyword)
         rv_past_keyword_search_act.adapter = searchPastKeywordRVAdapter
-        rv_past_keyword_search_act.layoutManager = LinearLayoutManager(applicationContext)
+        rv_past_keyword_search_act.layoutManager = LinearLayoutManager(this@SearchActivity)
     }
+
+    //startActivityForResult를 통해 실행한 엑티비티에 대한 callback을 처리하는 메소드입니다!
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        //SearchKeywordResultActivity를 다녀왔는지 분기
+        if (requestCode == 9898) {
+            var recommendKeyword: ArrayList<String> = ArrayList()
+            recommendKeyword.add("대형견")
+            recommendKeyword.add("사설보호소")
+            recommendKeyword.add("동물병원")
+            setFirstRVAdapter(recommendKeyword)
+            var recommendKeyword2: ArrayList<String> = ArrayList()
+            recommendKeyword2.add("수도권")
+            recommendKeyword2.add("소형견")
+            recommendKeyword2.add("공공보호소")
+
+            setSecondRVAdapter(recommendKeyword2)
+            var recommendKeyword3: ArrayList<String> = ArrayList()
+            recommendKeyword3.add("케어입양센터")
+            recommendKeyword3.add("서울")
+            recommendKeyword3.add("중형견")
+            setThirdRVAdapter(recommendKeyword3)
+        }
+    }
+
 
 }
 

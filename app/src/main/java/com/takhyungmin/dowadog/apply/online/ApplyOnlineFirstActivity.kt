@@ -2,6 +2,7 @@ package com.takhyungmin.dowadog.apply.online
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -14,6 +15,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.R
@@ -94,7 +96,7 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
 
         btn_apply_online_first_next.clicks().subscribe {
 
-            if(next){
+            if(firstEditFlag == true && secondEditFlag == true){
                 startActivity<ApplyOnlineSecondActivity>("address" to edit_online_apply_first_address.text.toString(), "job" to edit_online_apply_first_vocation.text.toString(), "humanImgUri" to humanImgUri, "id" to animalId)
             }else{
                 //btn_apply_online_first_next.setBackgroundColor(Color.parseColor("#e2e2e2"))
@@ -105,16 +107,16 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
             next = !next
         }
 
-        layout_apply_first_frame.clicks().subscribe{
-            requestReadExternalStoragePermission()
-        }
+//        layout_apply_first_frame.clicks().subscribe{
+//            requestReadExternalStoragePermission()
+//        }
         btn_online_apply_first_modify_mypage.clicks().subscribe{
             if (firstEditFlag == true && secondEditFlag == true && agreeClick == true) {
                 var intent = Intent(this@ApplyOnlineFirstActivity ,MypageSettingActivity::class.java)
                 startActivityForResult(intent, 3003)
             }
         }
-        btn_apply_first_back.clicks().subscribe{
+        btn_back_apply_first.clicks().subscribe{
             finish()
         }
 
@@ -157,6 +159,11 @@ class ApplyOnlineFirstActivity : AppCompatActivity() {
                 }
             }
         })
+
+        root_view_apply_first.clicks().subscribe{
+            val imm: InputMethodManager = applicationContext!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(root_view_apply_first.windowToken, 0)
+        }
     }
 
     // 저장소 권한 확인
