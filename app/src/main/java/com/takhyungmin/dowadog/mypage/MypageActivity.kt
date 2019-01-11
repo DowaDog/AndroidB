@@ -12,6 +12,7 @@ import com.takhyungmin.dowadog.adoptedanimal.AdoptedAnimalActivity
 import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.interest.InterestAnimalActivity
 import com.takhyungmin.dowadog.letter.LetterActivity
+import com.takhyungmin.dowadog.letter.model.LetterObject.letterActivityPresenter
 import com.takhyungmin.dowadog.mypage.model.Data
 import com.takhyungmin.dowadog.mypage.model.MypageObject
 import com.takhyungmin.dowadog.mypage.model.get.GETMypageResponse
@@ -25,12 +26,10 @@ import org.jetbrains.anko.startActivity
 class MypageActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
-        when(v)
-        {
+        when (v) {
             //로그아웃 버튼
-            btn_logout_setting_my_page_act-> {
+            btn_logout_setting_my_page_act -> {
                 logoutCustomDialog!!.show()
-
             }
             //마이페이지 설정
             btn_next_setting_mypage_act -> {
@@ -39,8 +38,10 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
             btn_back_mypage_act -> {
                 finish()
             }
+            //우체통 버튼
             btn_post_letter_mypage_act -> {
-                startActivity<LetterActivity>()
+                startActivityForResult(Intent(this, LetterActivity::class.java), 5555)
+                //startActivity<LetterActivity>()
             }
 
             btn_adopt_animal_mypage_act -> {
@@ -50,13 +51,13 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    val logoutCustomDialog : CustomDialog  by lazy {
-        CustomDialog(this@MypageActivity, "로그아웃 하시겠습니까?", responseRight, responseLeft,"취소", "확인")
+    val logoutCustomDialog: CustomDialog  by lazy {
+        CustomDialog(this@MypageActivity, "로그아웃 하시겠습니까?", responseRight, responseLeft, "취소", "확인")
     }
 
     private lateinit var mypageActivityPresenter: MypageActivityPresenter
 
-    lateinit var mypageGetData : Data
+    lateinit var mypageGetData: Data
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +73,7 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
     }
 
     //JAX-RS문법..?
-    fun setOnBinding(){
+    fun setOnBinding() {
         btn_mypage_interest.clicks().subscribe {
             startActivity(Intent(this, InterestAnimalActivity::class.java))
         }
@@ -80,13 +81,15 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
         btn_mypage_scrap.clicks().subscribe {
             startActivity(Intent(this, ScrapActivity::class.java))
         }
-
+        //내가 쓴 글
         btn_mypage_mine.clicks().subscribe {
-            startActivity(Intent(this, MyCommunityPostActivity::class.java))
+            //startActivity(Intent(this, MyCommunityPostActivity::class.java))
+
+            startActivityForResult(Intent(this, MyCommunityPostActivity::class.java), 3333)
             //val intent = Intent(this, MyCommunityPostActivity::class.java)
         }
         //입양한 우리아이
-        btn_adopt_animal_mypage_act.clicks().subscribe{
+        btn_adopt_animal_mypage_act.clicks().subscribe {
             startActivity(Intent(this, AdoptedAnimalActivity::class.java))
 
         }
@@ -128,21 +131,18 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
             tv_interest_animal_mypage_act.text = mypageGetData.userLike.toString()
             tv_scrap_num_mypage_act.text = mypageGetData.userScrap.toString()
             tv_write_num_mypage_act.text = mypageGetData.userCommunity.toString()
-            if(mypageGetData.mailboxUpdated)
-            {
+            if (mypageGetData.mailboxUpdated) {
                 img_new_mypage_act.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 img_new_mypage_act.visibility = View.INVISIBLE
             }
-
         }
     }
 
     //view에 presenter 붙여주기
     private fun initPresenter() {
 
-         mypageActivityPresenter= MypageActivityPresenter()
+        mypageActivityPresenter = MypageActivityPresenter()
         // 뷰 붙여주는 작업
         mypageActivityPresenter.view = this
         MypageObject.mypageActivityPresenter = mypageActivityPresenter
@@ -152,9 +152,15 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.v("yyg", "code" + requestCode)
-        if(requestCode == 3333){
+        if (requestCode == 3333) {
             Log.v("yyg", "ygy")
             mypageActivityPresenter.requestData()
         }
+
+        if (requestCode == 5555) {
+            img_new_mypage_act.visibility = View.INVISIBLE
+        }
+
     }
+
 }
