@@ -71,25 +71,30 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
 
             btn_agree_sign_id_set_act -> {
 
-                val username = intent.getStringExtra("username")
-                val birth = intent.getStringExtra("birth")
-                val phone = intent.getStringExtra("phone")
-                val email = intent.getStringExtra("email")
+                if(settingFlag){
+                    val username = intent.getStringExtra("username")
+                    val birth = intent.getStringExtra("birth")
+                    val phone = intent.getStringExtra("phone")
+                    val email = intent.getStringExtra("email")
 
-                val id = et_id_sign_id_set_act.text.toString()
-                val gender = "M"
-                val password = et_pw_check_sign_id_set_act.text.toString()
-                var deviceToken = ""
-                deviceToken = FirebaseInstanceId.getInstance().token!!
+                    val id = et_id_sign_id_set_act.text.toString()
+                    val gender = "M"
+                    val password = et_pw_check_sign_id_set_act.text.toString()
+                    var deviceToken = ""
+                    deviceToken = FirebaseInstanceId.getInstance().token!!
 
-                val type = "type"
-                val pushAllow = "true"
+                    val type = "type"
+                    val pushAllow = "true"
 
-                this.id = id
-                this.pwd = pwd
+                    this.id = id
+                    this.pwd = pwd
 
-                signIdSettingPresenter.requestData(id, password, username, birth,
-                        phone, email, gender, deviceToken, type, profileImgFile, pushAllow)
+                    signIdSettingPresenter.requestData(id, password, username, birth,
+                            phone, email, gender, deviceToken, type, profileImgFile, pushAllow)
+                }else{
+                    SignInfoWrCustomSingleResDialog.show()
+                }
+
                 //progressDialog.dismiss()
 
 
@@ -118,8 +123,11 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
 
 
     lateinit var idCheckDialog : CustomSingleResDialog
+    private val reponseListener = View.OnClickListener { SignInfoWrCustomSingleResDialog!!.dismiss() }
 
-
+    val SignInfoWrCustomSingleResDialog: CustomSingleResDialog by lazy {
+        CustomSingleResDialog(this@SignIdSettingActivity, "정보를 올바르게 입력해주세요.", reponseListener, "확인")
+    }
 
     private lateinit var signIdSettingPresenter: SignIdSettingActivityPresenter
 
@@ -159,18 +167,15 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
 
                 val text = et_id_sign_id_set_act.text.toString()
 
-                if (text.length >= 6) {
-                    et_id = true
-                } else {
-                    et_id = false
-                }
+                et_id = ((text.length >= 6) and (text.length <= 30) )
 
                 if (et_id) {
                     if (et_pw) {
                         if (et_pw_check) {
-                            if(!idCheck)
+                            if(!idCheck){
                                 settingFlag = true
                                 btn_agree_sign_id_set_act.setBackgroundColor(Color.parseColor("#ffc233"))
+                            }
                         }
                     }
                 } else {
@@ -206,9 +211,10 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
                 if (et_pw) {
                     if (et_id) {
                         if (et_pw_check) {
-                            if(!idCheck)
+                            if(!idCheck){
                                 settingFlag = true
                                 btn_agree_sign_id_set_act.setBackgroundColor(Color.parseColor("#ffc233"))
+                            }
                         }
                     }
                 } else {
@@ -245,9 +251,10 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
                     img_sign_id_set_unfit_check.visibility = View.INVISIBLE
                     if (et_id) {
                         if (et_pw) {
-                            if(!idCheck)
+                            if(!idCheck){
                                 settingFlag = true
                                 btn_agree_sign_id_set_act.setBackgroundColor(Color.parseColor("#ffc233"))
+                            }
                         }
                     }
                 } else {
@@ -353,6 +360,7 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
                 data?.let {
 
                     this.data = data!!.data
+                    Log.v("이미지", this.data.toString())
 
                     val options = BitmapFactory.Options()
 
@@ -438,12 +446,11 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
             //중복 안 됨
             idCheckDialog = CustomSingleResDialog(this@SignIdSettingActivity, "사용가능한 아이디입니다.", mResponseClickListener, "확인")
             idCheckDialog.show()
-                if (et_id) {
+            if (et_id) {
                 if (et_pw) {
                     if (et_pw_check) {
-                        if(!idCheck)
-                            settingFlag = true
-                            btn_agree_sign_id_set_act.setBackgroundColor(Color.parseColor("#ffc233"))
+                        settingFlag = true
+                        btn_agree_sign_id_set_act.setBackgroundColor(Color.parseColor("#ffc233"))
                     }
                 }
             }

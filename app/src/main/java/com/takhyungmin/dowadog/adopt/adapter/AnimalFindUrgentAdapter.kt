@@ -31,6 +31,7 @@ class AnimalFindUrgentAdapter(var urgentItems : ArrayList<UrgentAnimalData>,
         urgentRequestManager.load(urgentItems[position].ani_img).into(holder.ani_img)
         holder.ani_region.text = urgentItems[position].ani_region
         holder.tv_ani_kind.text = urgentItems[position].ani_kind
+        holder.d_day.text = urgentItems[position].d_day
 
         if(urgentItems[position].ani_gender == "F")
             holder.ani_gender.setImageResource(R.drawable.woman_icon_1227)

@@ -20,10 +20,10 @@ import com.takhyungmin.dowadog.contents.model.get.GETContentsEduDetailResponse
 import com.takhyungmin.dowadog.login.LoginActivity
 import com.takhyungmin.dowadog.presenter.activity.ContentsEduDetailActivityPresenter
 import com.takhyungmin.dowadog.utils.ApplicationData
+import com.takhyungmin.dowadog.utils.CustomAllCompleteDialog
 import com.takhyungmin.dowadog.utils.CustomDialog
 import com.takhyungmin.dowadog.utils.CustomPartlyCompleteDogDialog
 import kotlinx.android.synthetic.main.activity_contents_edu_detail.*
-
 
 class ContentsEduDetailActivity : AppCompatActivity() {
 
@@ -31,7 +31,11 @@ class ContentsEduDetailActivity : AppCompatActivity() {
     private lateinit var contentsEduDetailRvAdapter: ContentsEduDetailRvAdapter
     private lateinit var requestManager : RequestManager
     private lateinit var eduCompleteCustomDialog : CustomPartlyCompleteDogDialog
+    private lateinit var eduAllCompleteDogDialog: CustomAllCompleteDialog
     var id = 0
+    var eduCount = 0
+    var eduCompleted = false
+    var eduAllCount = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         //ActivityCompat.setEnterSharedElementCallback(this, EnterTransitionCallback)
 //        requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -40,7 +44,7 @@ class ContentsEduDetailActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contents_edu_detail)
-        Glide.with(this).load(R.drawable.pic1).into(img_contents_edu_detail)
+        //Glide.with(this).load(R.drawable.pic1).into(img_contents_edu_detail)
         tv_contents_edu_detail_title.text = intent.getStringExtra("title")
         rv_contents_edu_detail_content.setFocusable(false)
         layout_edu_detail.requestFocus()
@@ -51,13 +55,17 @@ class ContentsEduDetailActivity : AppCompatActivity() {
     private fun init(){
         contentsEduDetailActivityPresenter = ContentsEduDetailActivityPresenter()
         contentsEduDetailActivityPresenter.view = this
+        ContentEduDetailObject.contentsEduDetailActivityPresenter = contentsEduDetailActivityPresenter
         ContentsObject.current = 0
         id = intent.getIntExtra("id", 20)
-        Log.v("image", intent.getStringExtra("image"))
-        Glide.with(this).load(intent.getStringExtra("image")).into(img_contents_edu_detail)
+
+
+        //Glide.with(this).load(intent.getStringExtra("image")).into(img_contents_edu_detail)
         contentsEduDetailActivityPresenter.requestData(id)
-        if(intent.getBooleanExtra("edu", false))
-            btn_contents_edu_detail_complete_frame.visibility = View.GONE
+
+
+//        if(intent.getBooleanExtra("edu", false))
+//            btn_contents_edu_detail_complete_frame.visibility = View.GONE
 
         tv_contents_edu_detail_title.text = intent.getStringExtra("title")
         responseScrap(intent.getBooleanExtra("scrap", false))
@@ -138,7 +146,7 @@ class ContentsEduDetailActivity : AppCompatActivity() {
             if(ApplicationData.auth == "")
                 logoutCustomDialog.show()
             else{
-                contentsEduDetailActivityPresenter.requestScrap(id)
+                contentsEduDetailActivityPresenter.requestEduScrap(id)
             }
         }
 
@@ -146,16 +154,27 @@ class ContentsEduDetailActivity : AppCompatActivity() {
             if(ApplicationData.auth == ""){
                 logoutCustomDialog.show()
             }else
-                contentsEduDetailActivityPresenter.requestScrap(id)
+                contentsEduDetailActivityPresenter.requestEduScrap(id)
         }
 
         btn_contents_edu_detail_complete.clicks().subscribe {
             if(ApplicationData.auth == "")
                 logoutCustomDialog.show()
-            else
-                contentsEduDetailActivityPresenter.requestComplete(id)
+            else{
+                if(intent.getBooleanExtra("edu", false)){
+                    eduAllCompleteDogDialog = CustomAllCompleteDialog(this,"", responseListener1, "확인")
+                    eduAllCompleteDogDialog.show()
+                }
+                else
+                    contentsEduDetailActivityPresenter.requestComplete(id)
+            }
         }
     }
+
+    private val responseListener1 = View.OnClickListener { eduAllCompleteDogDialog.dismiss() }
+
+
+
 
 
 
@@ -171,6 +190,11 @@ class ContentsEduDetailActivity : AppCompatActivity() {
             //여기에 받아온 데이터들을 가져와서 보여주는 것을 해야함 (함수로 만들던 여기에 구현하던)
             Log.v("ygyg", it.data.content.toString())
 
+            eduCompleted = data.data.edu.allComplete
+            //eduCount = data.data.edu.userEducate
+            eduAllCount = data.data.edu.allEducate
+
+            Glide.with(this).load(data.data.cardnewsThumbnail).into(img_contents_edu_detail)
 
             rv_contents_edu_detail_content.adapter = setContentsEduDetailAdapter
             rv_contents_edu_detail_content.layoutManager = LinearLayoutManager(this)
@@ -220,10 +244,10 @@ class ContentsEduDetailActivity : AppCompatActivity() {
     fun responseComplete(clear : Boolean){
         if(clear){
             val num = intent.getIntExtra("num", 0) + 1
-
+            //val num = eduCount + 1
             eduCompleteCustomDialog = CustomPartlyCompleteDogDialog(this, num.toString(), responseListener, "확인")
             eduCompleteCustomDialog.show()
-            btn_contents_edu_detail_complete_frame.visibility = View.GONE
+
         }
     }
 

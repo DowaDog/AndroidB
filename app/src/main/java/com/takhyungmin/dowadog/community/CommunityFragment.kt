@@ -66,6 +66,8 @@ class CommunityFragment : Fragment() {
         rv_community_feeds.layoutManager = LinearLayoutManager(activity)
         rv_community_feeds.adapter = communityAdapter
 
+        if(pagingCount > communityItems.size)
+            progress_community_main.visibility = View.GONE
 
         scroll_comunity_frame.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             Log.v("scroll", "scroll")

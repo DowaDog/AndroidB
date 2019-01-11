@@ -3,8 +3,6 @@ package com.takhyungmin.dowadog.modifyinfoanimal.model
 import android.util.Log
 import com.takhyungmin.dowadog.modifyinfoanimal.model.get.GETModifyInfoAnimalResponse
 import com.takhyungmin.dowadog.modifyinfoanimal.model.put.PUTModifyInfoAnimalResponse
-import com.takhyungmin.dowadog.mypage.model.MypageSettingObject
-import com.takhyungmin.dowadog.mypage.model.put.PUTMypageSettingResponse
 import com.takhyungmin.dowadog.utils.ApplicationData
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -14,9 +12,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Header
-import retrofit2.http.Part
-import retrofit2.http.Path
 
 class ModifyInfoAnimalModel {
 
@@ -59,6 +54,7 @@ class ModifyInfoAnimalModel {
     fun putAnimalData(animalid: Int, name: String, gender : String, kind : String, weight: String,
                       neuterYn: Boolean, age: String, img: MultipartBody.Part?, inoculation : ArrayList<String>) {
 
+
         var name = RequestBody.create(MediaType.parse("text/plain"), name)
         var weight = RequestBody.create(MediaType.parse("text/plain"), weight)
         var neuterYn = RequestBody.create(MediaType.parse("text/plain"), neuterYn.toString())
@@ -68,13 +64,14 @@ class ModifyInfoAnimalModel {
         inoculation.forEach {
             innoString += (it + ", ")
         }
+        Log.v("데이터2", innoString)
         //val inoArray =
 
         var inoculationArray = RequestBody.create(MediaType.parse("text/plain"), innoString)
 
-        var gender = RequestBody.create(MediaType.parse("text/plain"), name.toString())
-        var kind = RequestBody.create(MediaType.parse("text/plain"), weight.toString())
-
+        var gender = RequestBody.create(MediaType.parse("text/plain"), gender)
+        var kind = RequestBody.create(MediaType.parse("text/plain"), kind)
+        //var id = RequestBody.create(MediaType.parse("text/plain"), animalid.toString())
 
         modifyInfoNetworkService.putModifyAnimalData(ApplicationData.auth, animalid, name, gender, kind, weight, neuterYn, img, age, inoculationArray)
                 .enqueue(object : Callback<PUTModifyInfoAnimalResponse> {

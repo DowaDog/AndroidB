@@ -156,6 +156,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginStart="16dp"
                             android:background="@null"
+                            android:maxLength="30"
                             android:inputType="text"
                             android:textCursorDrawable="@null"
                             android:fontFamily="@font/nanum_round"

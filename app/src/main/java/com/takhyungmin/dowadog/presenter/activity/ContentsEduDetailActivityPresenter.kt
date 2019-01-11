@@ -44,6 +44,10 @@ class ContentsEduDetailActivityPresenter : BasePresenter<ContentsEduDetailActivi
         view!!.responseData(data)
     }
 
+    fun requestEduScrap(id : Int){
+        contentsEduDetailModel.postEduContentsScrap(id)
+    }
+
     fun requestScrap(id : Int){
         contentsEduDetailModel.postSenseContentsScrap(id)
     }

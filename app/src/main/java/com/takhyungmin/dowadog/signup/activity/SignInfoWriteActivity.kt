@@ -271,7 +271,8 @@ class SignInfoWriteActivity : BaseActivity(), View.OnClickListener {
 
                 val text = et_birth_sign_info_wr_act.text
                 //val birth_form = "/^[0-9]{0,8}\$/"
-                val birth_form = "^\\s*(\\d{4})(-|\\)|\\s)*(\\d{2})(-|\\s)*(\\d{2})\\s*$"
+
+                val birth_form = "^[0-9]{4}+-[0-9]{2}+-[0-9]{2}$"
 
                 et_birth = text.matches(Regex(birth_form))
                 //et_birth = (text.length >= 10)
@@ -433,9 +434,9 @@ class SignInfoWriteActivity : BaseActivity(), View.OnClickListener {
                 Log.v("duplicate", signInfoEmaildataBoolean.toString())
                 if (!signInfoEmaildataBoolean) {
                     if (et_name) {
-                    if (et_birth) {
-                        if (et_phone) {
-                            if (et_email) {
+                        if (et_birth) {
+                            if (et_phone) {
+                                if (et_email) {
 
                                     Log.v("들어옴", "들어옴")
                                     rl_next_btn_sign_info_wr_act.setBackgroundColor(Color.parseColor("#ffc233"))
