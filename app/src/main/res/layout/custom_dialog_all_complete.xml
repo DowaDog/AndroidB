@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="368dp"
+        android:layout_centerInParent="true">
+
+        <RelativeLayout
+
+            android:id="@+id/rl_root_box_partly_complete_single_response_custom_dialog"
+            android:layout_width="275dp"
+            android:layout_height="186dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/custom_dialog_box">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/ll_bottom_box_partly_complete_single_response_custom_dialog">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/nanum_bold"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/rl_description_partly_complete_single_response_custom_dialog"
+                        android:text="이미 이수한 컨텐츠입니다!"
+                        android:textColor="#434343"
+                        android:textSize="17sp"
+                        />
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_bottom_box_partly_complete_single_response_custom_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/custom_dialog_bottom_box"
+                android:orientation="horizontal">
+
+
+                <RelativeLayout
+                    android:id="@+id/btn_ok_complete"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_right_partly_complete_single_response_custom_dialog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/nanum_bold"
+                        android:text="확인"
+                        android:textColor="#FFFFFF"
+                        android:textSize="17sp" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_marginRight="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/rl_root_box_partly_complete_single_response_custom_dialog"
+            android:src="@drawable/contents_complete_popup_img" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

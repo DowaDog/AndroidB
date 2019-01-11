@@ -16,10 +16,10 @@ interface ModifyInfoNetworkService {
     ): Call<GETModifyInfoAnimalResponse>
 
     @Multipart
-@PUT("api/normal/mypage/adoptAnimals/{adoptAnimalId}")
-fun putModifyAnimalData(
+    @PUT("api/normal/mypage/adoptAnimals/{adoptAnimalId}")
+    fun putModifyAnimalData(
             @Header("Authorization") authorization: String,
-            @Path("adoptAnimalId") adoptAnimalId: Int,
+            @Path("adoptAnimalId") id: Int,
             @Part("name") name: RequestBody,
             @Part("gender") gender: RequestBody,
             @Part("kind") kind : RequestBody,

@@ -48,6 +48,7 @@ class ContentsSenseDetailActivity : AppCompatActivity() {
     private fun init(){
         contentsSenseDetailActivityPresenter = ContentsSenseDetailActivityPresenter()
         contentsSenseDetailActivityPresenter.view = this
+        ContentsSenseDetailObject.contentsSenseDetailActivityPresenter = contentsSenseDetailActivityPresenter
         ContentsObject.current = 1
 
 
@@ -120,6 +121,9 @@ class ContentsSenseDetailActivity : AppCompatActivity() {
             //여기에 받아온 데이터들을 가져와서 보여주는 것을 해야함 (함수로 만들던 여기에 구현하던)
             Log.v("ygyg", it.data.content.toString())
 
+            Glide.with(this).load(data.data.cardnewsThumbnail).into(img_contents_sense_detail)
+
+
 
             rv_contents_sense_detail_content.adapter = setContentsSenseDetailAdapter
             rv_contents_sense_detail_content.layoutManager = LinearLayoutManager(this)
@@ -180,9 +184,10 @@ class ContentsSenseDetailActivity : AppCompatActivity() {
     }
 
     fun responseScrap(clear : Boolean){
-        if(!clear){
+        if(clear){
             btn_contents_sense_detail_scrap1_1.setImageResource(R.drawable.contents_scrap_btn)
             btn_contents_sense_detail_scrap2_1.setImageResource(R.drawable.contents_scrap_btn)
+
         }else{
             btn_contents_sense_detail_scrap1_1.setImageResource(R.drawable.contents_unscrap_btn)
             btn_contents_sense_detail_scrap2_1.setImageResource(R.drawable.contents_unscrap_btn)

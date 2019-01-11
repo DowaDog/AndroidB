@@ -48,7 +48,7 @@ class ContentsSenseDetailActivityPresenter : BasePresenter<ContentsSenseDetailAc
     }
 
     fun requestSenseScrap(id : Int){
-        contentsSenseDetailModel.postEduContentsScrap(id)
+        contentsSenseDetailModel.postSenseContentsScrap(id)
     }
 
     fun responseScrap(clear : Boolean){

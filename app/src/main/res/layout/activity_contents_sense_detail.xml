@@ -94,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginHorizontal="16dp"
+                android:backgroundTint="#ffffff"
                 android:src="@drawable/back_arrow_white" />
         </RelativeLayout>
 

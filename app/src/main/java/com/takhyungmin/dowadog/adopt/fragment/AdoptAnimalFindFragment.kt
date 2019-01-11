@@ -35,7 +35,7 @@ class AdoptAnimalFindFragment : Fragment() {
     var isLoading = false
     var isLast = false
     val totalPage = 3
-    val pagingCount = 10
+    val pagingCount = 16
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_find, container, false)
@@ -80,6 +80,8 @@ class AdoptAnimalFindFragment : Fragment() {
         rv_find_fragment_urgent.layoutManager = GridLayoutManager(context, 2)
         rv_find_fragment_urgent.adapter = animlaFindUrgnetAdapter
 
+
+
     }
 
     fun initView(urgentAnimalDatas : ArrayList<UrgentAnimalData>){
@@ -105,6 +107,9 @@ class AdoptAnimalFindFragment : Fragment() {
 //                }
 //            }
 //        }
+
+        if(pagingCount > urgentAnimalDatas.size)
+            progress_community_adopt_maind.visibility = View.GONE
 
         scroll_adopt_frame.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             Log.v("scroll", "scroll")

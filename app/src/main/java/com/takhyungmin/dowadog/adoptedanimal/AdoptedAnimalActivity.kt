@@ -10,7 +10,6 @@ import com.takhyungmin.dowadog.BaseActivity
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.adoptedanimal.model.AdoptedAnimalObject
 import com.takhyungmin.dowadog.adoptedanimal.model.get.GETAdoptedAnimalResponse
-import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.presenter.activity.AdoptedAnimalActivityPresenter
 import kotlinx.android.synthetic.main.activity_adopted_animal.*
 
@@ -82,7 +81,14 @@ class AdoptedAnimalActivity : BaseActivity(){
 
         var intent = Intent(this, ModifyInfoAnimalActivity::class.java)
         intent.putExtra("animalId", id)
-        startActivity(intent)
+        startActivityForResult(intent, 6009)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 6009){
+            adoptedAnimalActivityPresenter.adoptedRequestData()
+        }
     }
 }

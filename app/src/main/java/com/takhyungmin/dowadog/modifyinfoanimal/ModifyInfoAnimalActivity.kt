@@ -19,13 +19,10 @@ import com.takhyungmin.dowadog.modifyinfoanimal.model.ModifyInfoAnimalObject
 import com.takhyungmin.dowadog.modifyinfoanimal.model.get.AnimalUserAdopt
 import com.takhyungmin.dowadog.modifyinfoanimal.model.get.GETModifyInfoAnimalResponse
 import com.takhyungmin.dowadog.modifyinfoanimal.model.get.Inoculation
-import com.takhyungmin.dowadog.modifyinfoanimal.model.get.ModifyInfoData
 import com.takhyungmin.dowadog.modifyinfoanimal.model.put.PUTModifyInfoAnimalResponse
-import com.takhyungmin.dowadog.mypage.model.put.PUTMypageSettingResponse
 import com.takhyungmin.dowadog.presenter.activity.ModifyInfoAnimalActivityPresenter
 import com.takhyungmin.dowadog.utils.ApplicationData
 import kotlinx.android.synthetic.main.activity_modify_info_animal.*
-import kotlinx.android.synthetic.main.activity_mypage_setting.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -88,12 +85,14 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
             //중성화 하지 않음 버튼
             btn_dog_cut_dont_check_modify_info_animal_act -> {
                 if (cutFlag == 1) {
+                    //체크 된 상태
                     iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     cutFlag = 0
 
                     Log.v("TAG", "1")
                     iv_dog_cut_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 } else {
+                    //체크 안 된 상태
                     iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     cutFlag = 1
                     Log.v("TAG", "2")
@@ -104,16 +103,19 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
             // 종합백신 7종
             btn_dog_first_do_check_modify_info_animal_act -> {
                 if (sixthFlag == 1) {
+                    //종합백신 체크
+
                     iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 }
                 if (firstFlag == 0) {
+                    inoculatio.add(("I1"))
                     iv_dog_first_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     firstFlag = 1
                 } else {
+                    inoculatio.remove(("I1"))
                     iv_dog_first_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     firstFlag = 0
                 }
-                inoculatio.add(("I1"))
 
             }
 
@@ -123,13 +125,14 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 }
                 if (secondFlag == 0) {
+                    inoculatio.add(("I2"))
                     iv_dog_second_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     secondFlag = 1
                 } else {
+                    inoculatio.remove(("I2"))
                     iv_dog_second_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     secondFlag = 0
                 }
-                inoculatio.add(("I2"))
 
             }
 
@@ -139,13 +142,14 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 }
                 if (thirdFlag == 0) {
+                    inoculatio.add(("I3"))
                     iv_dog_third_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     thirdFlag = 1
                 } else {
+                    inoculatio.remove(("I3"))
                     iv_dog_third_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     thirdFlag = 0
                 }
-                inoculatio.add(("I3"))
 
             }
 
@@ -155,13 +159,14 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 }
                 if (fourthFlag == 0) {
+                    inoculatio.add(("I4"))
                     iv_dog_fourth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     fourthFlag = 1
                 } else {
+                    inoculatio.remove(("I4"))
                     iv_dog_fourth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     fourthFlag = 0
                 }
-                inoculatio.add(("I4"))
 
             }
 
@@ -171,15 +176,15 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 }
                 if (fifthFlag == 0) {
+                    inoculatio.add(("I5"))
                     iv_dog_fiveth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     fifthFlag = 1
                 } else {
+                    inoculatio.remove(("I5"))
                     iv_dog_fiveth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     fifthFlag = 0
                 }
-                inoculatio.add(("I5"))
             }
-
             // 접종을 아예 하지 않았습니다.
             btn_dog_sixth_do_check_modify_info_animal_act -> {
                 if (sixthFlag == 0) {
@@ -213,7 +218,22 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
             btn_confirm_modify_info_animal_act -> {
                 // ## 확인버튼
                 //통신
-                modifyInfoAnimalActivityPresenter.PUTModifyrequestData(animalId, name, kind ,weight, neuterYn, age, mimage, gender, inoculatio)
+                if (!et_dog_name_modify_info_animal_act.text.isEmpty()){
+                    name = et_dog_name_modify_info_animal_act.text.toString()
+                }else{
+                    name = modifyGetData.name
+                }
+                if (!et_dog_birth_modify_info_animal_act.text.isEmpty())
+                    age = et_dog_birth_weight_info_animal_act.text.toString()
+                else
+                    age = modifyGetData.age
+                if(!et_dog_birth_weight_info_animal_act.text.isEmpty())
+                    weight = et_dog_birth_weight_info_animal_act.text.toString()
+                else
+                    weight = modifyGetData.weight
+
+
+                modifyInfoAnimalActivityPresenter.PUTModifyrequestData(animalId, name, modifyGetData.kind ,weight, neuterYn, age, mimage, modifyGetData.gender, inoculatio)
 
             }
         }
@@ -222,7 +242,6 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modify_info_animal)
-
         init()
         initPresenter()
 
@@ -322,8 +341,15 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
 
         data?.let {
 
+
+
             modifyGetData = it.data.animalUserAdopt
             modifyGetInoculation = it.data.inoculationList
+
+            Log.v("ygy", "come in")
+            Log.v("ygy", modifyGetData.name)
+            Log.v("ygy", modifyGetData.kind)
+            Log.v("ygy", modifyGetData.age)
             //여기에 받아온 데이터들을 가져와서 보여주는 것을 해야함 (함수로 만들던 여기에 구현하던)
 
             Glide.with(this@ModifyInfoAnimalActivity)
@@ -335,8 +361,10 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
 
             et_dog_name_modify_info_animal_act.hint = modifyGetData.name
             tv_dog_kind_right_modify_info_animal_act.text = modifyGetData.kind
-            et_dog_birth_modify_info_animal_act.hint = modifyGetData.age + "살"
-            et_dog_birth_weight_info_animal_act.hint = modifyGetData.weight + "kg"
+            et_dog_birth_modify_info_animal_act.hint = modifyGetData.age
+            et_dog_birth_weight_info_animal_act.hint = modifyGetData.weight
+
+
 
             if (modifyGetData.neuterYn) {
                 iv_dog_cut_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
@@ -360,6 +388,7 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
 
                 iv_dog_first_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                 firstFlag = 1
+                inoculatio.add("I1")
             } else {
                 iv_dog_first_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 firstFlag = 0
@@ -369,6 +398,7 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
             if (modifyGetInoculation[1].complete) {
                 iv_dog_second_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                 secondFlag = 1
+                inoculatio.add("I2")
             } else {
                 iv_dog_second_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 secondFlag = 0
@@ -377,28 +407,31 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
             // 심장 사상충
             if (modifyGetInoculation[2].complete) {
                 iv_dog_third_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
-                secondFlag = 1
+                thirdFlag = 1
+                inoculatio.add("I3")
             } else {
                 iv_dog_third_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
-                secondFlag = 0
+                thirdFlag = 0
             }
 
             //코로나 장염
             if (modifyGetInoculation[3].complete) {
                 iv_dog_fourth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
-                secondFlag = 1
+                fourthFlag = 1
+                inoculatio.add("I4")
             } else {
                 iv_dog_fourth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
-                secondFlag = 0
+                fourthFlag = 0
             }
 
             //캔넬코프
             if (modifyGetInoculation[4].complete) {
                 iv_dog_fiveth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
-                secondFlag = 1
+                fifthFlag = 1
+                inoculatio.add("I5")
             } else {
                 iv_dog_fiveth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
-                secondFlag = 0
+                fifthFlag = 0
             }
 
             if (modifyGetInoculation[0].complete && modifyGetInoculation[1].complete && modifyGetInoculation[2].complete && modifyGetInoculation[3].complete && modifyGetInoculation[4].complete) {
@@ -422,9 +455,11 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
 
     //회원정보 수정
     fun PutResponseData(data: PUTModifyInfoAnimalResponse) {
+        Log.v("request", "response1")
 
         data?.let {
 
+            Log.v("request", "response2")
             //여기에 받아온 데이터들을 가져와서 보여주는 것을 해야함 (함수로 만들던 여기에 구현하던)
             //Log.v("yyg", mypagePutdata.message)
             //startActivity<MypageActivity>()
@@ -451,4 +486,12 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    fun dataChange(){
+
+        name = et_dog_name_modify_info_animal_act.text.toString()
+        age = et_dog_birth_modify_info_animal_act.text.toString()
+        weight = et_dog_birth_weight_info_animal_act.text.toString()
+
+
+    }
 }
