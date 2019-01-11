@@ -83,7 +83,7 @@ class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, va
             var intent = Intent(ctx,  DogDetailActivity::class.java)
             intent.putExtra("animalId", dataList[position].id)
 
-            (ctx as Activity).startActivityForResult(intent, 2004)
+            (ctx as Activity).startActivityForResult(intent, 6900)
         }
 
         // 좋아요 버튼

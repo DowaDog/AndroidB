@@ -129,8 +129,29 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
     }
 
     fun toDetailActivity(id : Int){
-        val intent = Intent(this, DogDetailActivity::class.java)
+//        val intent = Intent(this, DogDetailActivity::class.java)
+//        intent.putExtra("animalId", id)
+//        startActivity(intent)
+
+        var intent = Intent(this@AdoptUrgentAnimalActivity,  DogDetailActivity::class.java)
         intent.putExtra("animalId", id)
-        startActivity(intent)
+        startActivityForResult(intent, 6900)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 6900){
+            Log.v("check", "다녀옴")
+            if(flag == 0){
+                Log.v("check", "긴근 데이터 들어옴")
+                adoptUrgentAnimalActivityPresenter.requestUrgentList(0, pagingCount)
+                currentPage = 0
+            }else{
+                Log.v("check", "스토리 데이터 들어옴")
+                adoptUrgentAnimalActivityPresenter.requestStoryAnimalList(0, pagingCount)
+                currentPage = 0
+                tv_title_urgent_ani_act.text = "제 이야기를 들어볼래요?"
+            }
+        }
     }
 }

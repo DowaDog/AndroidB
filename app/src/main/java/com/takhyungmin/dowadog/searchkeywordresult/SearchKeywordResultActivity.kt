@@ -1,5 +1,6 @@
 package com.takhyungmin.dowadog.searchkeywordresult
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
@@ -143,6 +144,14 @@ class SearchKeywordResultActivity : BaseActivity(), View.OnClickListener {
                 rl_no_search_result_act.visibility = View.GONE
                 nested_scroll_search_result_act.visibility = View.VISIBLE
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 6900){
+            Log.v("check", "다녀옴")
+            searchKeywordResultActivityPresenter.requestTagData(tag)
         }
     }
 }

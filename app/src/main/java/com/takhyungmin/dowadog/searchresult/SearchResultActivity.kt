@@ -180,7 +180,7 @@ class SearchResultActivity : BaseActivity(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 2004){
+        if(requestCode == 6900){
             Log.v("check", "다녀옴")
             setFilterRequest(isDog, isCat, areaNum)
         }
