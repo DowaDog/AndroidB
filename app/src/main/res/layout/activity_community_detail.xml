@@ -39,7 +39,7 @@
     </RelativeLayout>
 
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_below="@+id/layout_community_detail_toolbar"
         android:id="@+id/sv_community_detail_act"
         android:layout_width="match_parent"
@@ -192,12 +192,13 @@
                 android:id="@+id/rv_comment_community_detail_act"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                >
             </android.support.v7.widget.RecyclerView>
 
             <!--리사이클러뷰 들어가야함-->
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"

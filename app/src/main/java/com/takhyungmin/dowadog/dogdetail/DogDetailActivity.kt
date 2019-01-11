@@ -257,7 +257,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun initView(data: GetDogDetailData) {
-        Log.v("1231312", data.id.toString())
+        Log.v("123123123", data.id.toString())
         Glide.with(this@DogDetailActivity).load(data.thumbnailImg).into(iv_top_dog_dog_detail_act)
 
         data.region?.let {
@@ -299,8 +299,9 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         // HM
         data.animalStoryListAos?.let {
+            Log.v("123123123", "!여긴들어옴")
             if (it.size > 0) {
-                Log.v("123123123", "!23123123")
+                Log.v("123123123", "!여긴들어옴")
 
                 if (it.size == 1) {
                     it[0]?.let {
@@ -318,7 +319,7 @@ class DogDetailActivity : AppCompatActivity(), View.OnClickListener {
                         Glide.with(this@DogDetailActivity).load(it).into(iv_my_story_dog_detail_act2)
                     }
                 }
-                else if (it.size == 3) {
+                else if (it.size >= 3) {
                     it[0]?.let {
                         Log.v("123123123", it)
                         Glide.with(this@DogDetailActivity).load(it).into(iv_my_story_dog_detail_act1)

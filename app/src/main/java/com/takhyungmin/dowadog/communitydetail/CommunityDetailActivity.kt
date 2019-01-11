@@ -190,7 +190,7 @@ class CommunityDetailActivity : BaseActivity(), View.OnClickListener {
         if(isModify == 0){
             communityDetailActivityPresenter.requestDeleteData(communityId)
         }else {
-
+            toast("준비 중인 기능입니다.")
         }
         modifyDeleteDialog.tv_modify_custom_dialog_community_detail.setTextColor(Color.parseColor("#707070"))
         modifyDeleteDialog.tv_delete_custom_dialog_community_detail.setTextColor(Color.parseColor("#707070"))
