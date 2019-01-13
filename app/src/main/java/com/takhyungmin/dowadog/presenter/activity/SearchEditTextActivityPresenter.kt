@@ -40,4 +40,8 @@ class SearchEditTextActivityPresenter : BasePresenter<SearchEditTextActivity>() 
     fun responseMoreSearchResultList(results : ArrayList<Content>){
         view!!.loadNextPage(results)
     }
+
+    fun toDetail(id : Int){
+        view!!.toDetail(id)
+    }
 }

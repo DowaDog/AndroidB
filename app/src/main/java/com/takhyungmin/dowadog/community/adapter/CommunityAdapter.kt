@@ -73,6 +73,7 @@ class CommunityAdapter(var communityItems : ArrayList<GetCommunityContents>, var
 
         when(communityItems[position].communityImgList.size){
             1->{
+                holder.communityMain0.visibility = View.GONE
                 holder.communityMain1.visibility = View.VISIBLE
                 holder.communityMain2.visibility = View.GONE
                 holder.communityMain3.visibility = View.GONE
@@ -82,6 +83,7 @@ class CommunityAdapter(var communityItems : ArrayList<GetCommunityContents>, var
                         .into(holder.communityMain1)
             }
             2->{
+                holder.communityMain0.visibility = View.GONE
                 holder.communityMain1.visibility = View.GONE
                 holder.communityMain2.visibility = View.VISIBLE
                 holder.communityMain3.visibility = View.GONE
@@ -93,6 +95,7 @@ class CommunityAdapter(var communityItems : ArrayList<GetCommunityContents>, var
                         .into(holder.communityMain22)
             }
             3->{
+                holder.communityMain0.visibility = View.GONE
                 holder.communityMain1.visibility = View.GONE
                 holder.communityMain2.visibility = View.GONE
                 holder.communityMain3.visibility = View.VISIBLE
@@ -106,6 +109,7 @@ class CommunityAdapter(var communityItems : ArrayList<GetCommunityContents>, var
                         .into(holder.communityMain33)
             }
             4->{
+                holder.communityMain0.visibility = View.GONE
                 holder.communityMain1.visibility = View.GONE
                 holder.communityMain2.visibility = View.GONE
                 holder.communityMain3.visibility = View.VISIBLE
@@ -119,6 +123,7 @@ class CommunityAdapter(var communityItems : ArrayList<GetCommunityContents>, var
                         .into(holder.communityMain33)
             }
             else->{
+                holder.communityMain0.visibility = View.VISIBLE
                 holder.communityMain1.visibility = View.GONE
                 holder.communityMain2.visibility = View.GONE
                 holder.communityMain3.visibility = View.GONE

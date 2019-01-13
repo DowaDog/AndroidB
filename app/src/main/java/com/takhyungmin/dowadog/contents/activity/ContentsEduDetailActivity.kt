@@ -48,6 +48,11 @@ class ContentsEduDetailActivity : AppCompatActivity() {
         tv_contents_edu_detail_title.text = intent.getStringExtra("title")
         rv_contents_edu_detail_content.setFocusable(false)
         layout_edu_detail.requestFocus()
+
+        if(intent.getBooleanExtra("from", false)){
+            btn_contents_edu_detail_complete_frame.visibility = View.GONE
+        }
+
         init()
 
     }

@@ -91,6 +91,7 @@ class ScrapActivity : BaseActivity(), View.OnClickListener {
             intent.putExtra("id", id)
             intent.putExtra("scrap", true)
             intent.putExtra("title", title)
+            intent.putExtra("from", true)
             startActivityForResult(intent, 6001)
         }else{
             var intent = Intent(this@ScrapActivity, ContentsSenseDetailActivity::class.java)

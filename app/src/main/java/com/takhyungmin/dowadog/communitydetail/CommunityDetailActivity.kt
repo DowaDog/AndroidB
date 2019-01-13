@@ -68,7 +68,6 @@ class CommunityDetailActivity : BaseActivity(), View.OnClickListener {
         communityId = intent.getIntExtra("communityId", 9999)
 
 
-
         initPresenter()
         communityDetailActivityPresenter.requestData(communityId)
         communityDetailActivityPresenter.requestCommnetData(communityId)

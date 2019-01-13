@@ -3,7 +3,6 @@ package com.takhyungmin.dowadog.interest
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
@@ -85,10 +84,10 @@ class InterestAnimalActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun initView(contentsEduDetailItems: ArrayList<GETInterestAnimalResponse>) {
-        requestManager = Glide.with(this)
-        //contentsEduDetailRvAdapter = ContentsEduDetailRvAdapter(contentsEduDetailItems, requestManager)
-        rv_interest_ani_act.layoutManager = LinearLayoutManager(this)
-        rv_interest_ani_act.adapter = InterestAnimalAdapter
+//        requestManager = Glide.with(this)
+//        //contentsEduDetailRvAdapter = ContentsEduDetailRvAdapter(contentsEduDetailItems, requestManager)
+//        rv_interest_ani_act.layoutManager = LinearLayoutManager(this)
+//        rv_interest_ani_act.adapter = InterestAnimalAdapter
     }
 
     fun responseData(data: GETInterestAnimalResponse) {

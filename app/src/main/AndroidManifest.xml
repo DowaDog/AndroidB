@@ -103,6 +103,11 @@
 
         <activity android:name="com.takhyeongmin.dowadogbeta.modifyinfoanimal.ModifyInfoAnimalActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".apply.online.ApplyOnlineFirstActivity"/>
+        <activity android:name=".apply.online.ApplyOnlineSecondActivity"/>
+
+        <activity android:name=".SearchEditTextActivity"/>
+
 
         <service
             android:name=".utils.MyFirebaseMessagingService">
@@ -113,7 +118,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/wait_for_u_dog_app_icon" />
+            android:resource="@drawable/ic_launcher_web" />
 
         <service
             android:name=".utils.MyFirebaseInstanceIDService">

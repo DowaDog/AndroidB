@@ -9,10 +9,9 @@ import com.jakewharton.rxbinding2.view.clicks
 import com.takhyungmin.dowadog.BaseActivity
 import com.takhyungmin.dowadog.R
 import com.takhyungmin.dowadog.adoptedanimal.AdoptedAnimalActivity
-import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.interest.InterestAnimalActivity
 import com.takhyungmin.dowadog.letter.LetterActivity
-import com.takhyungmin.dowadog.letter.model.LetterObject.letterActivityPresenter
+import com.takhyungmin.dowadog.login.LoginActivity
 import com.takhyungmin.dowadog.mypage.model.Data
 import com.takhyungmin.dowadog.mypage.model.MypageObject
 import com.takhyungmin.dowadog.mypage.model.get.GETMypageResponse
@@ -20,8 +19,8 @@ import com.takhyungmin.dowadog.presenter.activity.MypageActivityPresenter
 import com.takhyungmin.dowadog.scrap.MyCommunityPostActivity
 import com.takhyungmin.dowadog.scrap.ScrapActivity
 import com.takhyungmin.dowadog.utils.CustomDialog
+import com.takhyungmin.dowadog.utils.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_mypage.*
-import org.jetbrains.anko.startActivity
 
 class MypageActivity : BaseActivity(), View.OnClickListener {
 
@@ -106,7 +105,15 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
         logoutCustomDialog!!.dismiss()
     }
     private val responseLeft = View.OnClickListener {
+
         logoutCustomDialog!!.dismiss()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.putExtra("splash", 1)
+        //val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        SharedPreferenceController.setRefreshToken(this, "")
+
+        startActivity(intent)
         //##로그아웃
     }
 

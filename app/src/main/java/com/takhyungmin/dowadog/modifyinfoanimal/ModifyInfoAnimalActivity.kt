@@ -89,14 +89,14 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     //체크 된 상태
                     iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     cutFlag = 0
-                    neuterYn = true
+                    neuterYn = false
                     Log.v("TAG", "1")
                     iv_dog_cut_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 } else {
                     //체크 안 된 상태
                     iv_dog_cut_dont_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
                     cutFlag = 1
-                    neuterYn = false
+                    neuterYn = true
                     Log.v("TAG", "2")
                 }
 
@@ -200,6 +200,7 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     thirdFlag = 0
                     iv_dog_fourth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     fifthFlag = 0
+                    inoculatio.clear()
                     iv_dog_fiveth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                 } else {
                     iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
@@ -438,7 +439,8 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                 fifthFlag = 0
             }
 
-            if (modifyGetInoculation[0].complete && modifyGetInoculation[1].complete && modifyGetInoculation[2].complete && modifyGetInoculation[3].complete && modifyGetInoculation[4].complete) {
+            if (!modifyGetInoculation[0].complete && !modifyGetInoculation[1].complete
+                    && !modifyGetInoculation[2].complete && !modifyGetInoculation[3].complete && !modifyGetInoculation[4].complete) {
                 iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_orange)
             } else {
                 iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)

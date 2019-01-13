@@ -28,4 +28,6 @@ class CommunityViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
     var communityMain32 = itemView.findViewById(R.id.img_community_item_main32) as ImageView
     var communityMain33 = itemView.findViewById(R.id.img_community_item_main33) as ImageView
 
+    var communityMain0 = itemView.findViewById(R.id.img_community_item_main0) as ImageView
+
 }

@@ -54,7 +54,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         initPresenter()
-        homeActivityPresenter.initView()
         init()
         //homeActivityPresenter.requestData()
         setBinding()
@@ -104,6 +103,7 @@ class HomeActivity : AppCompatActivity() {
         homeActivityPresenter = HomeActivityPresenter()
         homeActivityPresenter.view = this
         HomeObject.homeActivityPresenter = homeActivityPresenter
+        homeActivityPresenter.initView()
     }
 
     fun addFragment(fragment : Fragment){
@@ -332,6 +332,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
         if(requestCode == 7009){
+            homeActivityPresenter.addFragment(AdoptAnimalFindFragment())
+        }
+
+        if(requestCode == 8009){
             homeActivityPresenter.addFragment(AdoptAnimalFindFragment())
         }
     }

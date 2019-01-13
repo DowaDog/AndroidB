@@ -131,6 +131,20 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
     fun toDetailActivity(id : Int){
         val intent = Intent(this, DogDetailActivity::class.java)
         intent.putExtra("animalId", id)
-        startActivity(intent)
+        startActivityForResult(intent, 8009)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 8009){
+            if(flag == 0){
+                AdoptObject.adoptUrgentAnimalActivityPresenter = adoptUrgentAnimalActivityPresenter
+                adoptUrgentAnimalActivityPresenter.requestUrgentList(currentPage, pagingCount)
+            }else{
+                AdoptObject.adoptUrgentAnimalActivityPresenter = adoptUrgentAnimalActivityPresenter
+                adoptUrgentAnimalActivityPresenter.requestStoryAnimalList(currentPage, pagingCount)
+                tv_title_urgent_ani_act.text = "제 이야기를 들어볼래요?"
+            }
+        }
     }
 }
