@@ -27,4 +27,8 @@ class SearchResultActivityPresenter: BasePresenter<SearchResultActivity>(){
     fun responseMoreSearchResultList(results : ArrayList<Content>){
         view!!.loadNextPage(results)
     }
+
+    fun toDetail(id : Int){
+        view!!.toDetail(id)
+    }
 }

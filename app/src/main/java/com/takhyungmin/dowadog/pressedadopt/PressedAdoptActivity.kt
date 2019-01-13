@@ -71,22 +71,36 @@ class PressedAdoptActivity : BaseActivity() {
     }
 
     private fun requestReadExternalStoragePermission(){
-        //첫번째 if문을 통해 과거에 이미 권한 메시지에 대한 OK를 했는지 아닌지에 대해 물어봅니다!
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)){
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), 4009)
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num))
                 startActivityForResult(intent, 4009)
             } else {
-                //아래 코드는 권한을 요청하는 메시지를 띄우는 기능을 합니다! 요청에 대한 결과는 callback으로 onRequestPermissionsResult 메소드에서 받습니다!!!
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), 4009)
-                startActivityForResult(intent, 4009)
+//                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num))
+//                startActivityForResult(intent, 4009)
             }
         } else {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num))
             startActivityForResult(intent, 4009)
         }
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == 4009) {
+            //결과에 대해 허용을 눌렀는지 체크하는 조건문이구요!
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //이곳은 외부저장소 접근을 허용했을 때에 대한 로직을 쓰시면됩니다. 우리는 앨범을 여는 메소드를 호출해주면되겠죠?
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num))
+                startActivityForResult(intent, 4009)
+            } else {
+                //이곳은 외부저장소 접근 거부를 했을때에 대한 로직을 넣어주시면 됩니다.
+                finish()
+            }
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

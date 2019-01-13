@@ -30,11 +30,11 @@ class HomeFragment : Fragment() {
         homeFragmentPresneter = HomeFragmentPresenter()
         homeFragmentPresneter.view = this
         HomeObject.homeFragmentPresenter = homeFragmentPresneter
+        homeFragmentPresneter.init()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeFragmentPresneter.init()
         init()
         setBinding()
     }

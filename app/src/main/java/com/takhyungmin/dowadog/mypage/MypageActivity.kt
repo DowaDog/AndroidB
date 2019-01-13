@@ -20,6 +20,7 @@ import com.takhyungmin.dowadog.scrap.MyCommunityPostActivity
 import com.takhyungmin.dowadog.scrap.ScrapActivity
 import com.takhyungmin.dowadog.utils.ApplicationData
 import com.takhyungmin.dowadog.utils.CustomDialog
+import com.takhyungmin.dowadog.utils.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_mypage.*
 
 class MypageActivity : BaseActivity(), View.OnClickListener {
@@ -126,7 +127,15 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
         logoutCustomDialog!!.dismiss()
     }
     private val responseLeft = View.OnClickListener {
+
         logoutCustomDialog!!.dismiss()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.putExtra("splash", 1)
+        //val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        SharedPreferenceController.setRefreshToken(this, "")
+
+        startActivity(intent)
         //##로그아웃
     }
 

@@ -2,7 +2,6 @@ package com.takhyungmin.dowadog.login
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -53,6 +52,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
                     return
                 }
+
+                progress_login.visibility = View.VISIBLE
+
                 loginActivityPresenter.requestLogin(et_id_login_act.text.toString(),
                         et_pw_login_act.text.toString())
 
@@ -97,7 +99,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             finish()
         }
 
-        Log.v("access", SharedPreferenceController.getAccessToken(this))
+        //Log.v("access", SharedPreferenceController.getAccessToken(this))
     }
 
     private fun downKeyboard(view : View) {
@@ -125,7 +127,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         SharedPreferenceController.setAccessToken(this, data.data)
         SharedPreferenceController.setAccessTokenExpired(this, data.expiredAt)
         ApplicationData.auth = data.data
-        Log.v("access", SharedPreferenceController.getAccessToken(this))
+        //Log.v("access", SharedPreferenceController.getAccessToken(this))
 
     }
 

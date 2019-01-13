@@ -35,4 +35,8 @@ class SearchKeywordResultActivityPresenter: BasePresenter<SearchKeywordResultAct
     fun responseTagData(data : ccc){
         view!!.responseTagData(data)
     }
+
+    fun toDetail(id : Int){
+        view!!.toDetail(id)
+    }
 }

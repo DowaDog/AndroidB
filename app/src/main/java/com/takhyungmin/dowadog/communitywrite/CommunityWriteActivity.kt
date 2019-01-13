@@ -274,9 +274,9 @@ class CommunityWriteActivity : BaseActivity(), View.OnClickListener {
                         for (i in 0 until clipData.itemCount) {
 
                             // uri 가져오기
-                            val preUri = clipData.getItemAt(i).uri.toString()
-                            val uri = Uri.parse(preUri)
-                            Log.v("ygyg", uri.toString())
+                            val uri = clipData.getItemAt(i).uri
+
+                           // Log.v("ygyg", uri.toString())
 
 
                             // 인덱스 분기

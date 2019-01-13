@@ -1,5 +1,6 @@
 package com.takhyungmin.dowadog
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.widget.NestedScrollView
@@ -8,6 +9,7 @@ import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.presenter.activity.SearchEditTextActivityPresenter
 import com.takhyungmin.dowadog.searchresult.SearchResultObject
 import com.takhyungmin.dowadog.searchresult.adapter.SearchResultAdapter
@@ -103,7 +105,7 @@ class SearchEditTextActivity : BaseActivity(), View.OnClickListener {
         //animalItem.add(UrgentAnimalData("D-3","", "","","[인천] 러시안 블루" ))
 
         requestManager = Glide.with(this)
-        searchResultAdapter = SearchResultAdapter(this, dataList, requestManager)
+        searchResultAdapter = SearchResultAdapter(this, dataList, requestManager, 2)
         rv_search_result_act.adapter = searchResultAdapter
         rv_search_result_act.layoutManager = GridLayoutManager(this, 2)
     }
@@ -155,6 +157,19 @@ class SearchEditTextActivity : BaseActivity(), View.OnClickListener {
             Log.v("TAGGG234", 2.toString())
             progress_search_result.visibility = View.GONE
             isLast = true
+        }
+    }
+
+    fun toDetail(id : Int){
+        var intent = Intent(this,  DogDetailActivity::class.java)
+        intent.putExtra("animalId", id)
+        startActivityForResult(intent, 9009)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 9009){
+            requestResultData(0, 10, keyword)
         }
     }
 

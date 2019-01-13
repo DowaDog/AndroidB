@@ -82,6 +82,7 @@ class SignInfoWriteActivity : BaseActivity(), View.OnClickListener {
                 if (NextBtnFlag == 0) {
                     SignInfoWrCustomSingleResDialog!!.show()
                 } else {
+                    progress_login_write.visibility = View.VISIBLE
                     Log.v("TAG", "intent1")
                     //startActivity<SignIdSettingActivity>("username" to et_name_sign_info_wr_act.text.toString(), "birth" to et_birth_sign_info_wr_act.text.toString(), "phone" to et_phonenum_sign_info_wr_act.text.toString(), "email" to et_email_sign_info_wr_act.text.toString())
                     val intent = Intent(this, SignIdSettingActivity::class.java)
@@ -90,9 +91,9 @@ class SignInfoWriteActivity : BaseActivity(), View.OnClickListener {
                     intent.putExtra("phone", et_phonenum_sign_info_wr_act.text.toString())
                     intent.putExtra("email", et_email_sign_info_wr_act.text.toString())
                     intent.putExtra("image", selectedImageUri.toString())
-                    Log.v("uri", selectedImageUri.toString())
 
                     startActivity(intent)
+                    progress_login_write.visibility = View.GONE
                 }
             }
 

@@ -1,8 +1,6 @@
 package com.takhyungmin.dowadog.searchresult.adapter
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,14 +12,14 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.takhyungmin.dowadog.R
-import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.dogdetail.model.DogDetailObject
+import com.takhyungmin.dowadog.searchresult.SearchResultObject
 import com.takhyungmin.dowadog.searchresult.model.ggg.Content
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, val requestManager: RequestManager) : RecyclerView.Adapter<SearchResultAdapter.Holder>() {
+class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, val requestManager: RequestManager, var from : Int) : RecyclerView.Adapter<SearchResultAdapter.Holder>() {
     override fun onBindViewHolder(holder: SearchResultAdapter.Holder, position: Int) {
 
 //        val requestOptions = RequestOptions().transforms(CenterCrop(), RoundedCorners(dpToPx(20)))
@@ -79,11 +77,20 @@ class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, va
         }
 
         holder.newFrame.setOnClickListener {
-//            ctx.startActivity<DogDetailActivity>("animalId" to dataList[position].id)
-            var intent = Intent(ctx,  DogDetailActivity::class.java)
-            intent.putExtra("animalId", dataList[position].id)
+            //            ctx.startActivity<DogDetailActivity>("animalId" to dataList[position].id)
+            //var intent = Intent(ctx,  DogDetailActivity::class.java)
+            //intent.putExtra("animalId", dataList[position].id)
+
+
+            //0 : result, 1 : keywords, 2 : edit
+            when(from){
+                0->SearchResultObject.searchResultActivityPresenter.toDetail(dataList[position].id)
+                1->SearchResultObject.searchKeywordResultActivityPresenter.toDetail(dataList[position].id)
+                2->SearchResultObject.searchEditTextActivityPresenter.toDetail(dataList[position].id)
+            }
 
             (ctx as Activity).startActivityForResult(intent, 6900)
+
         }
 
         // 좋아요 버튼

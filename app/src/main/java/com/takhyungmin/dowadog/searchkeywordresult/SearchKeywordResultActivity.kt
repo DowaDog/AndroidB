@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.takhyungmin.dowadog.BaseActivity
 import com.takhyungmin.dowadog.R
+import com.takhyungmin.dowadog.dogdetail.DogDetailActivity
 import com.takhyungmin.dowadog.presenter.activity.SearchKeywordResultActivityPresenter
 import com.takhyungmin.dowadog.searchresult.SearchResultObject
 import com.takhyungmin.dowadog.searchresult.adapter.SearchResultAdapter
@@ -88,7 +89,7 @@ class SearchKeywordResultActivity : BaseActivity(), View.OnClickListener {
         //animalItem.add(UrgentAnimalData("D-3","", "","","[인천] 러시안 블루" ))
 
         requestManager = Glide.with(this)
-        searchResultAdapter = SearchResultAdapter(this, dataList, requestManager)
+        searchResultAdapter = SearchResultAdapter(this, dataList, requestManager, 1)
         rv_search_result_act.adapter = searchResultAdapter
         rv_search_result_act.layoutManager = GridLayoutManager(this, 2)
     }
@@ -147,11 +148,22 @@ class SearchKeywordResultActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    fun toDetail(id : Int){
+        var intent = Intent(this,  DogDetailActivity::class.java)
+        intent.putExtra("animalId", id)
+        startActivityForResult(intent, 9009)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 6900){
             Log.v("check", "다녀옴")
             searchKeywordResultActivityPresenter.requestTagData(tag)
         }
+
+        if(requestCode == 9009){
+            searchKeywordResultActivityPresenter.requestTagData(tag)
+        }
+
     }
 }

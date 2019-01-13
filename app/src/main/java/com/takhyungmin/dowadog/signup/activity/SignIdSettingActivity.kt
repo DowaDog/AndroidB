@@ -72,6 +72,7 @@ class SignIdSettingActivity : BaseActivity(), View.OnClickListener {
             btn_agree_sign_id_set_act -> {
 
                 if(settingFlag){
+                    progress_sign_complete.visibility = View.VISIBLE
                     val username = intent.getStringExtra("username")
                     val birth = intent.getStringExtra("birth")
                     val phone = intent.getStringExtra("phone")

@@ -38,7 +38,7 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_set_bar_interest_animal_act">
@@ -55,12 +55,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="45dp"
+                android:nestedScrollingEnabled="false"
                 >
 
             </android.support.v7.widget.RecyclerView>
 
         </RelativeLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

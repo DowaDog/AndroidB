@@ -324,5 +324,28 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/progress_login_write"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        android:visibility="gone"
+        android:focusable="true"
+        android:clickable="true"
+        android:fitsSystemWindows="true"
+        android:background="#73000000">
+
+        <ProgressBar
+            android:id="@+id/progress_community"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:theme="@style/CircularProgress"
+
+            />
+    </RelativeLayout>
+
+
 </RelativeLayout>
 
