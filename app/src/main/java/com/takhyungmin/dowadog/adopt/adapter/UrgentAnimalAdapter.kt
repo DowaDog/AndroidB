@@ -67,6 +67,26 @@ class UrgentAnimalAdapter(val ctx : Context, val dataList: ArrayList<UrgentAnima
         else
             Glide.with(ctx).load(R.drawable.heart_gray_1227).into(holder.heart)
 
+//        holder.heart_touch.setOnClickListener {
+//
+//            if(heart_flag == false)
+//            {
+//                holder.heart.isSelected = true
+//                heart_flag = true
+//            }
+//            else
+//            {
+//                holder.heart.isSelected = false
+//                heart_flag = false
+//            }
+//        }
+
+        Log.v("TAG312312", dataList[position].like.toString())
+        if(dataList[position].like == true){
+            holder.heart.setImageResource(R.drawable.heart_red_1227)
+        }else {
+            holder.heart.setImageResource(R.drawable.heart_gray_1227)
+        }
         Log.v("new", dataList[position].d_day)
         if(dataList[position].d_day == "")
             holder.urgentLayout.visibility = View.GONE

@@ -18,6 +18,7 @@ import com.takhyungmin.dowadog.mypage.model.get.GETMypageResponse
 import com.takhyungmin.dowadog.presenter.activity.MypageActivityPresenter
 import com.takhyungmin.dowadog.scrap.MyCommunityPostActivity
 import com.takhyungmin.dowadog.scrap.ScrapActivity
+import com.takhyungmin.dowadog.utils.ApplicationData
 import com.takhyungmin.dowadog.utils.CustomDialog
 import com.takhyungmin.dowadog.utils.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_mypage.*
@@ -32,7 +33,12 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
             }
             //마이페이지 설정
             btn_next_setting_mypage_act -> {
-                startActivityForResult(Intent(this, MypageSettingActivity::class.java), 3333)
+                if(ApplicationData.auth == ""){
+                    loginCustomDialog.show()
+                }else{
+                    startActivityForResult(Intent(this, MypageSettingActivity::class.java), 3333)
+                }
+
             }
             btn_back_mypage_act -> {
                 finish()
@@ -52,6 +58,22 @@ class MypageActivity : BaseActivity(), View.OnClickListener {
 
     val logoutCustomDialog: CustomDialog  by lazy {
         CustomDialog(this@MypageActivity, "로그아웃 하시겠습니까?", responseRight, responseLeft, "취소", "확인")
+    }
+
+    val loginCustomDialog: CustomDialog  by lazy {
+        CustomDialog(this@MypageActivity, "로그인이 필요한 서비스입니다.\n" +
+                "로그인 하시겠습니까?", responseRight2, responseLeft2, "취소", "확인")
+    }
+
+    private val responseRight2 = View.OnClickListener {
+
+        logoutCustomDialog!!.dismiss()
+    }
+
+    private val responseLeft2 = View.OnClickListener {
+        startActivity(Intent(this, LoginActivity::class.java))
+        logoutCustomDialog!!.dismiss()
+        //##로그아웃
     }
 
     private lateinit var mypageActivityPresenter: MypageActivityPresenter

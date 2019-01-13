@@ -81,6 +81,7 @@ class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, va
             //var intent = Intent(ctx,  DogDetailActivity::class.java)
             //intent.putExtra("animalId", dataList[position].id)
 
+
             //0 : result, 1 : keywords, 2 : edit
             when(from){
                 0->SearchResultObject.searchResultActivityPresenter.toDetail(dataList[position].id)
@@ -88,8 +89,8 @@ class SearchResultAdapter(val ctx: Context, val dataList: ArrayList<Content>, va
                 2->SearchResultObject.searchEditTextActivityPresenter.toDetail(dataList[position].id)
             }
 
+            (ctx as Activity).startActivityForResult(intent, 6900)
 
-            //(ctx as Activity).startActivityForResult(intent, 6900)
         }
 
         // 좋아요 버튼

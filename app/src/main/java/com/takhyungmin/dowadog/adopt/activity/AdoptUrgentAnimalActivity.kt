@@ -129,9 +129,15 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
     }
 
     fun toDetailActivity(id : Int){
-        val intent = Intent(this, DogDetailActivity::class.java)
+//        val intent = Intent(this, DogDetailActivity::class.java)
+//        intent.putExtra("animalId", id)
+//        startActivity(intent)
+
+        var intent = Intent(this@AdoptUrgentAnimalActivity,  DogDetailActivity::class.java)
         intent.putExtra("animalId", id)
+
         startActivityForResult(intent, 8009)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -143,6 +149,7 @@ class AdoptUrgentAnimalActivity : AppCompatActivity() {
             }else{
                 AdoptObject.adoptUrgentAnimalActivityPresenter = adoptUrgentAnimalActivityPresenter
                 adoptUrgentAnimalActivityPresenter.requestStoryAnimalList(currentPage, pagingCount)
+
                 tv_title_urgent_ani_act.text = "제 이야기를 들어볼래요?"
             }
         }

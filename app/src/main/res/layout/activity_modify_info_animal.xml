@@ -229,6 +229,7 @@
 
             <!--생일-->
             <RelativeLayout
+                android:id="@+id/rl_dog_birth_modify_info_animal_act"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -284,6 +285,7 @@
 
             <!--몸무게-->
             <RelativeLayout
+                android:id="@+id/rl_dog_weight_modify_info_animal_act"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

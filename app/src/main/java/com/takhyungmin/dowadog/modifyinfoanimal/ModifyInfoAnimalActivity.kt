@@ -202,6 +202,7 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                     fifthFlag = 0
                     inoculatio.clear()
                     iv_dog_fiveth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
+                    inoculatio.clear()
                 } else {
                     iv_dog_sixth_do_check_modify_info_animal_act.setImageResource(R.drawable.b_check_grey)
                     sixthFlag = 0
@@ -239,6 +240,16 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
                 modifyInfoAnimalActivityPresenter.PUTModifyrequestData(animalId, name, modifyGetData.kind ,weight, neuterYn, age, mimage, modifyGetData.gender, inoculatio)
 
             }
+
+        // 생년월일 박스
+            rl_dog_birth_modify_info_animal_act -> {
+                et_dog_birth_modify_info_animal_act.isSelected
+            }
+
+            // 무게 박스
+            rl_dog_weight_modify_info_animal_act -> {
+                et_dog_birth_weight_info_animal_act.isSelected
+            }
         }
     }
 
@@ -267,6 +278,8 @@ class ModifyInfoAnimalActivity : BaseActivity(), View.OnClickListener {
         btn_cancle_modify_info_animal_act.setOnClickListener(this)
         btn_my_dog_modify_info_animal_act.setOnClickListener(this)
         btn_confirm_modify_info_animal_act.setOnClickListener(this)
+        rl_dog_birth_modify_info_animal_act.setOnClickListener(this)
+        rl_dog_weight_modify_info_animal_act.setOnClickListener(this)
     }
 
     // 저장소 권한 확인

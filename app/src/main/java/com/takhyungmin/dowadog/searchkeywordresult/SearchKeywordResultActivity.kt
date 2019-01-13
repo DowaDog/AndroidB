@@ -154,7 +154,6 @@ class SearchKeywordResultActivity : BaseActivity(), View.OnClickListener {
         startActivityForResult(intent, 9009)
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 6900){
@@ -165,5 +164,6 @@ class SearchKeywordResultActivity : BaseActivity(), View.OnClickListener {
         if(requestCode == 9009){
             searchKeywordResultActivityPresenter.requestTagData(tag)
         }
+
     }
 }

@@ -255,7 +255,6 @@ class CommunityWriteActivity : BaseActivity(), View.OnClickListener {
     // 저장소에서 Acitivity로 복귀한 후 분기
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //Log.v("ygyg", data!!.toString())
         if (requestCode == REQUEST_PICK_PHOTO) {
             if (resultCode == RESULT_OK) {
                 if (data == null) {
